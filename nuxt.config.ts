@@ -10,7 +10,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
-      title: 'Dog Shelter'
+      title: 'Brave Sisters',
+      script: [
+        {
+          src: "js/general.js",
+          defer: true,
+          type: "application/javascript"
+        }
+      ]
     }
   },
   css: ['~/assets/css/general.css'],

@@ -3,6 +3,30 @@ html, body, #__nuxt, #__layout{
     width: 100%!important;
     margin: 0;
     padding: 0;
+    font-family: "Californian FB", serif;
+    color: #5c5c5c;
+}
+
+h1 {
+    font-size: 50px;
+    line-height: 52px;
+    color: #4c8189;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 25px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.icon {
+    width: 12%;
+}
+
+a:hover {
+    color: #4c8189;
 }
 
 #__nuxt
@@ -12,5 +36,11 @@ html, body, #__nuxt, #__layout{
     align-content: space-between;
     background-color: lightgoldenrodyellow;
     margin: 0;
+}
+
+@media (max-width: 800px) {
+    .icon {
+        width: 10%;
+    }
 }
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
@@ -22,3 +23,4 @@ main {
   align-items: center;
 }
 </style>
+
