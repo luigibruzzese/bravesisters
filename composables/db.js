@@ -1,3 +1,4 @@
+/*
 import {DataTypes, Sequelize} from "sequelize";
 import {join} from "path";
 
@@ -37,4 +38,4 @@ if(await Dogs.count()===0)
 
 export function useDogsDb(){
     return Dogs
-}
+}*/

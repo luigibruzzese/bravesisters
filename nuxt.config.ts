@@ -13,9 +13,7 @@ export default defineNuxtConfig({
       title: 'Brave Sisters',
       script: [
         {
-          src: "js/general.js",
-          defer: true,
-          type: "application/javascript"
+
         }
       ]
     }

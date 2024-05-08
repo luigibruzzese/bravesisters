@@ -1,4 +1,4 @@
-import {useDogsDb} from "~/composables/db.js";
+/*import {useDogsDb} from "~/composables/db.js";
 
 const db = useDogsDb()
 export default defineEventHandler(async (e)=>{
@@ -9,4 +9,4 @@ export default defineEventHandler(async (e)=>{
     }catch (e) {
         setResponseStatus(e,500)
     }
-})
+})*/

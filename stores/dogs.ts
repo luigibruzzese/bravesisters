@@ -1,4 +1,4 @@
-import {useFetch} from "#app";
+/*import {useFetch} from "#app";
 import init from "@parcel/watcher-wasm";
 
 interface Dog {
@@ -26,4 +26,4 @@ export const useDogStore = defineStore('dogs',()=>{
 
     return {dogs,addDog}
 })
-
+*/
