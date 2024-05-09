@@ -14,7 +14,7 @@
         <div>
             <div style="display: initial; text-align: right;">
                 <button>
-                    Contacts
+                    Contact us
                 </button>
                 <nav>
                     <NuxtLink to="/">Home</NuxtLink>
