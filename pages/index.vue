@@ -9,6 +9,18 @@
     </h2>
 </template>
 
+<script lang="js">
+export default {
+    data: () => ({
+    }),
+    mounted() {
+        document.querySelector("a[href=\"/\"]").style.color = "#4c8189";
+    },
+    methods: {
+    }
+}
+</script>
+
 <style scoped>
 #main-img {
   width: 80%;

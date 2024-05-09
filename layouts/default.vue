@@ -18,12 +18,12 @@
                 </button>
                 <nav>
                     <NuxtLink to="/">Home</NuxtLink>
-                    <NuxtLink to="/dogs">People</NuxtLink>
+                    <NuxtLink to="/people">People</NuxtLink>
                     <div id="activities">
-                        <NuxtLink to="/about">Activities</NuxtLink>
+                        <NuxtLink to="/activities">Activities</NuxtLink>
                         <div class="submenu">
-                            <NuxtLink to="/dogs">Projects</NuxtLink>
-                            <NuxtLink to="/dogs">Services</NuxtLink>
+                            <NuxtLink to="/projects">Projects</NuxtLink>
+                            <NuxtLink to="/services">Services</NuxtLink>
                         </div>
                         <img class="icon" src="~/assets/icons/arrow down.png">
                     </div>
@@ -52,7 +52,8 @@ export default {
     data: () => ({
     }),
     mounted() {
-        let subMenu = document.querySelector("#activities").children[1]
+        let activities = document.querySelector("#activities");
+        let subMenu = activities.children[1]
 
         function changeDisplay(evt, newValue) {
             evt.stopPropagation();
@@ -66,7 +67,7 @@ export default {
             changeDisplay(evt, "none");
         })
         activities.querySelector(".icon").addEventListener("click", (evt) => {
-            subMenu.style.display == "flex" ?
+            subMenu.style.display === "flex" ?
                 changeDisplay(evt, "none")
                 : changeDisplay(evt, "flex");
         })
@@ -106,7 +107,6 @@ header {
 
 .icon {
 //border-left: #b7403c solid 2px; width: 35px;
-
 }
 
 header div {

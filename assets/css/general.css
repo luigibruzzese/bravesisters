@@ -7,6 +7,15 @@ html, body, #__nuxt, #__layout{
     color: #5c5c5c;
 }
 
+.icon {
+    cursor: pointer;
+    transition: transform .3s;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+}
+
 h1 {
     font-size: 50px;
     line-height: 52px;
@@ -29,11 +38,14 @@ button {
     padding: 10px 15px 10px 15px;
     font-size: 18px;
     margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform .2s;
 }
 
 button:hover {
     background-color: #b7403c;
-    border: #4c8189 2px solid;
+    transform: scale(1.1);
+
 }
 
 a {
