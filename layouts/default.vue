@@ -1,4 +1,10 @@
 <script setup lang="js">
+
+const messages = [
+    ["question1", "answer1"],
+    ["question2", "answer2"]
+];
+
 </script>
 
 <template>
@@ -39,6 +45,24 @@
     </header>
 
     <main>
+        <img id="chatbot-icon" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
+        <div id="chatbot" style="display: none;">
+            <div id="chatbot-top-bar">
+                <p>Hi! I'm here to help you.</p>
+                <img src="~/assets/icons/delete.png" alt="Close"/>
+            </div>
+            <div id="chatbot-messages">
+                <template v-for="couple in messages">
+                    <p user="true">{{couple[0]}}</p>
+                    <p>{{couple[1]}}</p>
+                </template>
+
+            </div>
+            <div id="chatbot-send-bar">
+                <input>
+                <img src="~/assets/icons/send-icon.png" alt="Send"/>
+            </div>
+        </div>
         <slot/>
     </main>
 
@@ -70,6 +94,26 @@ export default {
             subMenu.style.display === "flex" ?
                 changeDisplay(evt, "none")
                 : changeDisplay(evt, "flex");
+        })
+
+
+
+        /********* For chatbot ******************/
+        let chatbotIcon = document.querySelector("#chatbot-icon");
+        let chatbotDiv = document.querySelector("#chatbot");
+        chatbotIcon.addEventListener("click", () => {
+            if(chatbotDiv.style.display === "none") {
+                chatbotDiv.style.display = "unset";
+                chatbotIcon.style.right = "0";
+                chatbotIcon.style.transform = "scale(1.2)";
+            } else {
+                chatbotDiv.style.display = "none";
+                chatbotIcon.removeAttribute("style");
+            }
+        })
+        document.querySelector("#chatbot-top-bar > img").addEventListener("click", () => {
+            chatbotDiv.style.display = "none";
+            chatbotIcon.removeAttribute("style");
         })
     },
     methods: {
@@ -165,6 +209,101 @@ h1 {
     width: 150px;
 }
 
+/****************************** CHATBOT ********************************/
+
+
+#chatbot-icon {
+    position: fixed;
+    width: 90px;
+    z-index: 110;
+    right: -10px;
+    bottom: 5%;
+    padding: 10px;
+    cursor: pointer;
+    transition: right .5s, transform .5s;
+}
+
+#chatbot-icon:hover {
+    right: 0;
+    transform: scale(1.2);
+}
+
+
+#chatbot {
+    position: fixed;
+    z-index: 1;
+    right: 2%;
+    bottom: 8%;
+    width: 450px;
+    height: 50%;
+    background-color: #ffffff;
+    border: 5px solid #4c8189;
+    border-radius: 10px;
+
+}
+
+#chatbot-send-bar {
+    width: 77%;
+    position: absolute;
+    bottom: 0;
+    height: 8%;
+    margin: 10px 0 0 10px;
+}
+
+#chatbot img {
+    width: 7%;
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    cursor: pointer;
+}
+
+#chatbot-send-bar > input {
+    width: 88%;
+    position: absolute;
+    height: 60%;
+    border: #4c8189 2px solid;
+    border-radius: 3px;
+}
+
+#chatbot-top-bar {
+    background-color: #4c8189;
+    height: 10%;
+    color: #ffffff;
+}
+
+#chatbot-top-bar p {
+    padding-left: 10px;
+    padding-top: 10px;
+    margin: 0;
+}
+
+#chatbot-messages {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    max-height: 80%;
+    overflow-y: auto;
+    overflow-anchor: auto;
+}
+
+/*Messages coming from the chatbot*/
+#chatbot-messages > p {
+    background-color: #90b4b9;
+    margin-left: 12px;
+    margin-right: 60px;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+/* Messages coming from the agent*/
+#chatbot-messages > p[user="true"] {
+    text-align: right;
+    background-color: #e2e2e2;
+    margin-left: 60px;
+    margin-right: 12px;
+}
+
 @media (max-width: 800px) {
     .logo {
 
@@ -186,6 +325,22 @@ h1 {
 
         justify-content: center;
         text-align: center;
+    }
+
+}
+
+@media (max-width: 600px) {
+    #chatbot {
+        width: 300px;
+    }
+    #chatbot img {
+        width: 12%;
+    }
+    #chatbot-send-bar {
+        width: 65%;
+    }
+    #chatbot-send-bar input {
+        width: 80%;
     }
 
 }
