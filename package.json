@@ -17,5 +17,12 @@
     "sqlite3": "^5.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
-  }
+  },
+  "version": "1.0.0",
+  "description": "Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

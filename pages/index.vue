@@ -3,10 +3,11 @@
 </script>
 
 <template>
-    <img id = "main-img" src = "~/assets/img/home-image.jpg" />
-    <h2>
-      This is a description for the Dog's Hotel. The best place where dogs can rest.
-    </h2>
+    <h1 id = info_home>
+      The Center
+    </h1>
+    <img id = "main-img" src = "~/assets/img/home-photo.jpg" />
+   
 </template>
 
 <script lang="js">
@@ -14,7 +15,7 @@ export default {
     data: () => ({
     }),
     mounted() {
-        document.querySelector("a[href=\"/\"]").style.color = "#4c8189";
+        //document.querySelector("a[href=\"/\"]").style.color = "#4c8189";
     },
     methods: {
     }
@@ -23,9 +24,17 @@ export default {
 
 <style scoped>
 #main-img {
-  width: 80%;
-  max-width: 1000px;
-  height: auto;
+  margin: auto;
+  width: 100%;
+}
+
+
+#info_home {
+  font-size: 2em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #4c8189;
+  text-align: center;
 }
 
 main {
@@ -35,4 +44,3 @@ main {
   align-items: center;
 }
 </style>
-
