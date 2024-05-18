@@ -28,7 +28,6 @@ export default {
   width: 100%;
 }
 
-
 #info_home {
   font-size: 2em;
   margin-top: 20px;
@@ -37,10 +36,5 @@ export default {
   text-align: center;
 }
 
-main {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 </style>
