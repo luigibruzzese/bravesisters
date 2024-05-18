@@ -33,7 +33,7 @@
           <p>
             At Brave Sister Center, our team consists of highly qualified professionals dedicated to supporting women in need. Our staff includes psychologists specialized in gender-based violence, social workers experienced in women's rights, lawyers knowledgeable in legal issues related to domestic violence, and healthcare providers offering medical and psychological assistance. Additionally, we collaborate with volunteers and interns who contribute to our daily work with passion and dedication.
           </p>
-          <a href="#">Meet the team</a>
+          <a href="/people">Meet the team</a>
         </div>
       </section>
       <section id="location">
