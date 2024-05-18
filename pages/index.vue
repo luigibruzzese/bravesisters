@@ -6,7 +6,7 @@
     <h1 id = info_home>
       The Center
     </h1>
-    <img id = "main-img" src = "~/assets/img/home-photo.jpg" />
+    <img id = "main-img" src = "~/assets/img/building_photo.jpg" />
    
 </template>
 
