@@ -19,9 +19,11 @@ const messages = [
         </div>
         <div>
             <div style="display: initial; text-align: right;">
-                <button>
-                    Contact us
-                </button>
+                <NuxtLink to="/contact-us">
+                    <button>
+                        Contact us
+                    </button>
+                </NuxtLink>
                 <nav>
                     <NuxtLink to="/">Home</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
