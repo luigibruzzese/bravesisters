@@ -123,14 +123,16 @@ export default {
 
 <style scoped>
 header, footer {
-    background-color: #f0e6dd;
+    background-color: #eee1d5;
 }
 
+
+ 
 footer {
     flex-shrink: 0;
     text-align: center;
     margin-top: auto;
-    border-top: 5px solid brown;
+    border-top: 5px solid rgb(212, 195, 195);
     padding: 10px;
 
     min-height: 1vh;

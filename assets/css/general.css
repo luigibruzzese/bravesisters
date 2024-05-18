@@ -61,7 +61,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-content: space-between;
-    background-color: lightgoldenrodyellow;
+    background-color: rgb(242, 236, 223);
     margin: 0;
 }
 
