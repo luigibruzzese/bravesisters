@@ -1,25 +1,34 @@
-/*
+
 import {DataTypes, Sequelize} from "sequelize";
 import {join} from "path";
 
 
 const db = new Sequelize({
     dialect: 'sqlite',
-    storage: join('C:\\Users\\luigi\\Desktop\\Anno I\\Hypermedia applications\\Progetto\\Parte 2\\bravesisters','database.sqlite')
+    storage: join('C:\\Users\\antod\\WebstormProjects\\bravesisters','database.sqlite')
 //    storage: join('/mnt/Data/Didattica/Hypermedia/23_24/t06-nuxt','database.sqlite')
 })
 
 await db.authenticate()
 
-const Dogs = db.define('dogs',{
-    name: {
-        type: DataTypes.STRING,
+const Person = db.define('person',{
+    id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
-    breed: {
-        type: DataTypes.STRING,
-        allowNull: false
+    name: {
+        type: DataTypes.STRING
+    },
+    surname: {
+        type: DataTypes.STRING
+    },
+    role: {
+        type: DataTypes.STRING
+    },
+    description: {
+        type: DataTypes.STRING
     },
 },{
     createdAt: false,
@@ -27,7 +36,7 @@ const Dogs = db.define('dogs',{
 
 })
 
-await Dogs.sync()
+/*await Person.sync()
 if(await Dogs.count()===0)
     await Dogs.bulkCreate([
         {
@@ -35,7 +44,8 @@ if(await Dogs.count()===0)
             breed: 'German Shepherd'
         }
     ])
+*/
 
-export function useDogsDb(){
-    return Dogs
-}*/
+export function usePeopleDb(){
+    return Person
+}
