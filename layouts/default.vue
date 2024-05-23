@@ -123,7 +123,14 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
+
+main{
+    background-color: #f7f1e3;
+}
+
 header, footer {
     background-color: #eee1d5;
 }
