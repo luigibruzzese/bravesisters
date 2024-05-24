@@ -1,6 +1,6 @@
-import {usePeopleDb} from "~/composables/db.js";
+import {usePersonDb} from "~/composables/db.js";
 
-const db = usePeopleDb()
+const db = usePersonDb()
 export default defineEventHandler(async (e)=>{
     try {
         const body = await readBody(e)

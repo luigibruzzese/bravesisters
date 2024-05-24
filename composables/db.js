@@ -30,6 +30,7 @@ const Person = db.define('person',{
         type: DataTypes.STRING,
     },
 },{
+    tableName: 'person',
     createdAt: false,
     updatedAt: false,
 
