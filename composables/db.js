@@ -5,30 +5,29 @@ import {join} from "path";
 
 const db = new Sequelize({
     dialect: 'sqlite',
-    storage: join('C:\\Users\\antod\\WebstormProjects\\bravesisters','database.sqlite')
+    storage: join('C:\\Users\\antod\\Documenti\\bravesisters','database.sqlite')
 //    storage: join('/mnt/Data/Didattica/Hypermedia/23_24/t06-nuxt','database.sqlite')
 })
 
 await db.authenticate()
 
 const Person = db.define('person',{
-    id: {
+    id:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+        primaryKey: true
     },
     name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     surname: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     role: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     description: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
 },{
     createdAt: false,
@@ -36,16 +35,16 @@ const Person = db.define('person',{
 
 })
 
-/*await Person.sync()
-if(await Dogs.count()===0)
-    await Dogs.bulkCreate([
+await Person.sync()
+if(await Person.count()===0)
+    await Person.bulkCreate([
         {
             name: 'Rex',
-            breed: 'German Shepherd'
+            description: 'German Shepherd'
         }
     ])
-*/
 
-export function usePeopleDb(){
+export function usePersonDb(){
     return Person
 }
+
