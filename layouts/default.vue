@@ -180,6 +180,7 @@ header, footer {
 
 main {
     padding-top: 120px;
+    background-color: #f7f1e3;
 }
 
 /************************* FOOTER **************************/

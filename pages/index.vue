@@ -4,7 +4,7 @@
 <template>
   <main>
     <section id="center">
-      <h1 id="info_home">The Center</h1>
+      <h1 id="info_home" >The Center</h1>
       <img id="main-img" src="~/assets/img/building_photo.jpg" alt="Building photo" />
     </section>
     <section id="mission">
