@@ -5,7 +5,7 @@
   <main>
     <section id="center">
       <h1 id="info_home" >The Center</h1>
-      <img id="main-img" src="~/assets/img/building_photo.jpg" alt="Building photo" />
+      <img id="main-img" src="~/assets/img/homepage/building_photo.jpg" alt="Building photo" />
     </section>
     <section id="mission">
       <h2 class="title-with-lines">Mission</h2>
@@ -21,20 +21,20 @@
         </p>
       </div>
       <div id="people">
-        <h2 class="title-with-lines">Our People</h2>
+        <h2 class="title-with-lines">People</h2>
         <p>
-          <img id="main-img" src="~/assets/img/group_staff_homepage.jpg" alt="Staff photo" />
+          <img id="main-img" src="~/assets/img/homepage/group_staff_homepage.jpg" alt="Staff photo" />
         </p>
         <a href="/people">Meet the team</a>
       </div>
     </section>
-    <section>
+    <section id="location-hours">
       <h2 class="title-with-lines">Location</h2>
     </section>
     <section id="location">
       <div id="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2876.4934116439467!2d11.085237475822755!3d43.866327638620774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132af61bd731b397%3A0x10e39e397c812421!2sVia%20di%20Grignano%2C%20102%2C%2059100%20Prato%20PO!5e0!3m2!1sit!2sit!4v1716039615957!5m2!1sit!2sit"
-          width="600"
+          width="100%"
           height="450" 
           style="border:0;" 
           allowfullscreen="false" 
@@ -43,20 +43,23 @@
         </iframe>
       </div>
       <div id="contact-info">
-        <h3>Opening hours</h3>
+        <h3 id="hours">Opening hours</h3>
         <p>Mon - Fri: 9:00 - 12:00 / 13:00 - 18:00</p>
         <p>Saturday: 9:00 - 12:00</p>
         <p>Sunday: Closed</p>
-        <h3>Address</h3>
+        <h3 id="address">Address</h3>
         <p>Via di Grignano 102, Prato</p>
       </div>
     </section>
     <section id="gallery">
       <h2 class="title-with-lines">Gallery</h2>
       <div id="gallery-images">
-        <img src="~/assets/img/building_photo.jpg" alt="Gallery image 1">
-        <img src="~/assets/img/building_photo.jpg" alt="Gallery image 2">
-        <img src="~/assets/img/building_photo.jpg" alt="Gallery image 3">
+        <img src="~/assets/img/homepage/home_1.jpg" alt="Gallery image 1">
+        <img src="~/assets/img/homepage/home_4.jpg" alt="Gallery image 2">
+        <img src="~/assets/img/homepage/home_2.jpg" alt="Gallery image 3">
+        <img src="~/assets/img/homepage/home_5.jpg" alt="Gallery image 1">
+        <img src="~/assets/img/homepage/home_3.jpg" alt="Gallery image 2">
+        <img src="~/assets/img/homepage/home_6.jpg" alt="Gallery image 3">
       </div>
     </section>
   </main>
@@ -145,6 +148,10 @@ section {
   text-decoration: underline;
 }
 
+#hours, #address {
+  color: #4c8189;
+}
+
 #location {
   display: flex;
   justify-content: space-between;
@@ -169,18 +176,32 @@ section {
 }
 
 #gallery-images img {
-  width: 30%;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  width: 410px; 
+  height: 410px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  margin: 15px; 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   #history, #people {
     width: 100%;
   }
 
   #map, #contact-info {
     width: 100%;
+    max-width: 100%;
+  }
+
+  #map {
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 10px;
+  }
+
+  #contact-info {
+    width: 100%;
+    max-width: 23%;
   }
 
   #gallery-images img {
@@ -189,3 +210,4 @@ section {
   }
 }
 </style>
+

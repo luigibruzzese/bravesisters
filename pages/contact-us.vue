@@ -38,7 +38,7 @@ onMounted(() => {
       <section id="contact">
         <h1 id="info_contacts">Contact us</h1>
         <div class="contact-form">
-          <h3>Contact form</h3>
+          <h3 class="title-with-lines">Contact form</h3>
           <form>
             <div class="form-row">
               <div class="form-group">
@@ -60,7 +60,7 @@ onMounted(() => {
                 <input type="tel" id="phone" name="phone" />
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group full-width">
               <label for="message">Text*</label>
               <textarea id="message" name="message" required></textarea>
             </div>
@@ -69,7 +69,7 @@ onMounted(() => {
         </div>
         <div class="faq-section">
           <p>Or find answers to the most frequently asked questions about Brave Sister here:</p>
-          <h3>FAQ</h3>
+          <h3 class="title-with-lines">FAQ</h3>
           <ul>
             <li v-for="(item, index) in faq" :key="index">
               <div @click="toggleAnswer(index)" class="faq-question">
@@ -100,6 +100,32 @@ main {
   text-align: center;
 }
 
+.title-with-lines {
+  position: relative;
+  text-align: center;
+  color: #4c8189;
+}
+
+.title-with-lines::before,
+.title-with-lines::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #4c8189;
+}
+
+.title-with-lines::before {
+  left: 0;
+  margin-right: 5px;
+}
+
+.title-with-lines::after {
+  right: 0;
+  margin-left: 5px;
+}
+
 #contact {
   padding: 20px;
   background-color: #f7f1e3;
@@ -127,7 +153,11 @@ main {
   display: flex;
   flex-direction: column;
   margin: 0 10px;
-  max-width: 45%; /* Imposta una larghezza massima per i campi del form */
+  max-width: 45%;
+}
+
+.form-group.full-width {
+  max-width: 100%;
 }
 
 .form-group label {
@@ -160,13 +190,12 @@ form button:hover {
   background-color: #3a6775;
 }
 
-/* Stili per rendere il campo di testo fisso e centrale */
 #message {
-  width: 100%; /* Larghezza del 100% per il campo di testo */
-  min-height: 100px; /* Altezza minima */
-  margin: 0 auto; /* Centra il campo di testo */
-  resize: vertical; /* Permette il ridimensionamento verticale */
-  overflow: hidden; /* Nasconde le barre di scorrimento */
+  width: 100%;
+  min-height: 100px;
+  margin: 0 auto;
+  resize: vertical;
+  overflow: hidden;
 }
 
 .faq-section {
