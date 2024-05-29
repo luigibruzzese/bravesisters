@@ -5,7 +5,7 @@ import {join} from "path";
 
 const db = new Sequelize({
     dialect: 'sqlite',
-    storage: join('./','database.sqlite')
+    storage: join('@','database.sqlite')
 //    storage: join('/mnt/Data/Didattica/Hypermedia/23_24/t06-nuxt','database.sqlite')
 })
 
