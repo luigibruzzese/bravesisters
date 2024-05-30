@@ -17,8 +17,40 @@
     >
 
     </GeneralInfoComponent>
+    <br>
+    <div class="test">
+      <ElementInfoComponent
+          :id = "route.params.id"
+          :full-name = "name"
+          :role = "role"
+          :short-presentation = "shortPresentation">
+
+      </ElementInfoComponent>
+      <ElementInfoComponent
+          :id = "2"
+          :full-name = "name"
+          :role = "role"
+          :short-presentation = "shortPresentation">
+      </ElementInfoComponent>
+      <ElementInfoComponent
+          :id = "route.params.id"
+          :full-name = "name"
+          :short-presentation = "shortPresentation">
+      </ElementInfoComponent>
+      <ElementInfoComponent
+        :id = "route.params.id"
+        :full-name = "name"
+        :role = "role"
+        :short-presentation = "shortPresentation">
+    </ElementInfoComponent>
+    </div>
+
+    <br>
+    <br>
 </template>
 
 <style scoped>
-
+  .test{
+    display: flex;
+  }
 </style>
