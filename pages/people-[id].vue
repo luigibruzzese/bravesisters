@@ -24,10 +24,9 @@
           :full-name = "name"
           :role = "role"
           :short-presentation = "shortPresentation">
-
       </ElementInfoComponent>
       <ElementInfoComponent
-          :id = "2"
+          :id = "1"
           :full-name = "name"
           :role = "role"
           :short-presentation = "shortPresentation">
@@ -42,7 +41,7 @@
         :full-name = "name"
         :role = "role"
         :short-presentation = "shortPresentation">
-    </ElementInfoComponent>
+      </ElementInfoComponent>
     </div>
 
     <br>

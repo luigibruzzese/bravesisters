@@ -11,13 +11,13 @@
     <div class="border">
       <div class="generalInfo">
           <img class="portrait" :src="'_nuxt/assets/img/people/' + id + '.png'"/>
-          <h2> {{ fullName }}</h2>
-          <h4>{{ role }}</h4>
-          <p>{{ shortPresentation }}</p>
+          <h2 style="font-size: 100%"> {{ fullName }}</h2>
+          <h4 style="font-size: 100%">{{ role }}</h4>
+          <p style="font-size: 80%">{{ shortPresentation }}</p>
       </div>
       <div class="link">
         <NuxtLink :href="'/people-' + (parseInt(id)).toString()" >
-          <p class="button">More</p>
+          <p style="font-size: 80%">More</p>
         </NuxtLink>
       </div>
     </div>
@@ -26,12 +26,9 @@
 
 <style scoped>
     .border {
-      border: 2px solid black;
-      width: 25%;
-      height:700px;
+      border: 1px solid black;
       display: flex;
     }
-
 
     .generalInfo, .generalInfo > div {
       align-items: center;
@@ -41,22 +38,12 @@
     }
 
     .portrait {
-      width: 300px;
+      width: 60%;
       margin: 5%;
     }
 
-    @media(max-width: 800px) {
-      .generalInfo > div {
-        display: initial;
-      }
-    }
-    @media(max-width: 600px) {
-      .portrait {
-        width: 200px;
-      }
-    }
-
     .link{
+      position: relative;
       align-content: flex-end;
     }
 </style>
