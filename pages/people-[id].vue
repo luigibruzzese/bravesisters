@@ -18,16 +18,12 @@ watch(personId, async () => { // watch for changes in the personId
 
 // Sarebbero da prendere dal db
 const projects = [
-  { id: 1, name: 'Project 1', description: 'Description of Project 1' },
-  { id: 2, name: 'Project 2', description: 'Description of Project 2' },
-  { id: 3, name: 'Project 3', description: 'Description of Project 3' },
+  { id: 1, name: 'Project 1', description: 'Description of Project 1' }
 ];
 
 // Sarebbero da prendere dal db
 const services = [
-  { id: 1, name: 'Service 1', description: 'Description of Service 1' },
-  { id: 2, name: 'Service 2', description: 'Description of Service 2' },
-  { id: 3, name: 'Service 3', description: 'Description of Service 3' },
+  { id: 1, name: 'Service 1', description: 'Description of Service 1' }
 ];
 
 function goToProject(id) {
@@ -35,7 +31,7 @@ function goToProject(id) {
 }
 
 function goToService(id) {
-  router.push(`/services/-{id}`);
+  router.push(`/services-${id}`);
 }
 </script>
 
@@ -139,12 +135,21 @@ main {
 .project,
 .service {
   cursor: pointer;
-  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
   text-align: center;
-  flex: 1 1 30%;
+  flex: 0 1 auto; 
+  max-width: 500px; 
   box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Transition for the hover effect */
+  border: 1px solid transparent; 
+}
+
+.project:hover,
+.service:hover {
+  transform: translateY(-5px); /* Slightly lift the element */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+  border: 1px solid #ccc; 
 }
 
 .project img,
