@@ -1,3 +1,4 @@
+# Project exclude paths
 # Nuxt dev/build outputs
 .output
 .data

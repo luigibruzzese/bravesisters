@@ -1,43 +1,109 @@
 <script setup lang="js">
 
-const messages = [
-    ["question1", "answer1"],
-    ["question2", "answer2"]
-];
+const history = ref([
+    {
+        role: "user",
+        parts: [
+            {text: "hello"},
+        ],
+    },
+    {
+        role: "model",
+        parts: [
+            {text: "message"},
+        ],
+    }
+])
+
+const inputValue = ref('');
+let isQueuing = false;
+
+function onChatbotSend() {
+    const newMessage = inputValue.value
+    if (!isQueuing) {
+        isQueuing = true;
+        inputValue.value = '';
+        history.value.push({
+            role: "user",
+            parts: [
+                {text: newMessage},
+            ],
+        })
+
+        const request = {
+            history: history,
+            message: newMessage
+        };
+
+        fetch("/api/chatbot", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(request)
+        }).then(res => {
+            console.log(res.json());
+            if (res.status === 200)
+                history.value.push({
+                    role: "model",
+                    parts: [
+                        {text: res.body},
+                    ],
+                })
+            else {
+                alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+                history.value.pop()
+            }
+        });
+        isQueuing = false;
+    }
+
+}
+
+/*
+on click:
+        history.fill({
+            role: "user",
+            parts: [
+                {text: body},
+            ],
+        })
+
+ */
+
 
 </script>
 
 <template>
     <header>
+
         <div>
-            <img class="logo" src="~/assets/logos/logo.png"/>
-            <div class="vl"></div>
-            <div style="display: initial;">
+            <img alt="menu" class="logo" src="~/assets/logos/logo.png"/>
+            <div>
                 <h1>Brave Sisters</h1>
                 <h2>One for all, all for women</h2>
             </div>
         </div>
         <div>
-            <div style="display: initial; text-align: right;">
-                <NuxtLink to="/contact-us">
-                    <button>
-                        Contact us
-                    </button>
-                </NuxtLink>
+            <div id="menu">
+                <img class="ourIcon" src="~/assets/icons/menu.png"/>
+                <div style="text-align: right;">
+                    <NuxtLink to="/contact-us">
+                        <button>
+                            Contact us
+                        </button>
+                    </NuxtLink>
+                </div>
+
                 <nav>
                     <NuxtLink to="/">Home</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
                     <div id="activities">
-                        <NuxtLink to="/activities">Activities</NuxtLink>
+                        Activities
                         <div class="submenu">
                             <NuxtLink to="/projects">Projects</NuxtLink>
                             <NuxtLink to="/services">Services</NuxtLink>
                         </div>
-                        <img class="icon" src="~/assets/icons/arrow down.png">
+                        <img class="ourIcon" src="~/assets/icons/arrow down.png">
                     </div>
-                    <img class="icon" alt="Search" src="~/assets/icons/search icon.png">
-
-
                 </nav>
             </div>
 
@@ -54,57 +120,94 @@ const messages = [
                 <img src="~/assets/icons/delete.png" alt="Close"/>
             </div>
             <div id="chatbot-messages">
-                <template v-for="couple in messages">
-                    <p user="true">{{couple[0]}}</p>
-                    <p>{{couple[1]}}</p>
+                <template v-for="element in history">
+                    <p v-bind:user="(element.role === 'user')?'true' : 'false'">{{ element.parts[0].text }}</p>
                 </template>
 
             </div>
             <div id="chatbot-send-bar">
-                <input>
-                <img src="~/assets/icons/send-icon.png" alt="Send"/>
+                <input v-model="inputValue" placeholder="Send a message."/>
+                <img src="~/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send"/>
             </div>
         </div>
         <slot/>
     </main>
 
     <footer>
-        Made by me :)
+        <div>
+            <div>
+                <img class="ourIcon" src="~/assets/icons/address.png" alt="Address"/>
+                <div style="display: initial;">
+                    <p style="letter-spacing: .1rem;">ADDRESS</p>
+                    <p>Via ...</p>
+                </div>
+
+            </div>
+            <div>
+                <img class="ourIcon" src="~/assets/icons/hour.png" alt="Address"/>
+                <div style="display: initial;">
+                    <p style="letter-spacing: .1rem;">OPENING HOURS</p>
+                    <p>Via ...</p>
+                </div>
+            </div>
+            <div>
+                <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
+                <div style="display: initial;">
+                    <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
+                    <p>Via ...</p>
+                </div>
+            </div>
+
+        </div>
     </footer>
+    <div id="bottom-bar">Made by me</div>
 </template>
 
 <script lang="js">
 export default {
-    data: () => ({
-    }),
+    data: () => ({}),
     mounted() {
-        let activities = document.querySelector("#activities");
-        let subMenu = activities.children[1]
+        /************ Menu *************/
 
-        function changeDisplay(evt, newValue) {
+            // To highlight the current page in the menu
+        let menu = document.querySelector("nav");
+        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
+
+        // To show submenu
+        let activities = document.querySelector("#activities");
+        let subMenu = activities.children[0]
+
+        // For the menu icon on mobile phones
+        document.querySelector("#menu").querySelector("img").addEventListener("click", (evt) => {
+            menu.style.display === "flex" ?
+                changeDisplay(evt, menu, "none")
+                : changeDisplay(evt, menu, "flex");
+        })
+
+        function changeDisplay(evt, element, newValue) {
             evt.stopPropagation();
-            subMenu.style.display = newValue;
+            element.style.display = newValue;
         }
 
         activities.addEventListener("mouseover", (evt) => {
-            changeDisplay(evt, "flex");
+            changeDisplay(evt, subMenu, "flex");
         })
         activities.addEventListener("mouseleave", (evt) => {
-            changeDisplay(evt, "none");
+            changeDisplay(evt, subMenu, "none");
         })
-        activities.querySelector(".icon").addEventListener("click", (evt) => {
+        activities.addEventListener("click", (evt) => {
             subMenu.style.display === "flex" ?
-                changeDisplay(evt, "none")
-                : changeDisplay(evt, "flex");
+                changeDisplay(evt, subMenu, "none")
+                : changeDisplay(evt, subMenu, "flex");
         })
-
 
 
         /********* For chatbot ******************/
         let chatbotIcon = document.querySelector("#chatbot-icon");
         let chatbotDiv = document.querySelector("#chatbot");
         chatbotIcon.addEventListener("click", () => {
-            if(chatbotDiv.style.display === "none") {
+            if (chatbotDiv.style.display === "none") {
                 chatbotDiv.style.display = "unset";
                 chatbotIcon.style.right = "0";
                 chatbotIcon.style.transform = "scale(1.2)";
@@ -118,33 +221,95 @@ export default {
             chatbotIcon.removeAttribute("style");
         })
     },
-    methods: {
-    }
+    updated() {
+        // To highlight the current page in the menu
+        let menu = document.querySelector("nav");
+        if (menu.querySelector("[active='true']") !== null)
+            menu.querySelector("[active='true']").removeAttribute("active");
+        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
+    },
+    methods: {}
 }
 </script>
 
 <style scoped>
+
+
 header, footer {
     background-color: #eee1d5;
 }
 
+main {
+    padding-top: 120px;
+    background-color: #f7f1e3;
+}
 
- 
+/************************* FOOTER **************************/
 footer {
     flex-shrink: 0;
     text-align: center;
-    margin-top: auto;
-    border-top: 5px solid rgb(212, 195, 195);
-    padding: 10px;
-
+    padding: 30px;
     min-height: 1vh;
+    background-color: #4c8189;
+    color: #ffffff;
+    font-family: Figtree, serif;
+    font-size: 14px;
+    font-weight: lighter;
 }
 
+footer div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+footer p {
+    margin: 0;
+}
+
+#bottom-bar {
+    background-color: #385c62;
+    padding: 10px;
+    margin: 0;
+    font-weight: lighter;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+}
+
+/**************** HEADER ******************/
+
 header {
-    padding: 0 20px 0 20px;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 96%;
+    height: 130px;
+    z-index: 110;
+}
 
+header > div {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+header h2 {
+    margin-top: 0;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 100px;
+    margin-right: 20px;
 }
 
 .vl {
@@ -153,65 +318,58 @@ header {
     margin: 15px;
 }
 
-.icon {
-//border-left: #b7403c solid 2px; width: 35px;
+.ourIcon {
+//border-left: #b7403c solid 2px; width: 35px; width: 25px; margin-left: 10px;
 }
 
-header div {
-    display: flex;
-    align-items: center;
-    text-align: left;
-}
 
+/*************** MENU ****************/
 
 nav {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    font-size: 22px;
+    gap: 40px;
+    font-size: 20px;
+    line-height: 40px;
+}
 
+a[active="true"] {
+    color: #4c8189;
 }
 
 #activities {
     position: relative;
+    cursor: pointer;
+    user-select: none;
 }
-
 
 .submenu {
     position: absolute;
     flex-direction: column;
     background-color: #f0e6dd;
-    width: 130px;
+    width: 90px;
     top: 40px;
     display: none;
+    font-size: 18px;
+    padding: 0 20px 0 20px;
 }
 
 a {
     text-decoration: none;
-    font-weight: bold;
-    line-height: 40px;
 }
 
 a:hover {
     color: #4c8189;
 }
 
-menu {
-    border: #b7403c solid;
-    border-width: 3px 0 3px 0;
+#menu > img {
+    display: none;
 }
 
-h2 {
-    margin-top: 0;
+#menu {
+    line-height: 50px;
 }
 
-h1 {
-    margin-top: 20px;
-}
-
-.logo {
-    width: 150px;
-}
 
 /****************************** CHATBOT ********************************/
 
@@ -313,22 +471,57 @@ h1 {
 
     }
 
-    .icon {
-    }
 
     header {
-        padding: 20px 20px 0 20px;
-
         flex-direction: column;
+        height: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 
+    main {
+        padding-top: 190px;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        background-color: #eee1d5;
+        position: absolute;
+        top: 50px;
+        width: 90%;
+        padding: 20px;
+        text-align: left;
     }
 
 
-
-    header > div {
-
+    header div {
         justify-content: center;
-        text-align: center;
+        flex-direction: row;
+    }
+
+    #menu > img {
+        display: initial;
+        width: 40px;
+        height: 10%;
+    }
+
+    #menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+        position: relative;
+    }
+
+
+    footer > div {
+        flex-direction: column;
+        gap: 30px;
     }
 
 }
@@ -337,12 +530,15 @@ h1 {
     #chatbot {
         width: 300px;
     }
+
     #chatbot img {
         width: 12%;
     }
+
     #chatbot-send-bar {
         width: 65%;
     }
+
     #chatbot-send-bar input {
         width: 80%;
     }
