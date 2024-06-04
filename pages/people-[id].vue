@@ -109,8 +109,8 @@ main {
   content: '';
   position: absolute;
   top: 50%;
-  width: 40%;
-  height: 1px;
+  width: 35%;
+  height: 1.1px;
   background-color: #4c8189;
 }
 
