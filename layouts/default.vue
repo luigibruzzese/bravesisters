@@ -1,9 +1,74 @@
 <script setup lang="js">
 
-const messages = [
-    ["question1", "answer1"],
-    ["question2", "answer2"]
-];
+const history = ref([
+    {
+        role: "user",
+        parts: [
+            {text: "hello"},
+        ],
+    },
+    {
+        role: "model",
+        parts: [
+            {text: "message"},
+        ],
+    }
+])
+
+const inputValue = ref('');
+let isQueuing = false;
+
+function onChatbotSend() {
+    const newMessage = inputValue.value
+    if (!isQueuing) {
+        isQueuing = true;
+        inputValue.value = '';
+        history.value.push({
+            role: "user",
+            parts: [
+                {text: newMessage},
+            ],
+        })
+
+        const request = {
+            history: history,
+            message: newMessage
+        };
+
+        fetch("/api/chatbot", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(request)
+        }).then(res => {
+            console.log(res.json());
+            if (res.status === 200)
+                history.value.push({
+                    role: "model",
+                    parts: [
+                        {text: res.body},
+                    ],
+                })
+            else {
+                alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+                history.value.pop()
+            }
+        });
+        isQueuing = false;
+    }
+
+}
+
+/*
+on click:
+        history.fill({
+            role: "user",
+            parts: [
+                {text: body},
+            ],
+        })
+
+ */
+
 
 </script>
 
@@ -22,7 +87,7 @@ const messages = [
                 <img class="ourIcon" src="~/assets/icons/menu.png"/>
                 <div style="text-align: right;">
                     <NuxtLink to="/contact-us">
-                        <button >
+                        <button>
                             Contact us
                         </button>
                     </NuxtLink>
@@ -55,15 +120,14 @@ const messages = [
                 <img src="~/assets/icons/delete.png" alt="Close"/>
             </div>
             <div id="chatbot-messages">
-                <template v-for="couple in messages">
-                    <p user="true">{{couple[0]}}</p>
-                    <p>{{couple[1]}}</p>
+                <template v-for="element in history">
+                    <p v-bind:user="(element.role === 'user')?'true' : 'false'">{{ element.parts[0].text }}</p>
                 </template>
 
             </div>
             <div id="chatbot-send-bar">
-                <input>
-                <img src="~/assets/icons/send-icon.png" alt="Send"/>
+                <input v-model="inputValue" placeholder="Send a message."/>
+                <img src="~/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send"/>
             </div>
         </div>
         <slot/>
@@ -86,13 +150,13 @@ const messages = [
                     <p>Via ...</p>
                 </div>
             </div>
-                <div>
-                    <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
-                    <div style="display: initial;">
-                        <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
-                        <p>Via ...</p>
-                    </div>
+            <div>
+                <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
+                <div style="display: initial;">
+                    <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
+                    <p>Via ...</p>
                 </div>
+            </div>
 
         </div>
     </footer>
@@ -101,22 +165,21 @@ const messages = [
 
 <script lang="js">
 export default {
-    data: () => ({
-    }),
+    data: () => ({}),
     mounted() {
         /************ Menu *************/
 
-        // To highlight the current page in the menu
+            // To highlight the current page in the menu
         let menu = document.querySelector("nav");
-        if(menu.querySelector("a[href='" + window.location.pathname +"']") !== null)
-            menu.querySelector("a[href='" + window.location.pathname +"']").setAttribute("active", "true");
+        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
 
         // To show submenu
         let activities = document.querySelector("#activities");
         let subMenu = activities.children[0]
 
         // For the menu icon on mobile phones
-        document.querySelector("#menu").querySelector("img").addEventListener("click",  (evt) => {
+        document.querySelector("#menu").querySelector("img").addEventListener("click", (evt) => {
             menu.style.display === "flex" ?
                 changeDisplay(evt, menu, "none")
                 : changeDisplay(evt, menu, "flex");
@@ -144,7 +207,7 @@ export default {
         let chatbotIcon = document.querySelector("#chatbot-icon");
         let chatbotDiv = document.querySelector("#chatbot");
         chatbotIcon.addEventListener("click", () => {
-            if(chatbotDiv.style.display === "none") {
+            if (chatbotDiv.style.display === "none") {
                 chatbotDiv.style.display = "unset";
                 chatbotIcon.style.right = "0";
                 chatbotIcon.style.transform = "scale(1.2)";
@@ -161,13 +224,12 @@ export default {
     updated() {
         // To highlight the current page in the menu
         let menu = document.querySelector("nav");
-        if(menu.querySelector("[active='true']") !== null)
+        if (menu.querySelector("[active='true']") !== null)
             menu.querySelector("[active='true']").removeAttribute("active");
-        if(menu.querySelector("a[href='" + window.location.pathname +"']") !== null)
-            menu.querySelector("a[href='" + window.location.pathname +"']").setAttribute("active", "true");
+        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
     },
-    methods: {
-    }
+    methods: {}
 }
 </script>
 
@@ -257,9 +319,7 @@ header h1 {
 }
 
 .ourIcon {
-//border-left: #b7403c solid 2px; width: 35px;
-    width: 25px;
-    margin-left: 10px;
+//border-left: #b7403c solid 2px; width: 35px; width: 25px; margin-left: 10px;
 }
 
 
@@ -309,11 +369,6 @@ a:hover {
 #menu {
     line-height: 50px;
 }
-
-
-
-
-
 
 
 /****************************** CHATBOT ********************************/
@@ -427,6 +482,7 @@ a:hover {
     main {
         padding-top: 190px;
     }
+
     nav {
         display: none;
         flex-direction: column;
@@ -440,7 +496,6 @@ a:hover {
     }
 
 
-
     header div {
         justify-content: center;
         flex-direction: row;
@@ -451,6 +506,7 @@ a:hover {
         width: 40px;
         height: 10%;
     }
+
     #menu {
         display: flex;
         flex-direction: row;
@@ -474,12 +530,15 @@ a:hover {
     #chatbot {
         width: 300px;
     }
+
     #chatbot img {
         width: 12%;
     }
+
     #chatbot-send-bar {
         width: 65%;
     }
+
     #chatbot-send-bar input {
         width: 80%;
     }

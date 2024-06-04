@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.12.0",
     "@chenfengyuan/vue-carousel": "^2.0.0",
     "@jambonn/vue-carousel": "^0.1.1",
     "@pinia/nuxt": "^0.5.1",
