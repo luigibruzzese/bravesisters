@@ -48,4 +48,9 @@ if(await Person.count()===0)
 export function usePersonDb(){
     return Person
 }
-
+export function useProjectDb(){
+    return Person
+}
+export function useServiceDb(){
+    return Person
+}
