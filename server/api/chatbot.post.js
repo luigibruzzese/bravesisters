@@ -25,7 +25,7 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-async function run(history, message) {
+/*async function run(history, message) {
     const chatSession = model.startChat({
         generationConfig,
         // safetySettings: Adjust safety settings
@@ -35,14 +35,27 @@ async function run(history, message) {
 
     const result = await chatSession.sendMessage(message);
     return result.response.text();
+}*/
+
+async function run(history, message) {
+    const chatSession = model.startChat({
+        generationConfig,
+        // safetySettings: Adjust safety settings
+        // See https://ai.google.dev/gemini-api/docs/safety-settings
+        history
+    });
+
+    const result = await chatSession.sendMessage(message);
+     return result.response.text();
 }
 
 export default defineEventHandler(async (e)=>{
     try {
-        const request = await readBody(e)
-        //const request = JSON.parse(await readBody(e));
-        return request;
-    }catch (e) {
+        const request = await readBody(e);
+
+        return run(request.history, request.message);
+
+    } catch (evt) {
         setResponseStatus(e,500)
     }
 })

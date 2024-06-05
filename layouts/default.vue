@@ -1,75 +1,112 @@
 <script setup lang="js">
+import {ref} from 'vue';
 
-const history = ref([
+onMounted(() => {
+    // To highlight the current page in the menu
+    let menu = document.querySelector("nav");
+    if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+        menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
+})
+
+onUpdated(() => {
+    // To highlight the current page in the menu
+    let menu = document.querySelector("nav");
+    if (menu.querySelector("[active='true']") !== null)
+        menu.querySelector("[active='true']").removeAttribute("active");
+    if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
+        menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
+})
+
+function changeDisplay(evt, element, newValue) {
+    evt.stopPropagation();
+    if(newValue)
+        element.style.display = newValue;
+    else {
+        element.style.display === 'flex' ?
+            element.style.display = 'none'
+            : element.style.display = 'flex'
+    }
+}
+
+function showChatbot() {
+    let chatbotIcon = document.querySelector("#chatbot-icon");
+    let chatbotDiv = document.querySelector("#chatbot");
+    if (chatbotDiv.style.display === "none") {
+        chatbotDiv.style.display = "unset";
+        chatbotIcon.style.right = "0";
+        chatbotIcon.style.transform = "scale(1.2)";
+    } else {
+        chatbotDiv.style.display = "none";
+        chatbotIcon.removeAttribute("style");
+    }
+}
+
+let history = [
     {
         role: "user",
         parts: [
-            {text: "hello"},
-        ],
+            {text: "hello"}
+        ]
     },
     {
         role: "model",
         parts: [
-            {text: "message"},
-        ],
+            {text: "message"}
+        ]
+    }
+];
+
+const messages = ref([
+    {
+        role: "user",
+        parts: [
+            {text: "hello"}
+        ]
+    },
+    {
+        role: "model",
+        parts: [
+            {text: "message"}
+        ]
     }
 ])
 
 const inputValue = ref('');
 let isQueuing = false;
 
-function onChatbotSend() {
+async function onChatbotSend() {
     const newMessage = inputValue.value
-    if (!isQueuing) {
-        isQueuing = true;
-        inputValue.value = '';
-        history.value.push({
-            role: "user",
-            parts: [
-                {text: newMessage},
-            ],
-        })
+    //   if (!isQueuing) {
+    isQueuing = true;
+    inputValue.value = '';
 
-        const request = {
-            history: history,
-            message: newMessage
-        };
+    history.push({role: "user", parts: [{text: newMessage}]})
+    messages.value.push({role: "user", parts: [{text: newMessage}]})
 
-        fetch("/api/chatbot", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(request)
-        }).then(res => {
-            console.log(res.json());
-            if (res.status === 200)
-                history.value.push({
-                    role: "model",
-                    parts: [
-                        {text: res.body},
-                    ],
-                })
-            else {
-                alert('Server error: the chatbot is not available in that moment. Please, try again later.')
-                history.value.pop()
-            }
-        });
-        isQueuing = false;
-    }
+    const request = {
+        history: history,
+        message: newMessage
+    };
+
+    let response = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(request)
+    }).then(async response => {
+        if (response.status === 200) {
+            const answerMess = await response.text()
+            history.push({role: "model", parts: [{text: answerMess}]})
+            messages.value.push({role: "model", parts: [{text: answerMess}]})
+        } else {
+            alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+            history.pop()
+            messages.value.pop()
+        }
+    })
+    isQueuing = false;
+    // }
 
 }
-
-/*
-on click:
-        history.fill({
-            role: "user",
-            parts: [
-                {text: body},
-            ],
-        })
-
- */
-
-
 </script>
 
 <template>
@@ -84,7 +121,8 @@ on click:
         </div>
         <div>
             <div id="menu">
-                <img class="ourIcon" src="~/assets/icons/menu.png"/>
+                <img class="ourIcon" src="~/assets/icons/menu.png"
+                     @click="changeDisplay($event, $event.target.parentElement.querySelector('nav'));"/>
                 <div style="text-align: right;">
                     <NuxtLink to="/contact-us">
                         <button>
@@ -96,13 +134,17 @@ on click:
                 <nav>
                     <NuxtLink to="/">Home</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
-                    <div id="activities">
+                    <div id="activities"
+                         @mouseenter="changeDisplay($event, $event.target.children[0], 'flex')"
+                         @mouseleave="changeDisplay($event, $event.target.children[0], 'none')"
+                         @click="changeDisplay($event, $event.target.children[0]);">
                         Activities
                         <div class="submenu">
                             <NuxtLink to="/projects">Projects</NuxtLink>
                             <NuxtLink to="/services">Services</NuxtLink>
                         </div>
-                        <img class="ourIcon" src="~/assets/icons/arrow down.png">
+                        <img class="ourIcon" src="~/assets/icons/arrow down.png"
+                        @click="changeDisplay($event, $event.target.previousElementSibling)">
                     </div>
                 </nav>
             </div>
@@ -113,14 +155,14 @@ on click:
     </header>
 
     <main>
-        <img id="chatbot-icon" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
+        <img id="chatbot-icon" @click="showChatbot()" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
         <div id="chatbot" style="display: none;">
             <div id="chatbot-top-bar">
                 <p>Hi! I'm here to help you.</p>
-                <img src="~/assets/icons/delete.png" alt="Close"/>
+                <img src="~/assets/icons/delete.png" @click="showChatbot()" alt="Close"/>
             </div>
             <div id="chatbot-messages">
-                <template v-for="element in history">
+                <template v-for="element in messages">
                     <p v-bind:user="(element.role === 'user')?'true' : 'false'">{{ element.parts[0].text }}</p>
                 </template>
 
@@ -163,79 +205,7 @@ on click:
     <div id="bottom-bar">Made by me</div>
 </template>
 
-<script lang="js">
-export default {
-    data: () => ({}),
-    mounted() {
-        /************ Menu *************/
-
-            // To highlight the current page in the menu
-        let menu = document.querySelector("nav");
-        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
-            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
-
-        // To show submenu
-        let activities = document.querySelector("#activities");
-        let subMenu = activities.children[0]
-
-        // For the menu icon on mobile phones
-        document.querySelector("#menu").querySelector("img").addEventListener("click", (evt) => {
-            menu.style.display === "flex" ?
-                changeDisplay(evt, menu, "none")
-                : changeDisplay(evt, menu, "flex");
-        })
-
-        function changeDisplay(evt, element, newValue) {
-            evt.stopPropagation();
-            element.style.display = newValue;
-        }
-
-        activities.addEventListener("mouseover", (evt) => {
-            changeDisplay(evt, subMenu, "flex");
-        })
-        activities.addEventListener("mouseleave", (evt) => {
-            changeDisplay(evt, subMenu, "none");
-        })
-        activities.addEventListener("click", (evt) => {
-            subMenu.style.display === "flex" ?
-                changeDisplay(evt, subMenu, "none")
-                : changeDisplay(evt, subMenu, "flex");
-        })
-
-
-        /********* For chatbot ******************/
-        let chatbotIcon = document.querySelector("#chatbot-icon");
-        let chatbotDiv = document.querySelector("#chatbot");
-        chatbotIcon.addEventListener("click", () => {
-            if (chatbotDiv.style.display === "none") {
-                chatbotDiv.style.display = "unset";
-                chatbotIcon.style.right = "0";
-                chatbotIcon.style.transform = "scale(1.2)";
-            } else {
-                chatbotDiv.style.display = "none";
-                chatbotIcon.removeAttribute("style");
-            }
-        })
-        document.querySelector("#chatbot-top-bar > img").addEventListener("click", () => {
-            chatbotDiv.style.display = "none";
-            chatbotIcon.removeAttribute("style");
-        })
-    },
-    updated() {
-        // To highlight the current page in the menu
-        let menu = document.querySelector("nav");
-        if (menu.querySelector("[active='true']") !== null)
-            menu.querySelector("[active='true']").removeAttribute("active");
-        if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
-            menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
-    },
-    methods: {}
-}
-</script>
-
 <style scoped>
-
-
 header, footer {
     background-color: #eee1d5;
 }
