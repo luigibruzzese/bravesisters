@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { useProjectStore } from '@/stores/projects.ts';
+/*  import { useProjectStore } from '@/stores/projects.ts';
   import ElementInfoComponent from "~/components/ElementInfoComponent.vue";
 
   const store = useProjectStore();
-  const projects = store.project;
+  const projects = store.project;*/
 </script>
 
 <template>
