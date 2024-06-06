@@ -13,7 +13,7 @@
             <img alt="Left arrow" class="arrow" src="~/assets/icons/left-arrow.png"/>
         </NuxtLink>
         <div>
-            <img class="portrait" :src="'_nuxt/assets/img/people/' + id + '.png'"/>
+            <img class="portrait" :src="'/_nuxt/assets/img/people/' + id + '.png'"/>
             <div>
                 <h2>{{ fullName }}</h2>
                 <h4>{{ role }}</h4>
