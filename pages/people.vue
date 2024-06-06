@@ -1,28 +1,8 @@
-<script setup lang="ts">
+<script setup lang="js">
 import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
-import {createClient} from "@supabase/supabase-js"; // Importa il componente
-
-const supabaseUrl = 'https://wyegypzswjkuzhaxutnw.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWd5cHpzd2prdXpoYXh1dG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc1OTA5NjcsImV4cCI6MjAzMzE2Njk2N30.r7pbfjjXNFGDtdeK62vQG7d_J0uJwb9KoeZI3D4zyWo'
-const supabase = createClient(supabaseUrl, supabaseKey)
-
 
 const people = ref([])
-
-async function getPeople() {
-  const { data } = await supabase.from('person').select()
-  people.value = data
-}
-
-onMounted(() => {
-  getPeople()
-  console.log(people)
-})
-
-/*
-const store = usePeopleStore();
-const people = store.people;
-*/
+people.value = usePeopleStore().people;
 </script>
 
 <template>
