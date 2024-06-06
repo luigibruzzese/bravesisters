@@ -8,8 +8,8 @@ export default defineNuxtConfig({
         }
     },
     runtimeConfig: {
-      supabaseUrl: process.env.NUXT_SUPABASE_URL,
-      supabaseKey: process.env.NUXT_SUPABASE_KEY
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseKey: process.env.SUPABASE_KEY
     },
 
     devtools: {enabled: true},
