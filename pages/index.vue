@@ -5,7 +5,7 @@
   <main>
     <section id="center">
       <h1 id="info_home" >The Center</h1>
-      <img id="main-img" src="~/assets/img/homepage/building_photo.jpg" alt="Building photo" />
+      <img id="main-img" src="/img/homepage/building_photo.jpg" alt="Building photo" />
     </section>
     <section id="mission">
       <h2 class="title-with-lines">Mission</h2>
@@ -23,7 +23,7 @@
       <div id="people">
         <h2 class="title-with-lines">People</h2>
         <p>
-          <img id="main-img" src="~/assets/img/homepage/group_staff_homepage.jpg" alt="Staff photo" />
+          <img id="main-img" src="/img/homepage/group_staff_homepage.jpg" alt="Staff photo" />
         </p>
         <a href="/people">Meet the team</a>
       </div>
@@ -54,12 +54,12 @@
     <section id="gallery">
       <h2 class="title-with-lines">Gallery</h2>
       <div id="gallery-images">
-        <img src="~/assets/img/homepage/home_1.jpg" alt="Gallery image 1">
-        <img src="~/assets/img/homepage/home_4.jpg" alt="Gallery image 2">
-        <img src="~/assets/img/homepage/home_2.jpg" alt="Gallery image 3">
-        <img src="~/assets/img/homepage/home_5.jpg" alt="Gallery image 1">
-        <img src="~/assets/img/homepage/home_3.jpg" alt="Gallery image 2">
-        <img src="~/assets/img/homepage/home_6.jpg" alt="Gallery image 3">
+        <img src="/img/homepage/home_1.jpg" alt="Gallery image 1">
+        <img src="/img/homepage/home_4.jpg" alt="Gallery image 2">
+        <img src="/img/homepage/home_2.jpg" alt="Gallery image 3">
+        <img src="/img/homepage/home_5.jpg" alt="Gallery image 1">
+        <img src="/img/homepage/home_3.jpg" alt="Gallery image 2">
+        <img src="/img/homepage/home_6.jpg" alt="Gallery image 3">
       </div>
     </section>
   </main>

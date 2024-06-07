@@ -6,7 +6,7 @@ defineEmits(['myEvent'])
 <template>
   <div class="card">
     <div class="image-container">
-      <img class="dog-img" src="~/assets/img/home-image.jpg" />
+      <img class="dog-img" src="/img/home-image.jpg" />
     </div>
     <span class="dog-name">{{name}}</span>
     <span class="dog-breed">{{breed}}</span>

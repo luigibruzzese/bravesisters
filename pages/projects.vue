@@ -10,7 +10,7 @@
   <section id="project">
     <h1 id="title">Project</h1>
     <div class="people-info">
-      <img class="people-image" src="~/assets/img/homepage/group_staff_homepage.jpg" alt="People Image" />
+      <img class="people-image" src="/img/homepage/group_staff_homepage.jpg" alt="People Image" />
       <div class="people-text">
         <p>Project description</p>
       </div>

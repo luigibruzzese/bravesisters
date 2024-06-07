@@ -10,7 +10,7 @@ defineProps({
 <template>
   <NuxtLink :href="'/people-' + id.toString()" class="border">
     <div class="generalInfo">
-      <img class="portrait" :src="'/_nuxt/assets/img/people/' + id + '.png'" alt="Person Portrait"/>
+      <img class="portrait" :src="'/img/people/' + id + '.png'" alt="Person Portrait"/>
       <h2 style="font-size: 100%">{{ fullName }}</h2>
       <h4 style="font-size: 100%">{{ role }}</h4>
       <p style="font-size: 80%">{{ shortPresentation }}</p>
