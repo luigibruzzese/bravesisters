@@ -19,7 +19,7 @@ onUpdated(() => {
 
 function changeDisplay(evt, element, newValue) {
     evt.stopPropagation();
-    if(newValue)
+    if (newValue)
         element.style.display = newValue;
     else {
         element.style.display === 'flex' ?
@@ -42,70 +42,65 @@ function showChatbot() {
 }
 
 let history = [
-    {
-        role: "user",
-        parts: [
-            {text: "hello"}
-        ]
-    },
-    {
-        role: "model",
-        parts: [
-            {text: "message"}
-        ]
-    }
+    /*    {
+            role: "user",
+            parts: [
+                {text: "hello"}
+            ]
+        },
+        {
+            role: "model",
+            parts: [
+                {text: "message"}
+            ]
+        }*/
 ];
 
-const messages = ref([
-    {
-        role: "user",
-        parts: [
-            {text: "hello"}
-        ]
-    },
-    {
-        role: "model",
-        parts: [
-            {text: "message"}
-        ]
-    }
-])
+const messages = ref([])
 
 const inputValue = ref('');
 let isQueuing = false;
 
 async function onChatbotSend() {
     const newMessage = inputValue.value
-    //   if (!isQueuing) {
-    isQueuing = true;
-    inputValue.value = '';
+    if (inputValue.value && !isQueuing) {
+        isQueuing = true;
+        inputValue.value = '';
 
-    history.push({role: "user", parts: [{text: newMessage}]})
-    messages.value.push({role: "user", parts: [{text: newMessage}]})
+        history.push({role: "user", parts: [{text: newMessage}]})
+        messages.value.push({role: "user", parts: [{text: newMessage}]})
 
-    const request = {
-        history: history,
-        message: newMessage
-    };
+        const request = {
+            history: history,
+            message: newMessage
+        };
 
-    let response = await fetch("/api/chatbot", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(request)
-    }).then(async response => {
-        if (response.status === 200) {
-            const answerMess = await response.text()
-            history.push({role: "model", parts: [{text: answerMess}]})
-            messages.value.push({role: "model", parts: [{text: answerMess}]})
-        } else {
-            alert('Server error: the chatbot is not available in that moment. Please, try again later.')
-            history.pop()
-            messages.value.pop()
-        }
+        await fetch("/api/chatbot", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(request)
+        }).then(async response => {
+            if (response.status === 200) {
+                const answerMess = await response.text()
+                history.push({role: "model", parts: [{text: answerMess}]})
+                messages.value.push({role: "model", parts: [{text: convert(answerMess)}]})
+            } else {
+                alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+                history.pop()
+                messages.value.pop()
+            }
+        })
+        isQueuing = false;
+    }
+
+}
+
+function convert(message) {
+    let converted = message.replace("\n", "<br>");
+    converted = converted.replace(/(\*\*\w+\*\*)/g, function(match) {
+        return "<b>" + match.slice(2, -2) + "</b>"
     })
-    isQueuing = false;
-    // }
-
+    return converted
 }
 </script>
 
@@ -144,7 +139,7 @@ async function onChatbotSend() {
                             <NuxtLink to="/services">Services</NuxtLink>
                         </div>
                         <img class="ourIcon" src="~/assets/icons/arrow down.png"
-                        @click="changeDisplay($event, $event.target.previousElementSibling)">
+                             @click="changeDisplay($event, $event.target.previousElementSibling)">
                     </div>
                 </nav>
             </div>
@@ -168,7 +163,7 @@ async function onChatbotSend() {
 
             </div>
             <div id="chatbot-send-bar">
-                <input v-model="inputValue" placeholder="Send a message."/>
+                <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()" placeholder="Send a message to the bot."/>
                 <img src="~/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send"/>
             </div>
         </div>
