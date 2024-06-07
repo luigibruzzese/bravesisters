@@ -3,13 +3,14 @@ import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
 
 const people = ref([])
 people.value = usePeopleStore().people;
+
 </script>
 
 <template>
   <section id="people">
     <h1 id="title">People</h1>
     <div class="people-info">
-      <img class="people-image" src="~/assets/img/homepage/group_staff_homepage.jpg" alt="People Image" />
+      <img class="people-image" src="/img/homepage/group_staff_homepage.jpg" alt="People Image" />
       <div class="people-text">
         <p>At Brave Sister Center, our team consists of highly qualified professionals dedicated to supporting women in need. Our staff includes psychologists specialized in gender-based violence, social workers experienced in women's rights, lawyers knowledgeable in legal issues related to domestic violence, and healthcare providers offering medical and psychological assistance. Additionally, we collaborate with volunteers and interns who contribute to our daily work with passion and dedication.</p>
       </div>

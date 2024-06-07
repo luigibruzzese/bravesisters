@@ -57,7 +57,7 @@ function goToService(id) {
           @click="goToProject(project.id)"
           class="project"
         >
-          <img src="~/assets/img/homepage/home_1.jpg" alt="Project Image" />
+          <img src="/img/homepage/home_1.jpg" alt="Project Image" />
           <h3>{{ project.name }}</h3>
           <p>{{ project.description }}</p>
         </div>
@@ -73,7 +73,7 @@ function goToService(id) {
           @click="goToService(service.id)"
           class="service"
         >
-          <img src="~/assets/img/homepage/home_1.jpg" alt="Service Image" />
+          <img src="/img/homepage/home_1.jpg" alt="Service Image" />
           <h3>{{ service.name }}</h3>
           <p>{{ service.description }}</p>
         </div>

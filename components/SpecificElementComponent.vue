@@ -11,7 +11,7 @@
 <template>
   <NuxtLink :href="'/'+ type +'-' + id.toString()" class="border">
     <div class="generalInfo">
-      <img class="portrait" :src="'_nuxt/assets/img/people/' + id + '.png'"/>
+      <img class="portrait" :src="'/img/people/' + id + '.png'"/>
       <h2> {{ fullName }}</h2>
     </div>
   </NuxtLink>
