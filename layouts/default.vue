@@ -86,8 +86,9 @@ async function onChatbotSend() {
                 messages.value.push({role: "model", parts: [{text: convert(answerMess)}]})
             } else {
                 alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+                messages.value.push({role: "model", parts: [{text: convert("* **Prova Grassetto**: ciaooo\n * punto 2 \n * punto 3\n akakak ")}]})
                 history.pop()
-                messages.value.pop()
+                //messages.value.pop()
             }
         })
         isQueuing = false;
@@ -96,11 +97,9 @@ async function onChatbotSend() {
 }
 
 function convert(message) {
-    let converted = message.replace("\n", "<br>");
-    converted = converted.replace(/(\*\*\w+\*\*)/g, function(match) {
-        return "<b>" + match.slice(2, -2) + "</b>"
-    })
-    return converted
+    return message.replaceAll("\n", "<br>").replaceAll(/(\*\*.*\*\*)/g, function(match) {
+        return "<strong>" + match.slice(2, -2) + "</strong>"
+    }).replaceAll("*", "&bull;")
 }
 </script>
 
@@ -158,7 +157,7 @@ function convert(message) {
             </div>
             <div id="chatbot-messages">
                 <template v-for="element in messages">
-                    <p v-bind:user="(element.role === 'user')?'true' : 'false'">{{ element.parts[0].text }}</p>
+                    <p v-bind:user="(element.role === 'user')?'true' : 'false'" v-html="element.parts[0].text"></p>
                 </template>
 
             </div>
