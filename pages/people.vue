@@ -10,7 +10,7 @@ people.value = usePeopleStore().people;
   <section id="people">
     <h1 id="title">People</h1>
     <div class="people-info">
-      <img class="people-image" src="/img/homepage/group_staff_homepage.jpg" alt="People Image" />
+      <img class="people-image" src="/img/people/collaboration.png" alt="People Image" />
       <div class="people-text">
         <p>At Brave Sister Center, our team consists of highly qualified professionals dedicated to supporting women in need. Our staff includes psychologists specialized in gender-based violence, social workers experienced in women's rights, lawyers knowledgeable in legal issues related to domestic violence, and healthcare providers offering medical and psychological assistance. Additionally, we collaborate with volunteers and interns who contribute to our daily work with passion and dedication.</p>
       </div>
@@ -39,6 +39,11 @@ people.value = usePeopleStore().people;
   margin-bottom: 20px;
   color: #4c8189;
   text-align: center;
+}
+
+#our_people, #people {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .title-with-lines {
@@ -82,6 +87,7 @@ people.value = usePeopleStore().people;
 
 .people-text {
   max-width: 600px;
+  font-size: large;
 }
 
 .people-list {
