@@ -3,11 +3,10 @@ import { ref, onMounted } from 'vue';
 import { createClient } from '@supabase/supabase-js';
 import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
 import { useRuntimeConfig } from '#imports';
-import * as https from "node:https";
 
 const config = useRuntimeConfig();
-const supabaseUrl = "https://wyegypzswjkuzhaxutnw.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWd5cHpzd2prdXpoYXh1dG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc1OTA5NjcsImV4cCI6MjAzMzE2Njk2N30.r7pbfjjXNFGDtdeK62vQG7d_J0uJwb9KoeZI3D4zyWo";
+const supabaseUrl = config.public.supabaseUrl;
+const supabaseKey = config.public.supabaseKey;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const people = ref([]);

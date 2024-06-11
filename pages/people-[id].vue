@@ -7,8 +7,8 @@ import { useRuntimeConfig } from '#imports';
 
 // Configurazione Supabase
 const config = useRuntimeConfig();
-const supabaseUrl = "https://wyegypzswjkuzhaxutnw.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWd5cHpzd2prdXpoYXh1dG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc1OTA5NjcsImV4cCI6MjAzMzE2Njk2N30.r7pbfjjXNFGDtdeK62vQG7d_J0uJwb9KoeZI3D4zyWo";
+const supabaseUrl = config.public.supabaseUrl;
+const supabaseKey = config.public.supabaseKey;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const route = useRoute();
