@@ -5,6 +5,6 @@ const supabaseUrl = config.supabaseUrl
 const supabaseKey = config.supabaseKey
 const supabase = createClient(supabaseUrl, supabaseKey)
 export default defineEventHandler(async (e)=>{
-    const { data } = await supabase.from('project').select()
+    const { data } = await supabase.from('person').select()
     return data;
 })

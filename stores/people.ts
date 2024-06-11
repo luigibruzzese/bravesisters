@@ -17,9 +17,17 @@ interface Project {
   person: number
 }
 
+interface Service {
+  id: number;
+  name: string;
+  description: string;
+  person: number
+}
+
 export const usePeopleStore = defineStore('person', () => {
   const people = reactive([] as Person[]);
   const project = reactive([] as Project[]);
+  const service = reactive([] as Service[]);
 
   async function initPeople() {
     const { data } = await useFetch<Person[]>('/api/people');
@@ -39,12 +47,23 @@ export const usePeopleStore = defineStore('person', () => {
       project.push(...list);
     }
   }
+
+  async function initService() {
+    const { data } = await useFetch<Person[]>('/api/service');
+    const list = data.value;
+    if (list) {
+      service.splice(0, people.length);  // Clear the list
+      service.push(...list);
+    }
+
+  }
   async function init(){
     initPeople();
     initProject();
+    initService()
   }
 
   init()
 
-  return { people, project, init };
+  return { people, project, service, init };
 });
