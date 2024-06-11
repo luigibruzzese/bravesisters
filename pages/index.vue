@@ -23,7 +23,7 @@
       <div id="people">
         <h2 class="title-with-lines">People</h2>
         <p>
-          <img id="main-img" src="/img/homepage/group_staff_homepage.jpg" alt="Staff photo" />
+          <img id="main-img" src="/img/people/collaboration.png" alt="Staff photo" />
         </p>
         <a href="/people">Meet the team</a>
       </div>

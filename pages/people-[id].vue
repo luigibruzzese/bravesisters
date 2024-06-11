@@ -9,22 +9,20 @@ const store = usePeopleStore();
 
 const personId = computed(() => route.params.id);
 const person = computed(() => store.people.find(p => p.id === parseInt(personId.value, 10)));
+const projects = computed(() => store.project.filter(project => project.person === parseInt(personId.value, 10)));
+const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
 
-watch(personId, async () => { // watch for changes in the personId
-  if (!store.people.length) {
+watch(personId, async () => {
+  const id = parseInt(personId.value, 10);
+  if (isNaN(id) || id < 1 || id > 20) {
+    router.push('/people');
+    return;
+  }
+
+  if (!store.people.length || !store.project.length || !store.service.length) {
     await store.init();
   }
 }, { immediate: true });
-
-// Sarebbero da prendere dal db
-const projects = [
-  { id: 1, name: 'Project 1', description: 'Description of Project 1' }
-];
-
-// Sarebbero da prendere dal db
-const services = [
-  { id: 1, name: 'Service 1', description: 'Description of Service 1' }
-];
 
 function goToProject(id) {
   router.push(`/projects-${id}`);
@@ -48,7 +46,7 @@ function goToService(id) {
       />
     </section>
 
-    <section id="projects">
+    <section v-if="projects.length" id="projects">
       <h2 class="title-with-lines">Projects</h2>
       <div class="projects-container">
         <div
@@ -59,12 +57,12 @@ function goToService(id) {
         >
           <img src="/img/homepage/home_1.jpg" alt="Project Image" />
           <h3>{{ project.name }}</h3>
-          <p>{{ project.description }}</p>
+          <p>{{ project.description.slice(0, 250) + '...' }}</p>
         </div>
       </div>
     </section>
 
-    <section id="services">
+    <section v-if="services.length" id="services">
       <h2 class="title-with-lines">Services</h2>
       <div class="services-container">
         <div
@@ -75,7 +73,7 @@ function goToService(id) {
         >
           <img src="/img/homepage/home_1.jpg" alt="Service Image" />
           <h3>{{ service.name }}</h3>
-          <p>{{ service.description }}</p>
+          <p>{{ service.description.slice(0, 250) + '...' }}</p>
         </div>
       </div>
     </section>
