@@ -1,9 +1,28 @@
 <script setup lang="js">
+import { ref, onMounted } from 'vue';
+import { createClient } from '@supabase/supabase-js';
 import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
+import { useRuntimeConfig } from '#imports';
 
-const people = ref([])
-people.value = usePeopleStore().people;
+const config = useRuntimeConfig();
+const supabaseUrl = config.public.supabaseUrl;
+const supabaseKey = config.public.supabaseKey;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
+const people = ref([]);
+
+const fetchPeople = async () => {
+  const { data, error } = await supabase.from('person').select();
+  if (error) {
+    console.error('Error fetching people:', error);
+  } else {
+    people.value = data;
+  }
+};
+
+onMounted(() => {
+  fetchPeople();
+});
 </script>
 
 <template>
@@ -20,13 +39,12 @@ people.value = usePeopleStore().people;
     </section>
     <div class="people-list">
       <ElementInfoComponent
-        v-for="person in people"
-        :key="person.id"
-        :id="person.id"
-        :full-name="`${person.name} ${person.surname}`"
-        :role="person.role"
-        :short-presentation="person.description.slice(0, 80) + '...'"
-        
+          v-for="person in people"
+          :key="person.id"
+          :id="person.id"
+          :full-name="`${person.name} ${person.surname}`"
+          :role="person.role"
+          :short-presentation="person.description.slice(0, 80) + '...'"
       />
     </div>
   </section>
@@ -66,6 +84,7 @@ people.value = usePeopleStore().people;
   right: 0;
   margin-left: 5px;
 }
+
 .people-info {
   display: flex;
   align-items: center;

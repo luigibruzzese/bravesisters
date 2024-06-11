@@ -1,27 +1,47 @@
 <script setup lang="ts">
+import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { usePeopleStore } from '@/stores/people.ts';
-import { computed, watch } from 'vue';
+import { createClient } from '@supabase/supabase-js';
+import GeneralInfoComponent from '@/components/GeneralInfoComponent.vue';
+import { useRuntimeConfig } from '#imports';
 
-const route = useRoute(); 
+// Configurazione Supabase
+const config = useRuntimeConfig();
+const supabaseUrl = config.public.supabaseUrl;
+const supabaseKey = config.public.supabaseKey;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const route = useRoute();
 const router = useRouter();
-const store = usePeopleStore(); 
 
 const personId = computed(() => route.params.id);
-const person = computed(() => store.people.find(p => p.id === parseInt(personId.value, 10)));
+const person = ref(null);
 
-watch(personId, async () => { // watch for changes in the personId
-  if (!store.people.length) {
-    await store.init();
+const fetchPerson = async (id) => {
+  const { data, error } = await supabase
+      .from('person')
+      .select()
+      .eq('id', id)
+      .single();
+
+  if (error) {
+    console.error('Error fetching person:', error);
+  } else {
+    person.value = data;
+  }
+};
+
+watch(personId, async (newId) => {
+  if (newId) {
+    await fetchPerson(newId);
   }
 }, { immediate: true });
 
-// Sarebbero da prendere dal db
+// Progetti e servizi sarebbero da prendere dal database
 const projects = [
   { id: 1, name: 'Project 1', description: 'Description of Project 1' }
 ];
 
-// Sarebbero da prendere dal db
 const services = [
   { id: 1, name: 'Service 1', description: 'Description of Service 1' }
 ];
@@ -40,11 +60,11 @@ function goToService(id) {
     <section id="person">
       <h1 id="info_person">Person</h1>
       <GeneralInfoComponent
-        v-if="person"
-        :id="person.id"
-        :full-name="`${person.name} ${person.surname}`"
-        :role="person.role"
-        :short-presentation="person.description"
+          v-if="person"
+          :id="person.id"
+          :full-name="`${person.name} ${person.surname}`"
+          :role="person.role"
+          :short-presentation="person.description"
       />
     </section>
 
@@ -52,10 +72,10 @@ function goToService(id) {
       <h2 class="title-with-lines">Projects</h2>
       <div class="projects-container">
         <div
-          v-for="project in projects"
-          :key="project.id"
-          @click="goToProject(project.id)"
-          class="project"
+            v-for="project in projects"
+            :key="project.id"
+            @click="goToProject(project.id)"
+            class="project"
         >
           <img src="/img/homepage/home_1.jpg" alt="Project Image" />
           <h3>{{ project.name }}</h3>
@@ -63,15 +83,15 @@ function goToService(id) {
         </div>
       </div>
     </section>
-    
+
     <section id="services">
       <h2 class="title-with-lines">Services</h2>
       <div class="services-container">
         <div
-          v-for="service in services"
-          :key="service.id"
-          @click="goToService(service.id)"
-          class="service"
+            v-for="service in services"
+            :key="service.id"
+            @click="goToService(service.id)"
+            class="service"
         >
           <img src="/img/homepage/home_1.jpg" alt="Service Image" />
           <h3>{{ service.name }}</h3>
@@ -79,7 +99,7 @@ function goToService(id) {
         </div>
       </div>
     </section>
-    
+
     <br>
     <br>
   </main>
@@ -138,18 +158,18 @@ main {
   padding: 10px;
   border-radius: 5px;
   text-align: center;
-  flex: 0 1 auto; 
-  max-width: 500px; 
+  flex: 0 1 auto;
+  max-width: 500px;
   box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Transition for the hover effect */
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
 }
 
 .project:hover,
 .service:hover {
   transform: translateY(-5px); /* Slightly lift the element */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
 }
 
 .project img,
