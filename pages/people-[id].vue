@@ -1,47 +1,27 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { createClient } from '@supabase/supabase-js';
-import GeneralInfoComponent from '@/components/GeneralInfoComponent.vue';
-import { useRuntimeConfig } from '#imports';
-
-// Configurazione Supabase
-const config = useRuntimeConfig();
-const supabaseUrl = config.public.supabaseUrl;
-const supabaseKey = config.public.supabaseKey;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { usePeopleStore } from '@/stores/people.ts';
+import { computed, watch } from 'vue';
 
 const route = useRoute();
 const router = useRouter();
+const store = usePeopleStore();
 
 const personId = computed(() => route.params.id);
-const person = ref(null);
+const person = computed(() => store.people.find(p => p.id === parseInt(personId.value, 10)));
 
-const fetchPerson = async (id) => {
-  const { data, error } = await supabase
-      .from('person')
-      .select()
-      .eq('id', id)
-      .single();
-
-  if (error) {
-    console.error('Error fetching person:', error);
-  } else {
-    person.value = data;
-  }
-};
-
-watch(personId, async (newId) => {
-  if (newId) {
-    await fetchPerson(newId);
+watch(personId, async () => { // watch for changes in the personId
+  if (!store.people.length) {
+    await store.init();
   }
 }, { immediate: true });
 
-// Progetti e servizi sarebbero da prendere dal database
+// Sarebbero da prendere dal db
 const projects = [
   { id: 1, name: 'Project 1', description: 'Description of Project 1' }
 ];
 
+// Sarebbero da prendere dal db
 const services = [
   { id: 1, name: 'Service 1', description: 'Description of Service 1' }
 ];
