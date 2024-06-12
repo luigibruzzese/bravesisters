@@ -2,14 +2,16 @@
 import { ref, onMounted } from 'vue';
 
 const faq = [
-  { question: "Question 1", answer: "Answer to question 1." },
-  { question: "Question 2", answer: "Answer to question 2." },
-  { question: "Question 3", answer: "Answer to question 3." },
-  { question: "Question 4", answer: "Answer to question 4." },
-  { question: "Question 5", answer: "Answer to question 5." },
-  { question: "Question 6", answer: "Answer to question 6." },
-  { question: "Question 7", answer: "Answer to question 7." },
-  { question: "Question 8", answer: "Answer to question 8." }
+  { question: "Where is the Brave Sisters center located?", answer: "The center is located at Via di Grignano, 102, 59100 Prato (PO). You can reach us by bus (lines 210 and SC) or by train (Prato Centrale station)." },
+  { question: "What are the opening hours of the center?", answer: "The center is open Monday to Friday from 9:00 am to 12:00 pm and from 1:00 pm to 6:00 pm. On Saturday, it is open from 9:00 am to 12:00 pm. It is closed on Sunday." },
+  { question: "What services does the Brave Sisters center offer?", answer: "We offer psychological support, legal consultations, conversations with experts, assistance for imminent danger situations, and a list of available jobs for women." },
+  { question: "Can I get free legal assistance at the center?", answer: "Yes, regardless of income, victims of domestic violence are entitled to legal aid at the state's expense. Contact us for more information and assistance." },
+  { question: "Who works at the Brave Sisters center?", answer: "Our staff includes psychologists, lawyers, psychiatrists, economy experts, and EMDR experts. You can find more details about our team on our website." },
+  { question: "Does the center provide support for stalking cases?", answer: "Yes, we offer support for victims of stalking. Contact us to learn more about our services." },
+  { question: "Can I participate in the center's projects if I have experienced violence in the past?", answer: "Yes, we have various projects to help women who have experienced violence to improve their lives. Contact us to learn more about these projects." },
+  { question: "How can I report an incident of domestic violence?", answer: "If you have experienced domestic violence, it's important to go to the nearest emergency room for necessary medical care. Then, contact a lawyer to draft and file the complaint. Our lawyers can assist you with this process." },
+  { question: "Does the center offer psychological support for victims of violence?", answer: "Yes, our center provides psychological support for victims of domestic violence. Contact us to schedule an appointment or for more information." },
+  { question: "Can I attend group therapy sessions at the center?", answer: "Yes, we offer group therapy sessions to share experiences and receive support from other women victims of violence. Contact us to learn more about these sessions." }
 ];
 
 const showAnswer = ref(Array(faq.length).fill(false));

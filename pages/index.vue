@@ -35,10 +35,10 @@
       <div id="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2876.4934116439467!2d11.085237475822755!3d43.866327638620774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132af61bd731b397%3A0x10e39e397c812421!2sVia%20di%20Grignano%2C%20102%2C%2059100%20Prato%20PO!5e0!3m2!1sit!2sit!4v1716039615957!5m2!1sit!2sit"
           width="100%"
-          height="450" 
-          style="border:0;" 
-          allowfullscreen="false" 
-          loading="lazy" 
+          height="450"
+          style="border:0;"
+          allowfullscreen="false"
+          loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
@@ -53,13 +53,12 @@
     </section>
     <section id="gallery">
       <h2 class="title-with-lines">Gallery</h2>
-      <div id="gallery-images">
-        <img src="/img/homepage/home_1.jpg" alt="Gallery image 1">
-        <img src="/img/homepage/home_4.jpg" alt="Gallery image 2">
-        <img src="/img/homepage/home_2.jpg" alt="Gallery image 3">
-        <img src="/img/homepage/home_5.jpg" alt="Gallery image 1">
-        <img src="/img/homepage/home_3.jpg" alt="Gallery image 2">
-        <img src="/img/homepage/home_6.jpg" alt="Gallery image 3">
+      <div id="gallery-container">
+        <button @click="previousImages" class="gallery-button">&lt;</button>
+        <div id="gallery-images">
+          <img v-for="(src, index) in currentImages" :src="src" :alt="'Gallery image ' + (index + 1)">
+        </div>
+        <button @click="nextImages" class="gallery-button">&gt;</button>
       </div>
     </section>
   </main>
@@ -67,11 +66,31 @@
 
 <script lang="js">
 export default {
-  data: () => ({}),
+  data: () => ({
+    images: [
+      "/img/homepage/home_1.jpg",
+      "/img/homepage/home_4.jpg",
+      "/img/homepage/home_2.jpg",
+      "/img/homepage/home_5.jpg",
+      "/img/homepage/home_3.jpg",
+      "/img/homepage/home_6.jpg"
+    ],
+    currentImages: [],
+    imageSet: 0
+  }),
   mounted() {
-    //document.querySelector("a[href=\"/\"]").style.color = "#4c8189";
+    this.currentImages = this.images.slice(0, 3);
   },
-  methods: {}
+  methods: {
+    nextImages() {
+      this.imageSet = (this.imageSet + 1) % 2;
+      this.currentImages = this.images.slice(this.imageSet * 3, this.imageSet * 3 + 3);
+    },
+    previousImages() {
+      this.imageSet = (this.imageSet - 1 + 2) % 2;
+      this.currentImages = this.images.slice(this.imageSet * 3, this.imageSet * 3 + 3);
+    }
+  }
 }
 </script>
 
@@ -169,18 +188,34 @@ section {
   max-width: 35%;
 }
 
+#gallery-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gallery-button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  padding: 7px;
+  background-color: #4c8189;
+  border-radius: 7px
+}
+
 #gallery-images {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  width: 80%;
 }
 
 #gallery-images img {
-  width: 410px; 
-  height: 410px; 
-  object-fit: cover; 
+  width: 410px;
+  height: 410px;
+  object-fit: cover;
   border-radius: 10px;
-  margin: 15px; 
+  margin: 15px;
 }
 
 @media (max-width: 1000px) {
@@ -204,10 +239,7 @@ section {
     max-width: 23%;
   }
 
-  #gallery-images img {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+
 }
 </style>
 
