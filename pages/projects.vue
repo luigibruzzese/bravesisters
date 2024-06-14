@@ -42,8 +42,8 @@
   }
   #title {
     font-size: 2em;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     color: #4c8189;
     text-align: center;
   }

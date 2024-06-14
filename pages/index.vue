@@ -105,8 +105,8 @@ main {
 
 #info_home {
   font-size: 2em;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   color: #4c8189;
   text-align: center;
 }
@@ -149,9 +149,10 @@ section {
 }
 
 #mission, #history-people, #location, #gallery {
-  padding: 20px;
+  padding: 10px;
   background-color: #f7f1e3;
   border-radius: 8px;
+  font-size: large;
 }
 
 #history-people {
@@ -162,6 +163,7 @@ section {
 
 #history, #people {
   width: 48%;
+  font-size: large;
 }
 
 .image-container {
