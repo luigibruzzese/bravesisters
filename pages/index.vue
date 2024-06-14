@@ -4,7 +4,7 @@
 <template>
   <main>
     <section id="center">
-      <h1 id="info_home" >The Center</h1>
+      <h1 id="info_home">The Center</h1>
       <img id="main-img" src="/img/homepage/building_photo.jpg" alt="Building photo" />
     </section>
     <section id="mission">
@@ -22,10 +22,11 @@
       </div>
       <div id="people">
         <h2 class="title-with-lines">People</h2>
-        <p>
+        <div class="image-container" @click="goToPeople">
           <img id="main-img" src="/img/people/collaboration.png" alt="Staff photo" />
-        </p>
-        <a href="/people">Meet the team</a>
+          <div class="hover-text">Meet the team</div>
+          <div class="hover-overlay"></div>
+        </div>
       </div>
     </section>
     <section id="location-hours">
@@ -34,12 +35,12 @@
     <section id="location">
       <div id="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2876.4934116439467!2d11.085237475822755!3d43.866327638620774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132af61bd731b397%3A0x10e39e397c812421!2sVia%20di%20Grignano%2C%20102%2C%2059100%20Prato%20PO!5e0!3m2!1sit!2sit!4v1716039615957!5m2!1sit!2sit"
-          width="100%"
-          height="450"
-          style="border:0;"
-          allowfullscreen="false"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
+                width="100%"
+                height="450"
+                style="border:0;"
+                allowfullscreen="false"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
       <div id="contact-info">
@@ -89,6 +90,9 @@ export default {
     previousImages() {
       this.imageSet = (this.imageSet - 1 + 2) % 2;
       this.currentImages = this.images.slice(this.imageSet * 3, this.imageSet * 3 + 3);
+    },
+    goToPeople() {
+      window.location.href = '/people';
     }
   }
 }
@@ -160,11 +164,45 @@ section {
   width: 48%;
 }
 
-#people a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #4c8189;
-  text-decoration: underline;
+.image-container {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover img {
+  opacity: 0.6;
+}
+
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.3em;
+  text-align: center;
+  background-color: #4c8189;
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .hover-text {
+  opacity: 1;
 }
 
 #hours, #address {
@@ -200,7 +238,7 @@ section {
   font-size: 1.5em;
   padding: 7px;
   background-color: #4c8189;
-  border-radius: 7px
+  border-radius: 7px;
 }
 
 #gallery-images {
@@ -238,8 +276,9 @@ section {
     width: 100%;
     max-width: 23%;
   }
-
-
 }
 </style>
+
+
+
 
