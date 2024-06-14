@@ -31,11 +31,17 @@ function goToProject(id) {
 function goToService(id) {
   router.push(`/services-${id}`);
 }
+
+function goToPeople() {
+  router.push('/people');
+}
 </script>
+
 
 <template>
   <main>
     <section id="person">
+      <button @click="goToPeople" id="back-button">< Up to all people</button>
       <h1 id="info_person">Person</h1>
       <GeneralInfoComponent
           v-if="person"
@@ -83,9 +89,28 @@ function goToService(id) {
   </main>
 </template>
 
+
 <style scoped>
 main {
   padding: 20px;
+}
+
+#back-button {
+  background-color: #4c8189;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-bottom: 20px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+#back-button:hover {
+  background-color: #3a6775;
 }
 
 #info_person {
@@ -139,14 +164,14 @@ main {
   flex: 0 1 auto;
   max-width: 500px;
   box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Transition for the hover effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
   border: 1px solid transparent;
 }
 
 .project:hover,
 .service:hover {
-  transform: translateY(-5px); /* Slightly lift the element */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid #ccc;
 }
 
@@ -165,3 +190,4 @@ main {
   }
 }
 </style>
+

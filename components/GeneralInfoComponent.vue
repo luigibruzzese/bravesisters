@@ -42,8 +42,11 @@
 
 
     .portrait {
-        width: 300px;
-        margin: 5%;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      margin: 5%;
+      border-radius: 50%;
     }
 
     @media(max-width: 800px) {
