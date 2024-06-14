@@ -15,7 +15,7 @@ const projects = computed(() => store.project.filter(project => project.person =
 watch(serviceId, async () => {
   const id = parseInt(serviceId.value, 10);
   if (isNaN(id) || id < 1 || id > 5) {
-    router.push('/services');
+    window.location.href = '/services';
     return;
   }
 
@@ -35,6 +35,10 @@ function goToPerson(id) {
 function goToProjects() {
   router.push('/projects');
 }
+
+const getGalleryImages = (id, count = 3) => {
+  return Array.from({ length: count }, (_, i) => `/img/services/${id}/${i + 1}.jpg`);
+};
 </script>
 
 <template>
@@ -64,7 +68,7 @@ function goToProjects() {
     <section id="gallery">
       <h2 class="title-with-lines">Gallery</h2>
       <div class="gallery-container">
-        <img v-for="i in 3" :key="i" :src="`/img/homepage/home_${i}.jpg`" alt="Gallery Image" />
+        <img v-for="(src, index) in getGalleryImages(service.id)" :key="index" :src="src" alt="Gallery Image" />
       </div>
     </section>
 
@@ -134,9 +138,28 @@ main {
 .services-container,
 .gallery-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
+}
+
+.gallery-container {
+  gap: 20px;
+}
+
+.gallery-container img {
+  width: 410px;
+  height: 410px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+@media (max-width: 768px) {
+  .gallery-container img {
+    width: 100%;
+    max-width: 410px;
+  }
 }
 
 .project,
@@ -160,8 +183,7 @@ main {
 }
 
 .project img,
-.service img,
-.gallery-container img {
+.service img {
   width: 410px;
   height: 410px;
   object-fit: cover;

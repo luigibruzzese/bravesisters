@@ -23,7 +23,7 @@ const getImageSrc = (type, id) => {
   <NuxtLink :href="'/' + type + '-' + id.toString()" class="border">
     <div class="generalInfo">
       <img class="portrait" :src="getImageSrc(type, id)" />
-      <h2> {{ fullName }}</h2>
+      <h2 :style="{ fontSize: '18px'}"> {{ fullName }}</h2>
     </div>
   </NuxtLink>
 </template>

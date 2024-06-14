@@ -14,7 +14,7 @@ const getPrevId = () => {
   switch (props.context) {
     case 'project':
       return `/project-${props.id - 1}`;
-    case 'service':
+    case 'services':
       return `/service-${props.id - 1}`;
     default:
       return `/people-${props.id - 1}`;
