@@ -82,6 +82,8 @@ people.value = usePeopleStore().people;
   width: 700px;
   height: auto;
   margin-right: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   border-radius: 10px;
 }
 
