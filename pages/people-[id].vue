@@ -35,8 +35,18 @@ function goToService(id) {
 function goToPeople() {
   router.push('/people');
 }
-</script>
 
+const getImageSrc = (type, id) => {
+  switch (type) {
+    case 'project':
+      return `/img/projects/${id}.jpg`;
+    case 'services':
+      return `/img/services/${id}.jpg`;
+    default:
+      return '';
+  }
+};
+</script>
 
 <template>
   <main>
@@ -62,7 +72,7 @@ function goToPeople() {
             @click="goToProject(project.id)"
             class="project"
         >
-          <img src="/img/homepage/home_1.jpg" alt="Project Image" />
+          <img :src="getImageSrc('project', project.id)" alt="Project Image" />
           <h3>{{ project.name }}</h3>
           <p>{{ project.description.slice(0, 250) + '...' }}</p>
         </div>
@@ -78,7 +88,7 @@ function goToPeople() {
             @click="goToService(service.id)"
             class="service"
         >
-          <img src="/img/homepage/home_1.jpg" alt="Service Image" />
+          <img :src="getImageSrc('services', service.id)" alt="Service Image" />
           <h3>{{ service.name }}</h3>
           <p>{{ service.description.slice(0, 250) + '...' }}</p>
         </div>
@@ -89,7 +99,6 @@ function goToPeople() {
     <br>
   </main>
 </template>
-
 
 <style scoped>
 main {
@@ -178,10 +187,11 @@ main {
 
 .project img,
 .service img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 5%;
+  border-radius: 50%;
 }
 
 @media (max-width: 768px) {
@@ -191,4 +201,3 @@ main {
   }
 }
 </style>
-

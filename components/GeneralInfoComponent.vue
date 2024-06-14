@@ -14,7 +14,7 @@ const getPrevId = () => {
   switch (props.context) {
     case 'project':
       return `/project-${props.id - 1}`;
-    case 'services':
+    case 'service':
       return `/service-${props.id - 1}`;
     default:
       return `/people-${props.id - 1}`;
@@ -31,6 +31,17 @@ const getNextId = () => {
       return `/people-${props.id + 1}`;
   }
 };
+
+const getImageSrc = () => {
+  switch (props.context) {
+    case 'project':
+      return `/img/projects/${props.id}.jpg`;
+    case 'services':
+      return `/img/services/${props.id}.jpg`;
+    default:
+      return `/img/people/${props.id}.png`;
+  }
+};
 </script>
 
 <template>
@@ -39,7 +50,7 @@ const getNextId = () => {
       <img alt="Left arrow" class="arrow" src="~/assets/icons/left-arrow.png"/>
     </NuxtLink>
     <div>
-      <img class="portrait" :src="'/img/people/' + id + '.png'"/>
+      <img class="portrait" :src="getImageSrc()"/>
       <div>
         <h2>{{ fullName }}</h2>
         <h4>{{ role }}</h4>

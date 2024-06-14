@@ -68,22 +68,6 @@ function goToProjects() {
       </div>
     </section>
 
-    <section v-if="projects.length" id="projects">
-      <h2 class="title-with-lines">Related Projects</h2>
-      <div class="projects-container">
-        <div
-            v-for="project in projects"
-            :key="project.id"
-            @click="goToService(project.id)"
-            class="project"
-        >
-          <img src="/img/homepage/home_1.jpg" alt="Project Image" />
-          <h3>{{ project.name }}</h3>
-          <p>{{ project.description.slice(0, 250) + '...' }}</p>
-        </div>
-      </div>
-    </section>
-
     <br>
     <br>
   </main>
@@ -204,10 +188,11 @@ main {
 }
 
 .staff-container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 5%;
+  border-radius: 50%;
 }
 
 @media (max-width: 768px) {
