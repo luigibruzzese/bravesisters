@@ -7,7 +7,7 @@ const services = store.service;
 
 <template>
   <section id="service">
-    <h1 id="title">Service</h1>
+    <h1 id="title">Services</h1>
     <div class="people-info">
       <img class="people-image" src="/img/homepage/home_1.jpg" alt="People Image" />
       <div class="people-text">
@@ -15,7 +15,7 @@ const services = store.service;
       </div>
     </div>
     <section id="our_project">
-      <h2 class="title-with-lines">Our Service</h2>
+      <h2 class="title-with-lines">Our Services</h2>
     </section>
     <div class="project-list">
       <SpecificElementComponent
@@ -37,6 +37,7 @@ const services = store.service;
   gap: 20px;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 #title {
   font-size: 2em;

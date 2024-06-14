@@ -7,7 +7,7 @@
 
 <template>
   <section id="project">
-    <h1 id="title">Project</h1>
+    <h1 id="title">Projects</h1>
     <div class="people-info">
       <img class="people-image" src="/img/homepage/home_3.jpg" alt="People Image" />
       <div class="people-text">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <section id="our_project">
-      <h2 class="title-with-lines">Our Project</h2>
+      <h2 class="title-with-lines">Our Projects</h2>
     </section>
     <div class="project-list">
       <SpecificElementComponent
@@ -38,6 +38,7 @@
     gap: 20px;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 40px;
   }
   #title {
     font-size: 2em;
