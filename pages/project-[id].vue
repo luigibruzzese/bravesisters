@@ -7,15 +7,15 @@ const route = useRoute();
 const router = useRouter();
 const store = usePeopleStore();
 
-const personId = computed(() => route.params.id);
-const person = computed(() => store.people.find(p => p.id === parseInt(personId.value, 10)));
-const projects = computed(() => store.project.filter(project => project.person === parseInt(personId.value, 10)));
-const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
+const projectId = computed(() => route.params.id);
+const project = computed(() => store.project.find(p => p.id === parseInt(projectId.value, 10)));
+const person = computed(() => store.people.find(p => p.id === project.value?.person));
+const services = computed(() => store.service.filter(service => service.person === project.value?.person));
 
-watch(personId, async () => {
-  const id = parseInt(personId.value, 10);
-  if (isNaN(id) || id < 1 || id > 20) {
-    router.push('/people');
+watch(projectId, async () => {
+  const id = parseInt(projectId.value, 10);
+  if (isNaN(id) || id < 1 || id > 5) {
+    router.push('/projects');
     return;
   }
 
@@ -24,53 +24,52 @@ watch(personId, async () => {
   }
 }, { immediate: true });
 
-function goToProject(id) {
-  router.push(`/project-${id}`);
-}
-
 function goToService(id) {
   router.push(`/service-${id}`);
 }
 
-function goToPeople() {
-  router.push('/people');
+function goToPerson(id) {
+  router.push(`/people-${id}`);
+}
+
+function goToProjects() {
+  router.push('/projects');
 }
 </script>
 
-
 <template>
   <main>
-    <section id="person">
-      <button @click="goToPeople" id="back-button">< Up to all people</button>
-      <h1 id="info_person">Person</h1>
+    <section id="project">
+      <button @click="goToProjects" id="back-button">< Up to all projects</button>
+      <h1 id="info_project">Project</h1>
       <GeneralInfoComponent
-          v-if="person"
-          :id="person.id"
-          :full-name="`${person.name} ${person.surname}`"
-          :role="person.role"
-          :short-presentation="person.description"
-          context="people"
+          v-if="project"
+          :id="project.id"
+          :full-name="project.name"
+          :role="'Project'"
+          :short-presentation="project.description"
+          context="project"
       />
     </section>
 
-    <section v-if="projects.length" id="projects">
-      <h2 class="title-with-lines">Projects</h2>
-      <div class="projects-container">
-        <div
-            v-for="project in projects"
-            :key="project.id"
-            @click="goToProject(project.id)"
-            class="project"
-        >
-          <img src="/img/homepage/home_1.jpg" alt="Project Image" />
-          <h3>{{ project.name }}</h3>
-          <p>{{ project.description.slice(0, 250) + '...' }}</p>
-        </div>
+    <section v-if="person" id="staff">
+      <h2 class="title-with-lines">Staff</h2>
+      <div class="staff-container" @click="goToPerson(person.id)">
+        <img :src="`/img/people/${person.id}.png`" alt="Staff Image" />
+        <h3>{{ person.name }} {{ person.surname }}</h3>
+        <p>{{ person.role }}</p>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2 class="title-with-lines">Gallery</h2>
+      <div class="gallery-container">
+        <img v-for="i in 3" :key="i" :src="`/img/homepage/home_${i}.jpg`" alt="Gallery Image" />
       </div>
     </section>
 
     <section v-if="services.length" id="services">
-      <h2 class="title-with-lines">Services</h2>
+      <h2 class="title-with-lines">Related Services</h2>
       <div class="services-container">
         <div
             v-for="service in services"
@@ -89,7 +88,6 @@ function goToPeople() {
     <br>
   </main>
 </template>
-
 
 <style scoped>
 main {
@@ -114,7 +112,7 @@ main {
   background-color: #3a6775;
 }
 
-#info_person {
+#info_project {
   font-size: 2em;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -149,11 +147,12 @@ main {
 }
 
 .projects-container,
-.services-container {
+.services-container,
+.gallery-container {
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  width: 80%;
 }
 
 .project,
@@ -177,7 +176,34 @@ main {
 }
 
 .project img,
-.service img {
+.service img,
+.gallery-container img {
+  width: 410px;
+  height: 410px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.staff-container {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 500px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 1px solid transparent;
+  margin: 0 auto;
+}
+
+.staff-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+}
+
+.staff-container img {
   max-width: 100%;
   height: auto;
   display: block;
@@ -186,9 +212,9 @@ main {
 
 @media (max-width: 768px) {
   .project,
-  .service {
+  .service,
+  .staff-container {
     flex: 1 1 100%;
   }
 }
 </style>
-
