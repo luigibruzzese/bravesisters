@@ -44,7 +44,7 @@ const getGalleryImages = (id, count = 3) => {
 <template>
   <main>
     <section id="service">
-      <button @click="goToProjects" id="back-button">< Up to all services</button>
+      <button @click="goToService" id="back-button">< Up to all services</button>
       <h1 id="info_service">Service</h1>
       <GeneralInfoComponent
           v-if="service"
