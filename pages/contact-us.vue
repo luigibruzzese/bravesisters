@@ -15,21 +15,36 @@ const faq = [
 ];
 
 const showAnswer = ref(Array(faq.length).fill(false));
+const messageSent = ref(false);
 
 const toggleAnswer = (index: number) => {
   showAnswer.value[index] = !showAnswer.value[index];
 };
 
-const resizeTextarea = (event: Event) => {
+const handleTextareaInput = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement;
-  textarea.style.height = 'auto'; // Reset the height
-  textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scroll height
+
+  if (textarea.value.length > 150) {
+    textarea.value = textarea.value.substring(0, 500);
+  }
+};
+
+const handleSubmit = (event: Event) => {
+  event.preventDefault();
+  messageSent.value = true;
+
+  const form = event.target as HTMLFormElement;
+  form.reset();
+
+  setTimeout(() => {
+    messageSent.value = false;
+  }, 7000);
 };
 
 onMounted(() => {
   const textarea = document.getElementById('message') as HTMLTextAreaElement;
   if (textarea) {
-    textarea.addEventListener('input', resizeTextarea);
+    textarea.addEventListener('input', handleTextareaInput);
   }
 });
 </script>
@@ -41,7 +56,7 @@ onMounted(() => {
         <h1 id="info_contacts">Contact us</h1>
         <div class="contact-form">
           <h3 class="title-with-lines">Contact form</h3>
-          <form>
+          <form @submit="handleSubmit">
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name*</label>
@@ -68,6 +83,9 @@ onMounted(() => {
             </div>
             <button type="submit">Send</button>
           </form>
+          <div v-if="messageSent" class="confirmation-message">
+            Message sent correctly, you will be contacted as soon as possible.
+          </div>
         </div>
         <div class="faq-section">
           <p>Or find answers to the most frequently asked questions about Brave Sister here:</p>
@@ -106,6 +124,7 @@ main {
   position: relative;
   text-align: center;
   color: #4c8189;
+  font-size: 20px;
 }
 
 .title-with-lines::before,
@@ -137,6 +156,7 @@ main {
 .contact-form {
   margin-bottom: 40px;
   text-align: center;
+  font-size: 18px;
 }
 
 .contact-form h3 {
@@ -173,6 +193,7 @@ main {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 18px;
 }
 
 form button {
@@ -196,13 +217,21 @@ form button:hover {
   width: 100%;
   min-height: 100px;
   margin: 0 auto;
-  resize: vertical;
-  overflow: hidden;
+  overflow-y: auto;
+  resize: none;
+}
+
+.confirmation-message {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: green;
+  font-size: 1.8em;
 }
 
 .faq-section {
   margin-top: 40px;
   text-align: center;
+  font-size: 18px;
 }
 
 .faq-section h3 {

@@ -51,6 +51,7 @@ const services = store.service;
   position: relative;
   text-align: center;
   color: #4c8189;
+  font-size: 20px;
 }
 
 .title-with-lines::before,
@@ -89,7 +90,8 @@ const services = store.service;
 
 .people-text {
   max-width: 500px;
-  font-size: large;
+  font-size: larger;
+  margin-left: 50px;
 }
 
 @media (max-width: 1000px) {

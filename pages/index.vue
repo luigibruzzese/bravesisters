@@ -115,6 +115,7 @@ main {
   position: relative;
   text-align: center;
   color: #4c8189;
+  font-size: 20px;
 }
 
 .title-with-lines::before,
@@ -152,24 +153,27 @@ section {
   padding: 10px;
   background-color: #f7f1e3;
   border-radius: 8px;
-  font-size: large;
+  font-size: 20px;;
 }
 
 #history-people {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
 }
 
 #history, #people {
   width: 48%;
-  font-size: large;
+  font-size: 20px;
+
 }
 
 .image-container {
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
 }
 
 .image-container:hover {
@@ -194,11 +198,11 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 1.3em;
+  font-size: 1.1em;
   text-align: center;
   background-color: #4c8189;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 10px 10px;
+  border-radius: 10px;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -215,6 +219,7 @@ section {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  font-size: 20px;
 }
 
 #map {

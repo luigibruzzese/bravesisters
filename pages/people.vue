@@ -50,6 +50,7 @@ people.value = usePeopleStore().people;
   position: relative;
   text-align: center;
   color: #4c8189;
+  font-size: 20px;
 }
 
 .title-with-lines::before,
@@ -89,7 +90,9 @@ people.value = usePeopleStore().people;
 
 .people-text {
   max-width: 600px;
-  font-size: large;
+  font-size: larger;
+  margin-left: 50px;
+
 }
 
 .people-list {
