@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
+import {use} from "h3";
 
 const route = useRoute();
 const router = useRouter();
@@ -10,7 +11,8 @@ const store = usePeopleStore();
 const serviceId = computed(() => route.params.id);
 const service = computed(() => store.service.find(s => s.id === parseInt(serviceId.value, 10)));
 const person = computed(() => store.people.find(p => p.id === service.value?.person));
-const projects = computed(() => store.project.filter(project => project.person === service.value?.person));
+//const projects = computed(() => store.project.filter(project => project.person === service.value?.person));
+const reviews = store.review;
 
 watch(serviceId, async () => {
   const id = parseInt(serviceId.value, 10);
@@ -62,6 +64,15 @@ const getGalleryImages = (id, count = 3) => {
         <img :src="`/img/people/${person.id}.png`" alt="Staff Image" />
         <h3>{{ person.name }} {{ person.surname }}</h3>
         <p>{{ person.role }}</p>
+      </div>
+    </section>
+
+    <section id="review">
+      <h2 class="title-with-lines">Reviews</h2>
+      <div v-for="review in reviews"  class="review_container">
+        <h3 v-if="review.service==serviceId">{{ review.name }} {{review.surname}}</h3>
+        <p v-if="review.service==serviceId">{{new Date(review.date).toLocaleString('nl-NL')}}</p>
+        <p v-if="review.service==serviceId">{{review.comment}}</p>
       </div>
     </section>
 
