@@ -15,18 +15,27 @@ onUpdated(() => {
         menu.querySelector("[active='true']").removeAttribute("active");
     if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
         menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
+
+    // To close the menu if open on the mobile
+    changeDisplay(null, menu, "none")
 })
 
 function changeDisplay(evt, element, newValue) {
-    evt.stopPropagation();
-    if (newValue)
-        element.style.display = newValue;
+    if(evt)
+        evt.stopPropagation();
+    if (newValue) {
+        newValue === 'none' ?
+            element.removeAttribute("style")
+            : element.style.display = newValue
+    }
     else {
         element.style.display === 'flex' ?
-            element.style.display = 'none'
+            element.removeAttribute("style")
             : element.style.display = 'flex'
     }
 }
+
+
 
 function showChatbot() {
     let chatbotIcon = document.querySelector("#chatbot-icon");
@@ -35,6 +44,7 @@ function showChatbot() {
         chatbotDiv.style.display = "unset";
         chatbotIcon.style.right = "0";
         chatbotIcon.style.transform = "scale(1.2)";
+        chatbotDiv.querySelector("input").select();
     } else {
         chatbotDiv.style.display = "none";
         chatbotIcon.removeAttribute("style");
@@ -85,9 +95,9 @@ async function onChatbotSend() {
                 history.push({role: "model", parts: [{text: answerMess}]})
                 messages.value.push({role: "model", parts: [{text: convert(answerMess)}]})
             } else {
-                alert('Server error: the chatbot is not available in that moment. Please, try again later.')
+                messages.value.push({role: "model", parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporaly unavailability of the server. Please, try again."}]})
                 history.pop()
-                messages.value.pop()
+               // console.log(document.getElementById("chatbot-messages").lastElementChild)
             }
         })
         isQueuing = false;
@@ -114,7 +124,7 @@ function convert(message) {
         </div>
         <div>
             <div id="menu">
-                <img class="ourIcon" src="~/assets/icons/menu.png"
+                <img alt="Menu" class="ourIcon" src="~/assets/icons/menu.png"
                      @click="changeDisplay($event, $event.target.parentElement.querySelector('nav'));"/>
                 <div style="text-align: right;">
                     <NuxtLink to="/contact-us">
@@ -136,7 +146,7 @@ function convert(message) {
                             <NuxtLink to="/projects">Projects</NuxtLink>
                             <NuxtLink to="/services">Services</NuxtLink>
                         </div>
-                        <img class="ourIcon" src="~/assets/icons/arrow down.png"
+                        <img alt="Arrow down" class="ourIcon" src="~/assets/icons/arrow down.png"
                              @click="changeDisplay($event, $event.target.previousElementSibling)">
                     </div>
                 </nav>
@@ -170,7 +180,7 @@ function convert(message) {
 
     <footer>
         <div>
-            <div>
+            <div style="border-radius: 15px 15px 15px 5px; background-color:  rgba(255,255,255,0.6);">
                 <img class="ourIcon" src="~/assets/icons/address.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">ADDRESS</p>
@@ -178,14 +188,14 @@ function convert(message) {
                 </div>
 
             </div>
-            <div>
+            <div style="border-radius: 15px; background-color:  rgba(255,255,255,0.6);">
                 <img class="ourIcon" src="~/assets/icons/hour.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">OPENING HOURS</p>
                     <p>Via ...</p>
                 </div>
             </div>
-            <div>
+            <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.6);">
                 <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
@@ -194,31 +204,37 @@ function convert(message) {
             </div>
 
         </div>
+        <div id="bottom-bar">Made by me</div>
     </footer>
-    <div id="bottom-bar">Made by me</div>
 </template>
 
 <style scoped>
-header, footer {
-    background-color: #eee1d5;
-}
+
 
 main {
-    padding-top: 120px;
+    padding-top: 160px;
+    /*
     background-color: #f7f1e3;
+    */
+    background-color: white;
 }
 
 /************************* FOOTER **************************/
 footer {
     flex-shrink: 0;
     text-align: center;
-    padding: 30px;
-    min-height: 1vh;
+    padding: 0;
     background-color: #4c8189;
-    color: #ffffff;
+
+    color: #5c5c5c;
+
     font-family: Figtree, serif;
     font-size: 14px;
-    font-weight: lighter;
+
+    background-image: url("/footer.jpg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100% 100% ;
 }
 
 footer div {
@@ -228,16 +244,22 @@ footer div {
     margin: 10px;
 }
 
+footer > div {
+    background-color: unset;
+    padding: 30px;
+}
+
+
+
 footer p {
     margin: 0;
 }
 
 #bottom-bar {
-    background-color: #385c62;
+    background-color:  rgba(255,255,255,0.7);
     padding: 10px;
     margin: 0;
-    font-weight: lighter;
-    color: #ffffff;
+    color: #5c5c5c;
     font-size: 12px;
     text-align: center;
 }
@@ -251,9 +273,13 @@ header {
     padding-left: 2%;
     padding-right: 2%;
     width: 96%;
-    height: 130px;
+    height: 160px;
     z-index: 110;
+    background-image: url("/header.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
+
 
 header > div {
     display: flex;
@@ -275,13 +301,14 @@ header h1 {
     margin-right: 20px;
 }
 
-.vl {
+/*.vl {
     border-left: 3px solid #b7403c;
     height: 75%;
     margin: 15px;
-}
+}*/
 
 .ourIcon {
+    cursor: pointer;
 //border-left: #b7403c solid 2px; width: 35px; width: 25px; margin-left: 10px;
 }
 
@@ -294,6 +321,9 @@ nav {
     gap: 40px;
     font-size: 20px;
     line-height: 40px;
+    border-radius: 15px 5px 5px 15px;
+    padding: 0 20px 0 20px;
+    background-color:  rgba(255,255,255,0.8);
 }
 
 a[active="true"] {
@@ -309,7 +339,7 @@ a[active="true"] {
 .submenu {
     position: absolute;
     flex-direction: column;
-    background-color: #f0e6dd;
+    background-color:  rgba(255,255,255,0.8);
     width: 90px;
     top: 40px;
     display: none;
@@ -340,7 +370,7 @@ a:hover {
 #chatbot-icon {
     position: fixed;
     width: 90px;
-    z-index: 110;
+    z-index: 111;
     right: -10px;
     bottom: 5%;
     padding: 10px;
@@ -356,11 +386,11 @@ a:hover {
 
 #chatbot {
     position: fixed;
-    z-index: 1;
+    z-index: 110;
     right: 2%;
     bottom: 8%;
-    width: 450px;
-    height: 50%;
+    width: 60%;
+    height: 70%;
     background-color: #ffffff;
     border: 5px solid #4c8189;
     border-radius: 10px;
@@ -368,33 +398,42 @@ a:hover {
 }
 
 #chatbot-send-bar {
-    width: 77%;
+    width: calc(100% - 120px);
     position: absolute;
     bottom: 0;
-    height: 8%;
-    margin: 10px 0 0 10px;
+    height: 5%;
+    margin: 10px;
+    border: #4c8189 2px solid;
+    border-radius: 3px;
+    align-content: center;
+    padding: 5px;
 }
 
 #chatbot img {
-    width: 7%;
-    position: absolute;
-    right: 0px;
-    top: 2px;
+    height: 60%;
     cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-right: 5px;
+    transform: translate(-0%, -50%);
 }
 
 #chatbot-send-bar > input {
-    width: 88%;
-    position: absolute;
-    height: 60%;
-    border: #4c8189 2px solid;
-    border-radius: 3px;
+    border: none;
+    width: 96%;
+}
+
+#chatbot-send-bar > input:focus {
+    outline: none;
 }
 
 #chatbot-top-bar {
     background-color: #4c8189;
-    height: 10%;
+    height: 8%;
     color: #ffffff;
+    position: absolute;
+    width: 100%;
 }
 
 #chatbot-top-bar p {
@@ -407,26 +446,29 @@ a:hover {
     position: absolute;
     bottom: 10%;
     width: 100%;
-    max-height: 80%;
+    max-height: 82%;
     overflow-y: auto;
-    overflow-anchor: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Messages coming from the chatbot*/
 #chatbot-messages > p {
     background-color: #90b4b9;
-    margin-left: 12px;
-    margin-right: 60px;
+    margin: 2% 10% 2% 2%;
+    max-width: 90%;
+    width: fit-content;
     border-radius: 10px;
     padding: 12px;
+    word-wrap: break-word;
 }
 
 /* Messages coming from the agent*/
 #chatbot-messages > p[user="true"] {
+    align-self: end;
     text-align: right;
+    margin: 2% 2% 2% 10%;
     background-color: #e2e2e2;
-    margin-left: 60px;
-    margin-right: 12px;
 }
 
 @media (max-width: 800px) {
@@ -440,6 +482,10 @@ a:hover {
         height: auto;
         padding-top: 20px;
         padding-bottom: 20px;
+/*        background-image: url("/header-mobile.jpg");
+        background-size: 100% ;
+        background-repeat: no-repeat;
+        background-position: center;*/
     }
 
     main {
@@ -450,12 +496,22 @@ a:hover {
         display: none;
         flex-direction: column;
         gap: 0;
-        background-color: #eee1d5;
+        background-color: rgb(255,255,255,0.93);
+        border-bottom: 2px blueviolet solid;
+
+        border-left: 2px blueviolet solid;
+        border-right: 2px blueviolet solid;
+        border-radius: 0 0 10px 10px;
         position: absolute;
         top: 50px;
         width: 90%;
         padding: 20px;
         text-align: left;
+    }
+
+    .submenu {
+        background-color: rgb(255,255,255,0.93);
+
     }
 
 
@@ -487,24 +543,17 @@ a:hover {
         gap: 30px;
     }
 
-}
-
-@media (max-width: 600px) {
     #chatbot {
-        width: 300px;
-    }
-
-    #chatbot img {
-        width: 12%;
-    }
-
-    #chatbot-send-bar {
-        width: 65%;
+        width: 90%;
     }
 
     #chatbot-send-bar input {
-        width: 80%;
+        width: 90%;
     }
+
+}
+
+@media (max-width: 600px) {
 
 }
 </style>
