@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
+import {use} from "h3";
 
 const route = useRoute();
 const router = useRouter();
@@ -10,7 +11,15 @@ const store = usePeopleStore();
 const serviceId = computed(() => route.params.id);
 const service = computed(() => store.service.find(s => s.id === parseInt(serviceId.value, 10)));
 const person = computed(() => store.people.find(p => p.id === service.value?.person));
-const projects = computed(() => store.project.filter(project => project.person === service.value?.person));
+//const projects = computed(() => store.project.filter(project => project.person === service.value?.person));
+const reviews = store.review;
+
+const input = reactive({
+  name: '',
+  surname: '',
+  comment:'',
+  service: serviceId.value
+})
 
 watch(serviceId, async () => {
   const id = parseInt(serviceId.value, 10);
@@ -63,6 +72,33 @@ const getGalleryImages = (id, count = 3) => {
         <h3>{{ person.name }} {{ person.surname }}</h3>
         <p>{{ person.role }}</p>
       </div>
+    </section>
+
+    <section id="review">
+      <h2 class="title-with-lines">Reviews</h2>
+      <div v-for="review in reviews"  class="review_container">
+        <h3 v-if="review.service==service.id">{{ review.name }} {{review.surname}}</h3>
+        <p v-if="review.service==service.id">{{new Date(review.date).toLocaleString('nl-NL')}}</p>
+        <p v-if="review.service==service.id">{{review.comment}}</p>
+      </div>
+      <h3 class="add_review">Add a new review</h3>
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name*</label>
+            <input v-model="input.name" type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname*</label>
+            <input v-model="input.surname" type="text" id="surname" name="surname" required />
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="comment">Comment*</label>
+          <input v-model="input.comment" id="comment" name="comment" required></input>
+        </div>
+        <button @click="store.addReview(input)">Add review</button>
+      </form>
     </section>
 
     <section id="gallery">
@@ -132,6 +168,11 @@ main {
 .title-with-lines::after {
   right: 0;
   margin-left: 5px;
+}
+
+.add_review{
+  position: relative;
+  color: #4c8189;
 }
 
 .projects-container,
@@ -215,6 +256,54 @@ main {
   object-fit: cover;
   margin: 5%;
   border-radius: 50%;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  max-width: 45%;
+}
+
+.form-group.full-width {
+  max-width: 100%;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  display: block;
+  width: 8%;
+  padding: 8px;
+  margin: 20px auto 0;
+  background-color: #4c8189;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+form button:hover {
+  background-color: #3a6775;
 }
 
 @media (max-width: 768px) {

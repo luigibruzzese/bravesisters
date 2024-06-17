@@ -24,10 +24,26 @@ interface Service {
   person: number
 }
 
+interface Review {
+  id: number;
+  name: string;
+  surname: string;
+  date: string;
+  comment: string;
+  service: number;
+}
+
 export const usePeopleStore = defineStore('person', () => {
   const people = reactive([] as Person[]);
   const project = reactive([] as Project[]);
   const service = reactive([] as Service[]);
+  const review = reactive([] as Review[]);
+
+  async function addReview(newReview:Review) {
+    const body = JSON.stringify(newReview)
+    const response = await fetch('/api/review',{method:'POST',body})
+    if(response.ok) review.push(newReview)
+  }
 
   async function initPeople() {
     const { data } = await useFetch<Person[]>('/api/people');
@@ -49,21 +65,31 @@ export const usePeopleStore = defineStore('person', () => {
   }
 
   async function initService() {
-    const { data } = await useFetch<Person[]>('/api/service');
+    const { data } = await useFetch<Service[]>('/api/service');
     const list = data.value;
     if (list) {
       service.splice(0, people.length);  // Clear the list
       service.push(...list);
     }
-
   }
+
+  async function initReview() {
+    const { data } = await useFetch<Review[]>('/api/review');
+    const list = data.value;
+    if (list) {
+      review.splice(0, people.length);  // Clear the list
+      review.push(...list);
+    }
+  }
+
   async function init(){
     initPeople();
     initProject();
-    initService()
+    initService();
+    initReview();
   }
 
   init()
 
-  return { people, project, service, init };
+  return { people, project, service, review, addReview, init };
 });
