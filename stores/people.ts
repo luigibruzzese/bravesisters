@@ -39,6 +39,12 @@ export const usePeopleStore = defineStore('person', () => {
   const service = reactive([] as Service[]);
   const review = reactive([] as Review[]);
 
+  async function addReview(newReview:Review) {
+    const body = JSON.stringify(newReview)
+    const response = await fetch('/api/review',{method:'POST',body})
+    if(response.ok) review.push(newReview)
+  }
+
   async function initPeople() {
     const { data } = await useFetch<Person[]>('/api/people');
     const list = data.value;
@@ -85,5 +91,5 @@ export const usePeopleStore = defineStore('person', () => {
 
   init()
 
-  return { people, project, service, review, init };
+  return { people, project, service, review, addReview, init };
 });
