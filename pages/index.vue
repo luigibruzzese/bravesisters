@@ -151,7 +151,7 @@ section {
 
 #mission, #history-people, #location, #gallery {
   padding: 10px;
-  background-color: #f7f1e3;
+  background-color: white;
   border-radius: 8px;
   font-size: 20px;;
 }

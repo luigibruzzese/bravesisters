@@ -149,7 +149,7 @@ main {
 
 #contact {
   padding: 20px;
-  background-color: #f7f1e3;
+  background-color: white;
   border-radius: 8px;
 }
 
@@ -249,7 +249,7 @@ form button:hover {
   cursor: pointer;
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  background-color: #f7f1e3;
+  background-color: white;
   width: 80%;
   margin: 0 auto;
 }
@@ -257,7 +257,7 @@ form button:hover {
 .faq-answer {
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  background-color: #f7f1e3;
+  background-color: white;
   width: 80%;
   margin: 0 auto;
 }
