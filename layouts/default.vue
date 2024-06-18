@@ -73,7 +73,7 @@ let isQueuing = false;
 
 async function onChatbotSend() {
     const newMessage = inputValue.value
-    if (inputValue.value && !isQueuing) {
+    if (newMessage && !isQueuing) {
         isQueuing = true;
         inputValue.value = '';
 
@@ -97,10 +97,10 @@ async function onChatbotSend() {
             } else {
                 messages.value.push({role: "model", parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporaly unavailability of the server. Please, try again."}]})
                 history.pop()
-               // console.log(document.getElementById("chatbot-messages").lastElementChild)
             }
         })
         isQueuing = false;
+        document.getElementById("chatbot-messages").lastElementChild.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 
 }
@@ -405,18 +405,15 @@ a:hover {
     margin: 10px;
     border: #4c8189 2px solid;
     border-radius: 3px;
-    align-content: center;
-    padding: 5px;
+    align-items: center;
+    padding: 0.5%;
+    display: flex;
+    justify-content: space-between;
 }
 
 #chatbot img {
     height: 60%;
     cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    margin-right: 5px;
-    transform: translate(-0%, -50%);
 }
 
 #chatbot-send-bar > input {
@@ -432,14 +429,16 @@ a:hover {
     background-color: #4c8189;
     height: 8%;
     color: #ffffff;
-    position: absolute;
     width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#chatbot-top-bar p {
-    padding-left: 10px;
-    padding-top: 10px;
-    margin: 0;
+#chatbot-top-bar * {
+    padding: 1.5%;
 }
 
 #chatbot-messages {
@@ -545,6 +544,7 @@ a:hover {
 
     #chatbot {
         width: 90%;
+        font-size: 18px;
     }
 
     #chatbot-send-bar input {
