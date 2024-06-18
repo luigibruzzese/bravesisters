@@ -14,8 +14,16 @@ const services = computed(() => store.service.filter(service => service.person =
 
 watch(projectId, async () => {
   const id = parseInt(projectId.value, 10);
-  if (isNaN(id) || id < 1 || id > 5) {
+  if (isNaN(id)) {
     window.location.href = '/projects';
+    return;
+  }
+  if(id < 1){
+    window.location.href = '/project-5';
+    return;
+  }
+  if(id > 5){
+    window.location.href = '/project-1';
     return;
   }
 

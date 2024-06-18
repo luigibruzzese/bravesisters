@@ -23,8 +23,16 @@ const input = reactive({
 
 watch(serviceId, async () => {
   const id = parseInt(serviceId.value, 10);
-  if (isNaN(id) || id < 1 || id > 5) {
+  if (isNaN(id)) {
     window.location.href = '/services';
+    return;
+  }
+  if(id < 1){
+    window.location.href = '/service-5';
+    return;
+  }
+  if(id > 5){
+    window.location.href = '/service-1';
     return;
   }
 

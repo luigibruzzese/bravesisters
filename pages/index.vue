@@ -256,8 +256,8 @@ section {
 }
 
 #gallery-images img {
-  width: 410px;
-  height: 410px;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
   margin: 15px;

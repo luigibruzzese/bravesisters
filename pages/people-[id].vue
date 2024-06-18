@@ -14,8 +14,15 @@ const services = computed(() => store.service.filter(service => service.person =
 
 watch(personId, async () => {
   const id = parseInt(personId.value, 10);
-  if (isNaN(id) || id < 1 || id > 20) {
+  if (isNaN(id)) {
     router.push('/people');
+  }
+  if(id < 1){
+    router.push('/people-20');
+    return;
+  }
+  if(id > 20){
+    router.push('/people-1');
     return;
   }
 
