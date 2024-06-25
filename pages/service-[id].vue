@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
@@ -21,7 +21,7 @@ const input = reactive({
   service: serviceId.value
 })
 
-watch(serviceId, async () => {
+/*watch(serviceId, async () => {
   const id = parseInt(serviceId.value, 10);
   if (isNaN(id)) {
     window.location.href = '/services';
@@ -43,25 +43,25 @@ watch(serviceId, async () => {
 
 function goToService(id) {
   router.push(`/service-${id}`);
-}
+
+function goToProjects() {
+  router.push('/projects');
+]
+}*/
 
 function goToPerson(id) {
   router.push(`/people-${id}`);
 }
 
-function goToProjects() {
-  router.push('/projects');
-}
-
 const getGalleryImages = (id, count = 3) => {
-  return Array.from({ length: count }, (_, i) => `/img/services/${id}/${i + 1}.jpg`);
+  return Array.from({ length: count }, (_, i) => `/img/service/${id}/${i + 1}.jpg`);
 };
 </script>
 
 <template>
   <main>
     <section id="service">
-      <button @click="goToService" id="back-button">< Up to all services</button>
+      <button @click="router.push(`/services`);" id="back-button">< Up to all services</button>
       <h1 id="info_service">Service</h1>
       <GeneralInfoComponent
           v-if="service"
@@ -69,7 +69,8 @@ const getGalleryImages = (id, count = 3) => {
           :full-name="service.name"
           :role="'Service'"
           :short-presentation="service.description"
-          context="services"
+          context="service"
+          total=5
       />
     </section>
 
@@ -84,10 +85,10 @@ const getGalleryImages = (id, count = 3) => {
 
     <section id="review">
       <h2 class="title-with-lines">Reviews</h2>
-      <div v-for="review in reviews"  class="review_container">
-        <h3 v-if="review.service==service.id">{{ review.name }} {{review.surname}}</h3>
-        <p v-if="review.service==service.id">{{new Date(review.date).toLocaleString('nl-NL')}}</p>
-        <p v-if="review.service==service.id">{{review.comment}}</p>
+      <div v-for="review in reviews.filter((review) => (review.service === service.id))" class="review_container">
+        <h3>{{ review.name }} {{review.surname}}</h3>
+        <p>{{new Date(review.date).toLocaleString('nl-NL')}}</p>
+        <p>{{review.comment}}</p>
       </div>
       <h3 class="add_review">Add a new review</h3>
       <form>

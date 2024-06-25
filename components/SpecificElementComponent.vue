@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 defineProps({
   id: Number,
   fullName: String,
@@ -8,14 +8,18 @@ defineProps({
 });
 
 const getImageSrc = (type, id) => {
-  switch (type) {
+    if (type === 'people')
+        return `/img/${type}/${id}.png`;
+    else
+        return `/img/${type}/${id}.jpg`;
+/*  switch (type) {
     case 'project':
       return `/img/projects/${id}.jpg`;
     case 'service':
       return `/img/services/${id}.jpg`;
     default:
       return `/img/people/${id}.png`;
-  }
+  }*/
 };
 </script>
 

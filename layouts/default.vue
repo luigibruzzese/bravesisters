@@ -1,23 +1,13 @@
 <script setup lang="js">
 import {ref} from 'vue';
+import router from "#app/plugins/router.js";
 
 onMounted(() => {
-    // To highlight the current page in the menu
-    let menu = document.querySelector("nav");
-    if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
-        menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
 })
 
 onUpdated(() => {
-    // To highlight the current page in the menu
-    let menu = document.querySelector("nav");
-    if (menu.querySelector("[active='true']") !== null)
-        menu.querySelector("[active='true']").removeAttribute("active");
-    if (menu.querySelector("a[href='" + window.location.pathname + "']") !== null)
-        menu.querySelector("a[href='" + window.location.pathname + "']").setAttribute("active", "true");
-
     // To close the menu if open on the mobile
-    changeDisplay(null, menu, "none")
+    changeDisplay(null, document.querySelector("nav"), "none")
 })
 
 function changeDisplay(evt, element, newValue) {
@@ -97,6 +87,10 @@ async function onChatbotSend() {
             } else {
                 messages.value.push({role: "model", parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporaly unavailability of the server. Please, try again."}]})
                 history.pop()
+            }
+            if (window.innerWidth > 800 && (newMessage.length >= 1000 || response.text().length >= 1000)) {
+                document.getElementById("chatbot").style.width = '60%';
+                document.getElementById("chatbot").style.height = '85%';
             }
         })
         isQueuing = false;
@@ -184,7 +178,7 @@ function convert(message) {
                 <img class="ourIcon" src="~/assets/icons/address.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">ADDRESS</p>
-                    <p>Via ...</p>
+                    <p>Via di Grignano, 102 - Prato (PO)</p>
                 </div>
 
             </div>
@@ -192,19 +186,21 @@ function convert(message) {
                 <img class="ourIcon" src="~/assets/icons/hour.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">OPENING HOURS</p>
-                    <p>Via ...</p>
+                    <p>Mon - Fri: 9:00 - 12:00 | 13:00 - 18:00<br>
+                        Saturday: 9:00 - 12:00 <br>
+                        Sunday: Closed</p>
                 </div>
             </div>
             <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.6);">
                 <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
-                    <p>Via ...</p>
+                    <p>+39 0574 53695</p>
                 </div>
             </div>
 
         </div>
-        <div id="bottom-bar">Made by me</div>
+        <div id="bottom-bar">Copyright 2024 - Brave Sisters - All rights reserved</div>
     </footer>
 </template>
 
@@ -261,7 +257,6 @@ footer p {
     margin: 0;
     color: #5c5c5c;
     font-size: 12px;
-    text-align: center;
 }
 
 /**************** HEADER ******************/
@@ -315,6 +310,14 @@ header h1 {
 
 /*************** MENU ****************/
 
+.router-link-active, .router-link-exact-active {
+    color: #4c8189;
+}
+
+.router-link-active > button, .router-link-exact-active > button {
+    background-color: #b7403c;
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -327,7 +330,6 @@ nav {
 }
 
 a[active="true"] {
-    color: #4c8189;
 }
 
 #activities {
@@ -389,12 +391,12 @@ a:hover {
     z-index: 110;
     right: 2%;
     bottom: 8%;
-    width: 60%;
+    width: 40%;
     height: 70%;
     background-color: #ffffff;
     border: 5px solid #4c8189;
     border-radius: 10px;
-
+    transition: width .5s;
 }
 
 #chatbot-send-bar {
@@ -454,7 +456,7 @@ a:hover {
 /*Messages coming from the chatbot*/
 #chatbot-messages > p {
     background-color: #90b4b9;
-    margin: 2% 10% 2% 2%;
+    margin: 7px 10% 7px 2%;
     max-width: 90%;
     width: fit-content;
     border-radius: 10px;
@@ -466,8 +468,14 @@ a:hover {
 #chatbot-messages > p[user="true"] {
     align-self: end;
     text-align: right;
-    margin: 2% 2% 2% 10%;
+    margin: 7px 2% 7px 10%;
     background-color: #e2e2e2;
+}
+
+@media (max-width: 1400px) {
+    #chatbot {
+        width: 60%;
+    }
 }
 
 @media (max-width: 800px) {
@@ -543,7 +551,7 @@ a:hover {
     }
 
     #chatbot {
-        width: 90%;
+        width: 90% !important;
         font-size: 18px;
     }
 

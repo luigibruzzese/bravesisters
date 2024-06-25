@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
@@ -12,7 +12,7 @@ const project = computed(() => store.project.find(p => p.id === parseInt(project
 const person = computed(() => store.people.find(p => p.id === project.value?.person));
 const services = computed(() => store.service.filter(service => service.person === project.value?.person));
 
-watch(projectId, async () => {
+/*watch(projectId, async () => {
   const id = parseInt(projectId.value, 10);
   if (isNaN(id)) {
     window.location.href = '/projects';
@@ -36,23 +36,23 @@ function goToService(id) {
   router.push(`/service-${id}`);
 }
 
-function goToPerson(id) {
-  router.push(`/people-${id}`);
-}
-
 function goToProjects() {
   router.push('/projects');
+}*/
+
+function goToPerson(id) {
+    router.push(`/people-${id}`);
 }
 
 const getGalleryImages = (id, count = 3) => {
-  return Array.from({ length: count }, (_, i) => `/img/projects/${id}/${i + 1}.jpg`);
+  return Array.from({ length: count }, (_, i) => `/img/project/${id}/${i + 1}.jpg`);
 };
 </script>
 
 <template>
   <main>
     <section id="project">
-      <button @click="goToProjects" id="back-button">< Up to all projects</button>
+      <button @click="router.push(`/projects`);" id="back-button">< Up to all projects</button>
       <h1 id="info_project">Project</h1>
       <GeneralInfoComponent
           v-if="project"
@@ -61,6 +61,7 @@ const getGalleryImages = (id, count = 3) => {
           :role="'Project'"
           :short-presentation="project.description"
           context="project"
+          total=5
       />
     </section>
 

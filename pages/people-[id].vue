@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
@@ -12,7 +12,7 @@ const person = computed(() => store.people.find(p => p.id === parseInt(personId.
 const projects = computed(() => store.project.filter(project => project.person === parseInt(personId.value, 10)));
 const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
 
-watch(personId, async () => {
+/*watch(personId, async () => {
   const id = parseInt(personId.value, 10);
   if (isNaN(id)) {
     router.push('/people');
@@ -29,7 +29,7 @@ watch(personId, async () => {
   if (!store.people.length || !store.project.length || !store.service.length) {
     await store.init();
   }
-}, { immediate: true });
+}, { immediate: true });*/
 
 function goToProject(id) {
   router.push(`/project-${id}`);
@@ -39,26 +39,23 @@ function goToService(id) {
   router.push(`/service-${id}`);
 }
 
-function goToPeople() {
-  router.push('/people');
-}
-
 const getImageSrc = (type, id) => {
-  switch (type) {
+    return `/img/${type}/${id}.jpg`;
+    /*  switch (type) {
     case 'project':
       return `/img/projects/${id}.jpg`;
     case 'services':
       return `/img/services/${id}.jpg`;
     default:
       return '';
-  }
+  }*/
 };
 </script>
 
 <template>
   <main>
     <section id="person">
-      <button @click="goToPeople" id="back-button">< Up to all people</button>
+      <button @click="router.push(`/people`);" id="back-button">< Up to all people</button>
       <h1 id="info_person">Person</h1>
       <GeneralInfoComponent
           v-if="person"
@@ -67,6 +64,7 @@ const getImageSrc = (type, id) => {
           :role="person.role"
           :short-presentation="person.description"
           context="people"
+          total=20
       />
     </section>
 
@@ -95,7 +93,7 @@ const getImageSrc = (type, id) => {
             @click="goToService(service.id)"
             class="service"
         >
-          <img :src="getImageSrc('services', service.id)" alt="Service Image" />
+          <img :src="getImageSrc('service', service.id)" alt="Service Image" />
           <h3>{{ service.name }}</h3>
           <p>{{ service.description.slice(0, 250) + '...' }}</p>
         </div>
