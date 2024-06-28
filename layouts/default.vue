@@ -318,6 +318,10 @@ header h1 {
     background-color: #b7403c;
 }
 
+button {
+    border-radius: 15px 5px 5px 15px;
+}
+
 nav {
     display: flex;
     justify-content: center;

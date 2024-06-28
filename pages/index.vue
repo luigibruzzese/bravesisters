@@ -2,30 +2,28 @@
 import {useRouter} from "vue-router";
 
 const router = useRouter();
-const images = [
-    "/img/homepage/home_1.jpg",
-    "/img/homepage/home_4.jpg",
-    "/img/homepage/home_2.jpg",
-    "/img/homepage/home_5.jpg",
-    "/img/homepage/home_3.jpg",
-    "/img/homepage/home_6.jpg"
-]
+const imgBasePath = "/img/homepage/home_";
+const numberOfImages = 6;
 
-let currentImages = []
-let imageSet = 0
+const currImage = ref(0);
+let shownImages = 4;
 
 onMounted(() => {
-    currentImages = images.slice(0, 3);
+    currImage.value = 0;
 })
 
 function nextImages() {
-    imageSet = (imageSet + 1) % 2;
-    currentImages = images.slice(imageSet * 3, imageSet * 3 + 3);
+    if(currImage.value === numberOfImages-1)
+        currImage.value = 0;
+    else
+        currImage.value++;
 }
 
 function previousImages() {
-    imageSet = (imageSet - 1 + 2) % 2;
-    currentImages = images.slice(imageSet * 3, imageSet * 3 + 3);
+    if(currImage.value === 0)
+        currImage.value = numberOfImages-1;
+    else
+        currImage.value--;
 }
 
 function goToPeople() {
@@ -101,7 +99,7 @@ function goToPeople() {
             <div id="gallery-container">
                 <button @click="previousImages" class="gallery-button">&lt;</button>
                 <div id="gallery-images">
-                    <img v-for="src in currentImages" :src="src" :alt="'Gallery image ' + (currentImages.indexOf(src) + 1)">
+                    <img v-for="i in shownImages" :src="imgBasePath + ((currImage+i-1)%numberOfImages) + '.jpg'" :alt="'Gallery image ' + ((currImage+i-1)%numberOfImages)">
                 </div>
                 <button @click="nextImages" class="gallery-button">&gt;</button>
             </div>
@@ -247,15 +245,14 @@ section {
 #gallery-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .gallery-button {
-    background: none;
     border: none;
     font-size: 1.5em;
     padding: 7px;
-    background-color: #4c8189;
+    background: #4c8189 none;
     border-radius: 7px;
 }
 
