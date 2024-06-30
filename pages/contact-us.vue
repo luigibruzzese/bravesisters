@@ -284,7 +284,7 @@ ul {
   list-style-type: none;
 }
 
-/* Media Query for Mobile Screens */
+
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;

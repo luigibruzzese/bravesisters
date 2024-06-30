@@ -16,7 +16,7 @@ function showMore() {
 </script>
 
 <template>
-    <section id="people">
+    <section id="service">
         <h1 id="title">People</h1>
         <div class="people-info">
             <img class="people-image" src="/img/people/collaboration.webp" alt="People Image"/>
@@ -56,7 +56,7 @@ function showMore() {
     text-align: center;
 }
 
-#our_people, #people {
+#our_people, #service {
     margin-top: 40px;
     margin-bottom: 40px;
 }

@@ -1,299 +1,333 @@
 <script setup lang="js">
-import {useRouter} from "vue-router";
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const imgBasePath = "/img/homepage/home_";
 const numberOfImages = 6;
 
 const currImage = ref(0);
-let shownImages = 4;
+let shownImages = 3;
+const textVisibility = ref([false, false, false]);
 
 onMounted(() => {
-    currImage.value = 0;
+  currImage.value = 0;
+  // Animate text appearance
+  setTimeout(() => {
+    textVisibility.value[0] = true;
+  }, 500);
+  setTimeout(() => {
+    textVisibility.value[1] = true;
+  }, 1000);
+  setTimeout(() => {
+    textVisibility.value[2] = true;
+  }, 1500);
 })
 
 function nextImages() {
-    if(currImage.value === numberOfImages-1)
-        currImage.value = 0;
-    else
-        currImage.value++;
+  if (currImage.value === numberOfImages - 1)
+    currImage.value = 0;
+  else
+    currImage.value++;
 }
 
 function previousImages() {
-    if(currImage.value === 0)
-        currImage.value = numberOfImages-1;
-    else
-        currImage.value--;
+  if (currImage.value === 0)
+    currImage.value = numberOfImages - 1;
+  else
+    currImage.value--;
 }
 
 function goToPeople() {
-    router.push(`/people`);
+  router.push(`/people`);
+}
+function goToProjects() {
+  router.push(`/projects`);
+}
+function goToServices() {
+  router.push(`/services`);
 }
 </script>
 
 <template>
-    <main>
-        <section id="center">
-            <h1 id="info_home">The Center</h1>
-            <img id="main-img" src="public/img/homepage/building_photo.webp" alt="Building photo"/>
-        </section>
-        <section id="mission">
-            <h2 class="title-with-lines">Mission</h2>
-            <p>
-                The mission of Brave Sister Center is to provide unwavering support, empowerment, and resources to women
-                facing adversity, particularly those experiencing violence and family maltreatment. Through
-                compassionate care and tailored services, we strive to create a safe haven where women can find solace,
-                regain their confidence, and rebuild their lives. Our dedicated team works tirelessly to foster a
-                community of resilience and healing, and advocating for justice and equality for all women. At Brave
-                Sister, we believe in the power of solidarity and the potential for positive change, endeavoring to
-                break the cycle of violence and cultivate a future where every woman can thrive free from fear.
-            </p>
-        </section>
-        <section id="history-people">
-            <div id="history">
-                <h2 class="title-with-lines">History</h2>
-                <p>
-                    Brave Sister Center was founded in 2006 by a group of passionate individuals dedicated to addressing
-                    the urgent need for support and advocacy for women facing violence and family maltreatment. Despite
-                    the challenges we have faced along the way, our commitment to our mission has never wavered. With
-                    each passing year, we have continued to adapt and innovate, striving to create a more inclusive and
-                    supportive environment for all women. As we look to the future, we remain steadfast in our belief
-                    that every woman deserves to live a life free from violence and fear, and we are dedicated to doing
-                    everything in our power to make that vision a reality.
-                </p>
-            </div>
-            <div id="people">
-                <h2 class="title-with-lines">People</h2>
-                <div class="image-container" @click="goToPeople">
-                    <img id="main-img" src="/img/people/collaboration.webp" alt="Staff photo"/>
-                    <div class="hover-text">Meet the team</div>
-                    <div class="hover-overlay"></div>
-                </div>
-            </div>
-        </section>
-        <section id="location-hours">
-            <h2 class="title-with-lines">Location</h2>
-        </section>
-        <section id="location">
-            <div id="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2876.4934116439467!2d11.085237475822755!3d43.866327638620774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132af61bd731b397%3A0x10e39e397c812421!2sVia%20di%20Grignano%2C%20102%2C%2059100%20Prato%20PO!5e0!3m2!1sit!2sit!4v1716039615957!5m2!1sit!2sit"
-                        width="100%"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen="false"
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-            <div id="contact-info">
-                <h3 id="hours">Opening hours</h3>
-                <p>Mon - Fri: 9:00 - 12:00 / 13:00 - 18:00</p>
-                <p>Saturday: 9:00 - 12:00</p>
-                <p>Sunday: Closed</p>
-                <h3 id="address">Address</h3>
-                <p>Via di Grignano 102, Prato</p>
-            </div>
-        </section>
-        <section id="gallery">
-            <h2 class="title-with-lines">Gallery</h2>
-            <div id="gallery-container">
-                <button @click="previousImages" class="gallery-button">&lt;</button>
-                <div id="gallery-images">
-                    <img v-for="i in shownImages" :src="imgBasePath + ((currImage+i-1)%numberOfImages) + '.webp'" :alt="'Gallery image ' + ((currImage+i-1)%numberOfImages)">
-                </div>
-                <button @click="nextImages" class="gallery-button">&gt;</button>
-            </div>
-        </section>
-    </main>
+  <main>
+    <section id="center">
+      <div class="image-text-container">
+        <img id="main-img" src="public/img/homepage/main-image.webp" alt="Building photo" />
+        <div class="text-overlay">
+          <span v-for="(text, index) in ['React now, ', 'don\'t wait', 'any longer']" :key="index"
+                :class="{ 'visible': textVisibility[index] }" class="text-line">
+            {{ text }}
+          </span>
+        </div>
+      </div>
+    </section>
+    <section id="discoverUs">
+      <h2 class="title-with-lines">Discover us</h2>
+      <div class="image-container" @click="goToPeople">
+        <img src="/img/homepage/collaboration-homepage.webp" alt="Staff photo" />
+        <div class="hover-text">Meet the team</div>
+        <div class="hover-overlay"></div>
+      </div>
+    </section>
+    <section id="project-service">
+      <div id="project">
+        <h2 class="title-with-lines">Projects</h2>
+        <div class="image-container" @click="goToProjects">
+          <img id="img-home" src="/img/homepage/1.webp" alt="Staff photo" />
+          <div class="hover-text">Discover our projects</div>
+          <div class="hover-overlay"></div>
+        </div>
+      </div>
+      <div id="service">
+        <h2 class="title-with-lines">Services</h2>
+        <div class="image-container" @click="goToServices">
+          <img id="img-home" src="/img/homepage/2.webp" alt="Staff photo" />
+          <div class="hover-text">Discover our services</div>
+          <div class="hover-overlay"></div>
+        </div>
+      </div>
+    </section>
+    <section id="gallery">
+      <h2 class="title-with-lines">Gallery</h2>
+      <div id="gallery-container">
+        <button @click="previousImages" class="gallery-button">&lt;</button>
+        <div id="gallery-images">
+          <img v-for="i in shownImages" :src="imgBasePath + ((currImage + i - 1) % numberOfImages) + '.webp'"
+               :alt="'Gallery image ' + ((currImage + i - 1) % numberOfImages)">
+        </div>
+        <button @click="nextImages" class="gallery-button">&gt;</button>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style scoped>
-main {
-    padding: 20px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#info_home {
-    font-size: 2em;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    color: #4c8189;
-    text-align: center;
+body {
+  margin: 0;
+  padding: 0;
 }
+
+main {
+  padding: 20px;
+}
+
 
 .title-with-lines {
-    position: relative;
-    text-align: center;
-    color: #4c8189;
-    font-size: 20px;
+  position: relative;
+  text-align: center;
+  color: #4c8189;
+  font-size: 20px;
 }
 
 .title-with-lines::before,
 .title-with-lines::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 35%;
-    height: 1.1px;
-    background-color: #4c8189;
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  height: 1.1px;
+  background-color: #4c8189;
 }
 
 .title-with-lines::before {
-    left: 0;
-    margin-right: 5px;
+  left: 0;
+  margin-right: 5px;
 }
 
 .title-with-lines::after {
-    right: 0;
-    margin-left: 5px;
+  right: 0;
+  margin-left: 5px;
+}
+
+.image-text-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: center;
+  position: relative;
+  margin-left: -20px;
 }
 
 #main-img {
-    display: block;
-    margin: auto;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0 20px 20px 0;
+  margin-left: 0;
+  z-index: 1;
+}
+
+
+.text-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  font-size: 3.5em;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #4c8189;
+  text-align: left;
+  z-index: 0;
+  margin-left: 20px;
+}
+
+.text-line {
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.5s, transform 0.5s, filter 0.5s;
+  filter: blur(5px);
+  margin-bottom: 20px;
+}
+
+.text-line.visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
 }
 
 section {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
-#mission, #history-people, #location, #gallery {
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    font-size: 20px;;
+#discoverUs,
+#project-service,
+#gallery {
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  font-size: 20px;
 }
 
-#history-people {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
+#project-service {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-#history, #people {
-    width: 48%;
-    font-size: 20px;
-
+#project,
+#service {
+  width: 48%;
+  font-size: 20px;
 }
 
 .image-container {
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
 }
 
+
 .image-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .image-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    transition: opacity 0.3s ease;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+  display: block;
 }
 
 .image-container:hover img {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .hover-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 1.1em;
-    text-align: center;
-    background-color: #4c8189;
-    padding: 10px 10px;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.1em;
+  text-align: center;
+  background-color: #4c8189;
+  padding: 10px 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .image-container:hover .hover-text {
-    opacity: 1;
+  opacity: 1;
 }
 
-#hours, #address {
-    color: #4c8189;
-}
-
-#location {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    font-size: 20px;
-}
-
-#map {
-    width: 100%;
-    max-width: 60%;
-    margin-bottom: 20px;
-}
-
-#contact-info {
-    width: 100%;
-    max-width: 35%;
-}
 
 #gallery-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .gallery-button {
-    border: none;
-    font-size: 1.5em;
-    padding: 7px;
-    background: #4c8189 none;
-    border-radius: 7px;
+  border: none;
+  font-size: 1.5em;
+  padding: 7px;
+  background: #4c8189 none;
+  border-radius: 7px;
 }
 
 #gallery-images {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 80%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 80%;
 }
 
 #gallery-images img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px;
 }
+
+
+
 
 @media (max-width: 1000px) {
-    #history, #people {
-        width: 100%;
-    }
+  .image-text-container {
+    grid-template-columns: 1fr;
+  }
 
-    #map, #contact-info {
-        width: 100%;
-        max-width: 100%;
-    }
+  .text-overlay {
+    font-size: 1.5em;
+  }
 
-    #map {
-        width: 100%;
-        max-width: 90%;
-        margin-bottom: 10px;
-    }
+  #project,
+  #service {
+    width: 100%;
+  }
 
-    #contact-info {
-        width: 100%;
-        max-width: 23%;
-    }
+}
+@media (max-width: 768px) {
+  .text-overlay {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+
+  .image-container {
+    max-width: 100%;
+  }
+  #project, #service, #gallery{
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
 }
 </style>
-
-
-
-
