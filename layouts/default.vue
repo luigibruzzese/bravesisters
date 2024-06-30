@@ -110,10 +110,16 @@ function convert(message) {
     <header>
 
         <div>
+          <NuxtLink to="/">
             <img alt="menu" class="logo" src="~/assets/logos/logo.png"/>
+          </NuxtLink>
             <div>
+              <NuxtLink to="/">
                 <h1>Brave Sisters</h1>
+              </NuxtLink>
+              <NuxtLink to="/">
                 <h2>One for all, all for women</h2>
+              </NuxtLink>
             </div>
         </div>
         <div>
@@ -129,7 +135,7 @@ function convert(message) {
                 </div>
 
                 <nav>
-                    <NuxtLink to="/">Home</NuxtLink>
+                    <NuxtLink to="/about-us">About us</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
                     <div id="activities"
                          @mouseenter="changeDisplay($event, $event.target.children[0], 'flex')"
