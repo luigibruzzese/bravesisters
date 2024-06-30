@@ -54,7 +54,7 @@ function goToPerson(id) {
 }
 
 const getGalleryImages = (id, count = 3) => {
-  return Array.from({ length: count }, (_, i) => `/img/service/${id}/${i + 1}.jpg`);
+  return Array.from({ length: count }, (_, i) => `/img/service/${id}/${i + 1}.webp`);
 };
 </script>
 
@@ -77,7 +77,7 @@ const getGalleryImages = (id, count = 3) => {
     <section v-if="person" id="staff">
       <h2 class="title-with-lines">Staff</h2>
       <div class="staff-container" @click="goToPerson(person.id)">
-        <img :src="`/img/people/${person.id}.png`" alt="Staff Image" />
+        <img :src="`/img/people/${person.id}.webp`" alt="Staff Image" />
         <h3>{{ person.name }} {{ person.surname }}</h3>
         <p>{{ person.role }}</p>
       </div>

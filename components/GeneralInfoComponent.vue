@@ -44,9 +44,9 @@ const getNextId = () => {
 
 const getImageSrc = () => {
     if (props.context === 'people')
-        return `/img/${props.context}/${props.id}.png`;
+        return `/img/${props.context}/${props.id}.webp`;
     else
-        return `/img/${props.context}/${props.id}.jpg`;
+        return `/img/${props.context}/${props.id}.webp`;
     /*    switch (props.context) {
             case 'project':
                 return `/img/projects/${props.id}.jpg`;

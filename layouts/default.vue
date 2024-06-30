@@ -233,7 +233,7 @@ footer {
     font-family: Figtree, serif;
     font-size: 14px;
 
-    background-image: url("/footer.jpg");
+    background-image: url("/footer.webp");
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100% 100% ;
@@ -276,7 +276,7 @@ header {
     width: 96%;
     height: 160px;
     z-index: 110;
-    background-image: url("/header.jpg");
+    background-image: url("/header.webp");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }

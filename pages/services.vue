@@ -9,7 +9,7 @@ const services = store.service;
   <section id="service">
     <h1 id="title">Services</h1>
     <div class="people-info">
-      <img class="people-image" src="/img/homepage/home_1.jpg" alt="People Image" />
+      <img class="people-image" src="/img/homepage/home_1.webp" alt="People Image" />
       <div class="people-text">
         <p>At Brave Sisters, we provide essential support and guidance to women who have experienced domestic violence. Our services encompass psychological counseling to help manage trauma, legal assistance to navigate the judicial process, safety planning during times of crisis, job placement aid for financial independence, and expert advice on dealing with stalking situations. Each service is tailored to address the unique needs of our clients, empowering them to rebuild their lives with confidence and security.</p>
       </div>

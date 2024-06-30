@@ -9,9 +9,9 @@ defineProps({
 
 const getImageSrc = (type, id) => {
     if (type === 'people')
-        return `/img/${type}/${id}.png`;
+        return `/img/${type}/${id}.webp`;
     else
-        return `/img/${type}/${id}.jpg`;
+        return `/img/${type}/${id}.webp`;
 /*  switch (type) {
     case 'project':
       return `/img/projects/${id}.jpg`;

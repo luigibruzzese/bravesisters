@@ -35,7 +35,7 @@ function goToPeople() {
     <main>
         <section id="center">
             <h1 id="info_home">The Center</h1>
-            <img id="main-img" src="/img/homepage/building_photo.jpg" alt="Building photo"/>
+            <img id="main-img" src="public/img/homepage/building_photo.webp" alt="Building photo"/>
         </section>
         <section id="mission">
             <h2 class="title-with-lines">Mission</h2>
@@ -65,7 +65,7 @@ function goToPeople() {
             <div id="people">
                 <h2 class="title-with-lines">People</h2>
                 <div class="image-container" @click="goToPeople">
-                    <img id="main-img" src="/img/people/collaboration.png" alt="Staff photo"/>
+                    <img id="main-img" src="/img/people/collaboration.webp" alt="Staff photo"/>
                     <div class="hover-text">Meet the team</div>
                     <div class="hover-overlay"></div>
                 </div>
@@ -99,7 +99,7 @@ function goToPeople() {
             <div id="gallery-container">
                 <button @click="previousImages" class="gallery-button">&lt;</button>
                 <div id="gallery-images">
-                    <img v-for="i in shownImages" :src="imgBasePath + ((currImage+i-1)%numberOfImages) + '.jpg'" :alt="'Gallery image ' + ((currImage+i-1)%numberOfImages)">
+                    <img v-for="i in shownImages" :src="imgBasePath + ((currImage+i-1)%numberOfImages) + '.webp'" :alt="'Gallery image ' + ((currImage+i-1)%numberOfImages)">
                 </div>
                 <button @click="nextImages" class="gallery-button">&gt;</button>
             </div>
