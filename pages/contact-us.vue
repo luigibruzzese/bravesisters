@@ -23,10 +23,14 @@ const toggleAnswer = (index: number) => {
 
 const handleTextareaInput = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement;
-
   if (textarea.value.length > 150) {
     textarea.value = textarea.value.substring(0, 500);
   }
+};
+
+const handlePhoneInput = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  input.value = input.value.replace(/\D/g, '').slice(0, 12);
 };
 
 const handleSubmit = (event: Event) => {
@@ -45,6 +49,11 @@ onMounted(() => {
   const textarea = document.getElementById('message') as HTMLTextAreaElement;
   if (textarea) {
     textarea.addEventListener('input', handleTextareaInput);
+  }
+
+  const phoneInput = document.getElementById('phone') as HTMLInputElement;
+  if (phoneInput) {
+    phoneInput.addEventListener('input', handlePhoneInput);
   }
 });
 </script>
@@ -92,7 +101,7 @@ onMounted(() => {
           <h3 class="title-with-lines">FAQ</h3>
           <ul>
             <li v-for="(item, index) in faq" :key="index">
-              <div @click="toggleAnswer(index)" class="faq-question">
+              <div @click="toggleAnswer(index)" :class="{'faq-question': true, 'open': showAnswer[index]}">
                 {{ item.question }}
                 <span>{{ showAnswer[index] ? '▲' : '▼' }}</span>
               </div>
@@ -252,18 +261,53 @@ form button:hover {
   background-color: white;
   width: 80%;
   margin: 0 auto;
+  font-size: 1.2em;
+  text-align: left;
 }
 
 .faq-answer {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
   background-color: white;
   width: 80%;
   margin: 0 auto;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.faq-question.open {
+  border-bottom: none;
 }
 
 ul {
   padding-left: 0;
   list-style-type: none;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-group {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  form button {
+    width: 50%;
+  }
+
+
+  .title-with-lines::before,
+  .title-with-lines::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 25%;
+    height: 1.1px;
+    background-color: #4c8189;
+  }
 }
 </style>

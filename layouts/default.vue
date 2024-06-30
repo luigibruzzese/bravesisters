@@ -117,9 +117,9 @@ function convert(message) {
               <NuxtLink to="/">
                 <h1>Brave Sisters</h1>
               </NuxtLink>
-              <NuxtLink to="/">
+              <a href="/">
                 <h2>One for all, all for women</h2>
-              </NuxtLink>
+              </a>
             </div>
         </div>
         <div>
@@ -325,7 +325,7 @@ header h1 {
 }
 
 button {
-    border-radius: 15px 5px 5px 15px;
+    border-radius: 15px 15px 15px 15px;
 }
 
 nav {
@@ -334,7 +334,7 @@ nav {
     gap: 40px;
     font-size: 20px;
     line-height: 40px;
-    border-radius: 15px 5px 5px 15px;
+    border-radius: 15px 15px 15px 15px;
     padding: 0 20px 0 20px;
     background-color:  rgba(255,255,255,0.8);
 }
