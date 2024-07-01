@@ -64,7 +64,7 @@ const getImageSrc = (type, id) => {
           :role="person.role"
           :short-presentation="person.description"
           context="people"
-          total=20
+          :total=20
       />
     </section>
 

@@ -1,11 +1,7 @@
 <script setup lang="js">
 import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
 
-const people = ref(usePeopleStore().people), shown = ref(), numberOfPeople = people.value.length;
-
-onMounted(() => {
-    shown.value = 12;
-})
+const people = ref(usePeopleStore().people), shown = ref(12), numberOfPeople = people.value.length;
 
 function showMore() {
     if (shown.value + 6 > numberOfPeople)
@@ -42,7 +38,7 @@ function showMore() {
             />
         </div>
         <div style="text-align: center; margin-top: 2%;">
-            <button v-if="shown < numberOfPeople" @click="showMore">Show more people</button>
+            <button v-show="shown < numberOfPeople" @click="showMore">Show more people</button>
         </div>
     </section>
 </template>
