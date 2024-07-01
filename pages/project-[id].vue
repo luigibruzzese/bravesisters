@@ -157,8 +157,8 @@ main {
 }
 
 .gallery-container img {
-  width: 410px;
-  height: 410px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
   border-radius: 10px;
   margin: 15px;

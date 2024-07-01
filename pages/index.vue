@@ -55,17 +55,32 @@ function goToServices() {
       <div class="image-text-container">
         <img id="main-img" src="public/img/homepage/main-image.webp" alt="Building photo" />
         <div class="text-overlay">
-          <span v-for="(text, index) in ['React now, ', 'don\'t wait', 'any longer']" :key="index"
+          <span v-for="(text, index) in ['REACT NOW,', 'DON\'T WAIT', 'ANY LONGER']" :key="index"
                 :class="{ 'visible': textVisibility[index] }" class="text-line">
             {{ text }}
           </span>
         </div>
       </div>
     </section>
+    <section id="warning-signs">
+      <h2 class="title-with-lines">Signs of Violence</h2>
+      <div class="warning-content">
+        <p>Violence can take many forms. If you experience any of these, you may be in an abusive situation:</p>
+        <ul>
+          <li></li>
+          <li>Your partner constantly criticizes or humiliates you</li>
+          <li>You feel afraid of your partner or anxious to please them</li>
+          <li>Your partner controls your finances or who you see</li>
+          <li>Your partner threatens you or your loved ones</li>
+          <li>You feel pressured or forced into intimate situations</li>
+        </ul>
+        <p>Remember, you're not alone. Help is available. If you're in immediate danger, call emergency services.</p>
+      </div>
+    </section>
     <section id="discoverUs">
       <h2 class="title-with-lines">Discover us</h2>
       <div class="image-container" @click="goToPeople">
-        <img src="/img/homepage/collaboration-homepage.webp" alt="Staff photo" />
+        <img src="/img/homepage/collaboration_1.webp" alt="Staff photo" />
         <div class="hover-text">Meet the team</div>
         <div class="hover-overlay"></div>
       </div>
@@ -108,6 +123,40 @@ function goToServices() {
   padding: 0;
   box-sizing: border-box;
 }
+
+#warning-signs {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+
+}
+
+.warning-content {
+  max-width: 800px;
+  margin-top: 30px;
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+.warning-content ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.warning-content li {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.warning-content li::before {
+  content: "•";
+  color: #4c8189;
+  font-weight: bold;
+  position: absolute;
+  left: -15px;
+}
+
+
 
 body {
   margin: 0;
@@ -170,10 +219,10 @@ main {
   align-items: flex-start;
   justify-content: center;
   height: 100%;
-  font-size: 3.5em;
-  font-family: 'Arial', sans-serif;
+  font-size: 3em;
+  font-family: 'Impact', sans-serif;
   font-weight: bold;
-  color: #4c8189;
+  color: #ffffff;
   text-align: left;
   z-index: 0;
   margin-left: 20px;
@@ -185,6 +234,10 @@ main {
   transition: opacity 0.5s, transform 0.5s, filter 0.5s;
   filter: blur(5px);
   margin-bottom: 20px;
+  background-color: #4c8189;
+  padding: 5px 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .text-line.visible {
@@ -223,10 +276,11 @@ section {
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 20px;
-  max-width: 70%;
+  max-width: 75%;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
+  border-radius: 15px;
 }
 
 
@@ -297,9 +351,21 @@ section {
 }
 
 
-
-
 @media (max-width: 1000px) {
+  .text-overlay {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+
+  .image-container {
+    max-width: 80%;
+  }
+  #project, #service, #gallery{
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
   .image-text-container {
     grid-template-columns: 1fr;
   }
@@ -312,22 +378,14 @@ section {
   #service {
     width: 100%;
   }
-
-}
-@media (max-width: 768px) {
-  .text-overlay {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-  }
-
-  .image-container {
-    max-width: 100%;
-  }
-  #project, #service, #gallery{
-    margin-bottom: 20px;
-    margin-top: 20px;
+  .title-with-lines::before,
+  .title-with-lines::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 1.1px;
+    background-color: #4c8189;
   }
 }
 </style>
