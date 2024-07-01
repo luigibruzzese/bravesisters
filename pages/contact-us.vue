@@ -58,6 +58,7 @@ onMounted(() => {
 });
 </script>
 
+
 <template>
   <div>
     <main>
@@ -90,7 +91,10 @@ onMounted(() => {
               <label for="message">Text*</label>
               <textarea id="message" name="message" required></textarea>
             </div>
-            <button type="submit">Send</button>
+            <div class="submit-container">
+              <button type="submit">Send</button>
+              <span v-if="messageSent" class="confirmation-check">✔</span>
+            </div>
           </form>
           <div v-if="messageSent" class="confirmation-message">
             Message sent correctly, you will be contacted as soon as possible.
@@ -115,6 +119,7 @@ onMounted(() => {
     </main>
   </div>
 </template>
+
 
 <style scoped>
 main {
@@ -205,11 +210,15 @@ main {
   font-size: 18px;
 }
 
+.submit-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 form button {
-  display: block;
-  width: 8%;
   padding: 8px;
-  margin: 20px auto 0;
   background-color: #4c8189;
   color: white;
   border: none;
@@ -220,6 +229,12 @@ form button {
 
 form button:hover {
   background-color: #3a6775;
+}
+
+.confirmation-check {
+  color: green;
+  font-size: 1.5em;
+  margin-left: 10px;
 }
 
 #message {
@@ -284,7 +299,6 @@ ul {
   list-style-type: none;
 }
 
-
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
@@ -299,7 +313,6 @@ ul {
     width: 50%;
   }
 
-
   .title-with-lines::before,
   .title-with-lines::after {
     content: '';
@@ -311,3 +324,4 @@ ul {
   }
 }
 </style>
+
