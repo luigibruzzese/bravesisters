@@ -109,19 +109,14 @@ function convert(message) {
 <template>
     <header>
 
-        <div>
-          <NuxtLink to="/">
-            <img alt="menu" class="logo" src="~/assets/logos/logo.png"/>
-          </NuxtLink>
-            <div>
-              <NuxtLink to="/">
-                <h1>Brave Sisters</h1>
-              </NuxtLink>
-              <a href="/">
-                <h2>One for all, all for women</h2>
-              </a>
+            <div @click="$router.push('/')" style="cursor: pointer;">
+                <img alt="Logo" class="logo" src="~/assets/logos/logo.png"/>
+                <div>
+                    <h1>Brave Sisters</h1>
+                    <h2>One for all, all for women</h2>
+                </div>
             </div>
-        </div>
+
         <div>
             <div id="menu">
                 <img alt="Menu" class="ourIcon" src="~/assets/icons/menu.png"

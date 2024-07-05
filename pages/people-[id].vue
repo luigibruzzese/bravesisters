@@ -2,15 +2,21 @@
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
+import {useProjectStore} from "~/stores/projects.ts";
+import {useServiceStore} from "~/stores/services.ts";
 
 const route = useRoute();
 const router = useRouter();
-const store = usePeopleStore();
+const peopleStore = usePeopleStore();
+const projectStore = useProjectStore();
+const serviceStore = useServiceStore();
 
 const personId = computed(() => route.params.id);
-const person = computed(() => store.people.find(p => p.id === parseInt(personId.value, 10)));
-const projects = computed(() => store.project.filter(project => project.person === parseInt(personId.value, 10)));
-const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
+const person = computed(() => peopleStore.getPerson(parseInt(personId.value, 10)));
+const projects = computed(() => projectStore.getPersonProjects(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
+const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
+
+// const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
 
 /*watch(personId, async () => {
   const id = parseInt(personId.value, 10);

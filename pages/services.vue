@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePeopleStore } from '@/stores/people.ts';
+import {useServiceStore} from "~/stores/services";
 
-const store = usePeopleStore();
+const store = useServiceStore();
 const services = store.service;
 </script>
 
