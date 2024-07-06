@@ -10,7 +10,8 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         supabaseUrl: process.env.SUPABASE_URL,
-        supabaseKey: process.env.SUPABASE_KEY
+        supabaseKey: process.env.SUPABASE_KEY,
+        genAIKey: process.env.GenAI_KEY
     },
 
     devtools: {enabled: true},

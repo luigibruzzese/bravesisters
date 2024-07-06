@@ -1,10 +1,5 @@
-import {createClient} from "@supabase/supabase-js"; // Importa il componente
-const config = useRuntimeConfig()
-
-const supabaseUrl = config.supabaseUrl
-const supabaseKey = config.supabaseKey
-const supabase = createClient(supabaseUrl, supabaseKey)
+import {useDb} from "~/composables/db.js";
 export default defineEventHandler(async (e)=>{
-    const { data } = await supabase.from('project').select()
+    const { data } = await useDb().from('project').select()
     return data;
 })

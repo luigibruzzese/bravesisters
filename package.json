@@ -17,10 +17,10 @@
     "nuxt": "^3.11.1",
     "pinia": "^2.1.7",
     "sequelize": "^6.37.2",
-    "sqlite3": "^5.1.7",
     "swiper": "^11.1.4",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "@google/generative-ai": "^0.14.1"
   },
   "version": "1.0.0",
   "description": "Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.",
