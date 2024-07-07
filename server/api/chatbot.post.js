@@ -1,7 +1,6 @@
 import {GoogleGenerativeAI} from "@google/generative-ai";
-const config = useRuntimeConfig()
 
-const apiKey = config.genAIKey;
+const apiKey = process.env.GenAI_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
