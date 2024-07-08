@@ -28,7 +28,7 @@ onMounted(() => {
 const serviceId = computed(() => route.params.id);
 const service = computed(() => serviceStore.getService(parseInt(serviceId.value, 10)));
 const person = computed(() => peopleStore.getPerson(service.value?.person));
-const review = computed(() => (reviewStore.review.filter((r) => r.service === parseInt(serviceId.value))));
+let review = computed(() => (reviewStore.review.filter((r) => r.service === parseInt(serviceId.value))));
 const shownReviews = computed(() => review.value.slice(reviewsIndex.value, reviewsIndex.value + numberOfShownReviews.value))
 
 const inputReview = reactive({
@@ -39,13 +39,29 @@ const inputReview = reactive({
     service: parseInt(serviceId.value)
 })
 
-function addReview() {
-    inputReview.date = new Date().toISOString().substring(0, 10)
-    reviewStore.addReview(inputReview)
-    feedbackMessage.value = 'Thank you for your feedback! Your review has been correctly registered.'
+let semdimgReview = {
+  name: '',
+  surname: '',
+  comment: '',
+  date: '',
+  service: parseInt(serviceId.value)
 }
 
-const numberOfReviews = computed(() => review.value.length);
+function addReview(e) {
+    semdimgReview.date = new Date().toISOString().substring(0, 10)
+    semdimgReview.name = inputReview.name;
+    semdimgReview.surname = inputReview.surname;
+    semdimgReview.comment = inputReview.comment;
+    reviewStore.addReview(semdimgReview)
+    feedbackMessage.value = 'Thank you for your feedback! Your review has been correctly registered.'
+    const form=document.getElementById("form")
+    form.reset()
+    inputReview.name=null
+    inputReview.surname=null
+    inputReview.comment=null
+}
+
+let numberOfReviews = computed(() => review.value.length);
 let reviewsIndex = ref(0);
 
 
@@ -129,7 +145,7 @@ const getGalleryImages = (id, count = 3) => {
                 </NuxtLink>
             </div>
             <h3 class="add_review">Add a new review</h3>
-            <form>
+            <form id="form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name*</label>
@@ -144,8 +160,9 @@ const getGalleryImages = (id, count = 3) => {
                     <label for="comment">Comment*</label>
                     <input v-model="inputReview.comment" v-on:keyup.enter="addReview" id="comment" name="comment" required/>
                 </div>
+              <br>
+              <input type="submit" value="Add review" @click="addReview" class="submit">
             </form>
-            <button @click="addReview">Add review</button>
             <h3>{{feedbackMessage}}</h3>
         </section>
 
@@ -387,5 +404,16 @@ form button:hover {
     .staff-container {
         flex: 1 1 100%;
     }
+}
+.submit {
+  background-color: #4c8189;
+  color: #ffffff;
+  font-weight: normal;
+  border: 0;
+  padding: 10px 15px 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color .5s;
+  border-radius: 10px;
 }
 </style>
