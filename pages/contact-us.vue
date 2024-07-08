@@ -134,32 +134,7 @@ main {
   text-align: center;
 }
 
-.title-with-lines {
-  position: relative;
-  text-align: center;
-  color: #4c8189;
-  font-size: 20px;
-}
 
-.title-with-lines::before,
-.title-with-lines::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 35%;
-  height: 1.1px;
-  background-color: #4c8189;
-}
-
-.title-with-lines::before {
-  left: 0;
-  margin-right: 5px;
-}
-
-.title-with-lines::after {
-  right: 0;
-  margin-left: 5px;
-}
 
 #contact {
   padding: 20px;
@@ -178,35 +153,8 @@ main {
   margin-bottom: 20px;
 }
 
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin: 0 10px;
-  max-width: 45%;
-}
-
-.form-group.full-width {
-  max-width: 100%;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
 .form-group input,
 .form-group textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   font-size: 18px;
 }
 
@@ -315,15 +263,6 @@ ul {
 
 
 
-  .title-with-lines::before,
-  .title-with-lines::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 25%;
-    height: 1.1px;
-    background-color: #4c8189;
-  }
 }
 </style>
 

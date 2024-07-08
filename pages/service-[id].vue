@@ -31,6 +31,9 @@ const person = computed(() => peopleStore.getPerson(service.value?.person));
 let review = computed(() => (reviewStore.review.filter((r) => r.service === parseInt(serviceId.value))));
 const shownReviews = computed(() => review.value.slice(reviewsIndex.value, reviewsIndex.value + numberOfShownReviews.value))
 
+const imgBasePath = '/img/service/' + route.params.id + '/';
+const numberOfImages = 3;
+
 const inputReview = reactive({
     name: '',
     surname: '',
@@ -39,12 +42,12 @@ const inputReview = reactive({
     service: parseInt(serviceId.value)
 })
 
-let sendimgReview = {
-  name: '',
-  surname: '',
-  comment: '',
-  date: '',
-  service: parseInt(serviceId.value)
+let semdimgReview = {
+    name: '',
+    surname: '',
+    comment: '',
+    date: '',
+    service: parseInt(serviceId.value)
 }
 
 async function addReview(e) {
@@ -68,16 +71,10 @@ async function addReview(e) {
 let numberOfReviews = computed(() => review.value.length);
 let reviewsIndex = ref(0);
 
-
-
-
 function goToPerson(id) {
     router.push(`/people-${id}`);
 }
 
-const getGalleryImages = (id, count = 3) => {
-    return Array.from({length: count}, (_, i) => `/img/service/${id}/${i + 1}.webp`);
-};
 </script>
 
 <template>
@@ -116,7 +113,9 @@ const getGalleryImages = (id, count = 3) => {
                     <p>{{ new Date(review.date).toLocaleDateString('eng-us') }}</p>
                     <p>{{ review.comment }}</p>
                 </div>
-                <NuxtLink v-show="numberOfReviews > numberOfShownReviews && reviewsIndex + numberOfShownReviews !== numberOfReviews" @click="reviewsIndex++">
+                <NuxtLink
+                        v-show="numberOfReviews > numberOfShownReviews && reviewsIndex + numberOfShownReviews !== numberOfReviews"
+                        @click="reviewsIndex++">
                     <img alt="Right arrow" class="arrow" src="~/assets/icons/right-arrow.png"/>
                 </NuxtLink>
             </div>
@@ -142,12 +141,10 @@ const getGalleryImages = (id, count = 3) => {
             <h3>{{feedbackMessage}}</h3>
         </section>
 
-        <section id="gallery">
-            <h2 class="title-with-lines">Gallery</h2>
-            <div class="gallery-container">
-                <img v-for="(src, index) in getGalleryImages(service.id)" :key="index" :src="src" alt="Gallery Image"/>
-            </div>
-        </section>
+        <GalleryComponent
+                :number-of-images=numberOfImages
+                :img-base-path=imgBasePath
+        />
 
         <br>
         <br>
@@ -212,64 +209,10 @@ button {
     text-align: center;
 }
 
-.title-with-lines {
-    position: relative;
-    text-align: center;
-    color: #4c8189;
-}
-
-.title-with-lines::before,
-.title-with-lines::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 35%;
-    height: 1.1px;
-    background-color: #4c8189;
-}
-
-.title-with-lines::before {
-    left: 0;
-    margin-right: 5px;
-}
-
-.title-with-lines::after {
-    right: 0;
-    margin-left: 5px;
-}
-
 .add_review {
     position: relative;
     color: #4c8189;
 }
-
-
-.gallery-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.gallery-container {
-    gap: 20px;
-}
-
-.gallery-container img {
-    width: 350px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
-}
-
-@media (max-width: 768px) {
-    .gallery-container img {
-        width: 100%;
-        max-width: 410px;
-    }
-}
-
 
 .project img,
 .service img {
@@ -306,36 +249,9 @@ button {
     border-radius: 50%;
 }
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
 
-.form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
-    max-width: 45%;
-}
 
-.form-group.full-width {
-    max-width: 100%;
-}
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
 
 form button {
     display: block;

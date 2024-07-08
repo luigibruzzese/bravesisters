@@ -40,20 +40,6 @@ section {
     transform: scale(1.2);
 }
 
-h1 {
-    font-size: 50px;
-    line-height: 1.2;
-    color: #4c8189;
-    margin-bottom: 0;
-    font-weight: normal;
-}
-
-h2 {
-    font-size: 20px;
-    line-height: 25px;
-    margin-top: 10px;
-}
-
 button {
     background-color: #4c8189;
     color: #ffffff;
@@ -87,6 +73,88 @@ a:hover {
     margin: 0;
 }
 
+/******************** TITLES *************************/
+
+h1 {
+    font-size: 50px;
+    line-height: 1.2;
+    color: #4c8189;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 20px;
+    line-height: 25px;
+    margin-top: 10px;
+}
+
+#title {
+    font-size: 2em;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #4c8189;
+    text-align: center;
+}
+
+.title-with-lines {
+    position: relative;
+    text-align: center;
+    color: #4c8189;
+    font-size: 20px;
+}
+
+.title-with-lines::before,
+.title-with-lines::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1.1px;
+    background-color: #4c8189;
+}
+
+.title-with-lines::before {
+    left: 0;
+    margin-right: 5px;
+}
+
+.title-with-lines::after {
+    right: 0;
+    margin-left: 5px;
+}
+
+/********************************* FORMS **************************/
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    max-width: 45%;
+}
+
+.form-group.full-width {
+    max-width: 100%;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .submit {
     background-color: #4c8189;
     color: #ffffff;
@@ -101,6 +169,18 @@ a:hover {
 
 .submit:hover{
     background-color: #b7403c;
+}
+
+@media (max-width: 1000px) {
+    .title-with-lines::before,
+    .title-with-lines::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 28%;
+        height: 1.1px;
+        background-color: #4c8189;
+    }
 }
 
 @media (max-width: 800px) {

@@ -6,20 +6,9 @@ const router = useRouter();
 const imgBasePath = "/img/homepage/home_";
 const numberOfImages = 6;
 
-const currImage = ref(0);
-let shownImages = ref(3);
 const textVisibility = ref([false, false, false]);
 
 onMounted(() => {
-
-    window.addEventListener("resize", () => {
-        if (window.innerWidth < 800)
-            shownImages.value = 1;
-        else if (window.innerWidth < 1000)
-            shownImages.value = 2;
-        else
-            shownImages.value = 3;
-    });
     // Animate text appearance
     setTimeout(() => {
         textVisibility.value[0] = true;
@@ -32,19 +21,7 @@ onMounted(() => {
     }, 1500);
 })
 
-function nextImages() {
-    if (currImage.value === numberOfImages - 1)
-        currImage.value = 0;
-    else
-        currImage.value++;
-}
 
-function previousImages() {
-    if (currImage.value === 0)
-        currImage.value = numberOfImages - 1;
-    else
-        currImage.value--;
-}
 
 function goToPeople() {
     router.push(`/people`);
@@ -114,17 +91,10 @@ function goToServices() {
                 </div>
             </div>
         </section>
-        <section id="gallery">
-            <h2 class="title-with-lines">Gallery</h2>
-            <div id="gallery-container">
-                <button @click="previousImages" class="gallery-button">&lt;</button>
-                <div id="gallery-images">
-                    <img v-for="i in shownImages" :src="imgBasePath + ((currImage + i - 1) % numberOfImages) + '.webp'"
-                         :alt="'Gallery image ' + ((currImage + i - 1) % numberOfImages)">
-                </div>
-                <button @click="nextImages" class="gallery-button">&gt;</button>
-            </div>
-        </section>
+        <GalleryComponent
+            :img-base-path = imgBasePath
+            :number-of-images = numberOfImages
+        />
     </main>
 </template>
 
@@ -175,34 +145,6 @@ body {
 
 main {
     padding: 20px;
-}
-
-
-.title-with-lines {
-    position: relative;
-    text-align: center;
-    color: #4c8189;
-    font-size: 20px;
-}
-
-.title-with-lines::before,
-.title-with-lines::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 35%;
-    height: 1.1px;
-    background-color: #4c8189;
-}
-
-.title-with-lines::before {
-    left: 0;
-    margin-right: 5px;
-}
-
-.title-with-lines::after {
-    right: 0;
-    margin-left: 5px;
 }
 
 .image-text-container {
@@ -258,17 +200,14 @@ main {
 
 section {
     margin-bottom: 40px;
+    padding: 40px;
 }
 
-#discoverUs,
+#center {
+    padding: 0;
+}
+
 #project-service,
-#gallery {
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    font-size: 20px;
-}
-
 #project-service {
     display: flex;
     justify-content: space-between;
@@ -292,7 +231,6 @@ section {
     overflow: hidden;
     border-radius: 15px;
 }
-
 
 .image-container:hover {
     transform: translateY(-5px);
@@ -330,37 +268,6 @@ section {
     opacity: 1;
 }
 
-
-#gallery-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.gallery-button {
-    border: none;
-    font-size: 1.5em;
-    padding: 7px;
-    background: #4c8189 none;
-    border-radius: 7px;
-}
-
-#gallery-images {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 80%;
-}
-
-#gallery-images img {
-    width: 25%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
-}
-
-
 @media (max-width: 1000px) {
     .text-overlay {
         text-align: center;
@@ -373,7 +280,7 @@ section {
         max-width: 80%;
     }
 
-    #project, #service, #gallery {
+    #project, #service {
         margin-bottom: 20px;
         margin-top: 20px;
     }
@@ -390,24 +297,6 @@ section {
     #service {
         width: 100%;
     }
-
-    .title-with-lines::before,
-    .title-with-lines::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 28%;
-        height: 1.1px;
-        background-color: #4c8189;
-    }
-
-    #gallery-images img {
-        width: 40%;
-    }
 }
- @media (max-width: 800px) {
-     #gallery-images img {
-         width: 90%;
-     }
- }
+
 </style>

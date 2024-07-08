@@ -1,11 +1,4 @@
 <script setup lang="js">
-
-const currImage = ref(0);
-
-onMounted(() => {
-  currImage.value = 0;
-})
-
 </script>
 
 <template>
@@ -78,33 +71,6 @@ main {
   margin-bottom: 40px;
   color: #4c8189;
   text-align: center;
-}
-
-.title-with-lines {
-  position: relative;
-  text-align: center;
-  color: #4c8189;
-  font-size: 20px;
-}
-
-.title-with-lines::before,
-.title-with-lines::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 35%;
-  height: 1.1px;
-  background-color: #4c8189;
-}
-
-.title-with-lines::before {
-  left: 0;
-  margin-right: 5px;
-}
-
-.title-with-lines::after {
-  right: 0;
-  margin-left: 5px;
 }
 
 #main-img {

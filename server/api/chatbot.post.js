@@ -16,18 +16,6 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-/*async function run(history, message) {
-    const chatSession = model.startChat({
-        generationConfig,
-        // safetySettings: Adjust safety settings
-        // See https://ai.google.dev/gemini-api/docs/safety-settings
-        history,
-    });
-
-    const result = await chatSession.sendMessage(message);
-    return result.response.text();
-}*/
-
 async function run(history, message) {
     const chatSession = model.startChat({
         generationConfig,
