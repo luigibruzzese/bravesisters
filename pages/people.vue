@@ -1,5 +1,4 @@
 <script setup lang="js">
-import ElementInfoComponent from '@/components/ElementInfoComponent.vue';
 
 const people = ref(usePeopleStore().people), shown = ref(12), numberOfPeople = people.value.length;
 
@@ -9,6 +8,7 @@ function showMore() {
     else
         shown.value = shown.value + 6;
 }
+
 </script>
 
 <template>
@@ -28,12 +28,13 @@ function showMore() {
             <h2 class="title-with-lines">Our People</h2>
         </section>
         <div class="people-list">
-            <ElementInfoComponent
+            <SpecificElementComponent
                     v-for="person in people.slice(0, shown)"
                     :key="person.id"
                     :id="person.id"
                     :full-name="`${person.name} ${person.surname}`"
                     :role="person.role"
+                    :type = "'people'"
                     :short-presentation="person.description.slice(0, 80) + '...'"
             />
         </div>

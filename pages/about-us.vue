@@ -1,8 +1,4 @@
 <script setup lang="js">
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const numberOfImages = 6;
 
 const currImage = ref(0);
 
@@ -10,12 +6,6 @@ onMounted(() => {
   currImage.value = 0;
 })
 
-function nextImages() {
-  if (currImage.value === numberOfImages - 1)
-    currImage.value = 0;
-  else
-    currImage.value++;
-}
 </script>
 
 <template>

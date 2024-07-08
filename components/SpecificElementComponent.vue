@@ -28,6 +28,8 @@ const getImageSrc = (type, id) => {
     <div class="generalInfo">
       <img class="portrait" :src="getImageSrc(type, id)" />
       <h2 :style="{ fontSize: '18px'}"> {{ fullName }}</h2>
+      <h4 style="font-size: 100%">{{ role }}</h4>
+      <p style="font-size: 80%">{{ shortPresentation }}</p>
     </div>
   </NuxtLink>
 </template>

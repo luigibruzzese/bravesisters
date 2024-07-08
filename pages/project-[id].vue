@@ -229,8 +229,6 @@ main {
 }
 
 @media (max-width: 768px) {
-  .project,
-  .service,
   .staff-container {
     flex: 1 1 100%;
   }

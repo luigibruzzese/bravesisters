@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { usePeopleStore } from '@/stores/people.ts';
+
   import {useProjectStore} from "~/stores/projects";
 
   const store = useProjectStore();
