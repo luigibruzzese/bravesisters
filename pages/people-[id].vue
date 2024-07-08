@@ -16,26 +16,6 @@ const person = computed(() => peopleStore.getPerson(parseInt(personId.value, 10)
 const projects = computed(() => projectStore.getPersonProjects(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
 const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
 
-// const services = computed(() => store.service.filter(service => service.person === parseInt(personId.value, 10)));
-
-/*watch(personId, async () => {
-  const id = parseInt(personId.value, 10);
-  if (isNaN(id)) {
-    router.push('/people');
-  }
-  if(id < 1){
-    router.push('/people-20');
-    return;
-  }
-  if(id > 20){
-    router.push('/people-1');
-    return;
-  }
-
-  if (!store.people.length || !store.project.length || !store.service.length) {
-    await store.init();
-  }
-}, { immediate: true });*/
 
 function goToProject(id) {
   router.push(`/project-${id}`);
@@ -47,14 +27,6 @@ function goToService(id) {
 
 const getImageSrc = (type, id) => {
     return `/img/${type}/${id}.webp`;
-    /*  switch (type) {
-    case 'project':
-      return `/img/projects/${id}.jpg`;
-    case 'services':
-      return `/img/services/${id}.jpg`;
-    default:
-      return '';
-  }*/
 };
 </script>
 

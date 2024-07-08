@@ -313,7 +313,7 @@ ul {
     margin-bottom: 20px;
   }
 
-  
+
 
   .title-with-lines::before,
   .title-with-lines::after {

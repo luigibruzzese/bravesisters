@@ -12,35 +12,7 @@ const projectStore = useProjectStore();
 const projectId = computed(() => route.params.id);
 const project = computed(() => projectStore.getProject(parseInt(projectId.value, 10)));
 const person = computed(() => peopleStore.getPerson(project.value?.person));
-//const services = computed(() => store.service.filter(service => service.person === project.value?.person));
 
-/*watch(projectId, async () => {
-  const id = parseInt(projectId.value, 10);
-  if (isNaN(id)) {
-    window.location.href = '/projects';
-    return;
-  }
-  if(id < 1){
-    window.location.href = '/project-5';
-    return;
-  }
-  if(id > 5){
-    window.location.href = '/project-1';
-    return;
-  }
-
-  if (!store.people.length || !store.project.length || !store.service.length) {
-    await store.init();
-  }
-}, { immediate: true });
-
-function goToService(id) {
-  router.push(`/service-${id}`);
-}
-
-function goToProjects() {
-  router.push('/projects');
-}*/
 
 function goToPerson(id) {
     router.push(`/people-${id}`);
@@ -145,8 +117,6 @@ main {
   margin-left: 5px;
 }
 
-.projects-container,
-.services-container,
 .gallery-container {
   display: flex;
   justify-content: center;
@@ -173,25 +143,6 @@ main {
   }
 }
 
-.project,
-.service {
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  flex: 0 1 auto;
-  max-width: 500px;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  border: 1px solid transparent;
-}
-
-.project:hover,
-.service:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
-}
 
 .project img,
 .service img {
