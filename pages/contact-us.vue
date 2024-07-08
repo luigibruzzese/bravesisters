@@ -218,13 +218,17 @@ main {
 }
 
 form button {
-  padding: 8px;
   background-color: #4c8189;
   color: white;
   border: none;
   border-radius: 4px;
+  padding: 10px 15px;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 1em;
+  margin-bottom: 20px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 30px;
 }
 
 form button:hover {
@@ -309,9 +313,7 @@ ul {
     margin-bottom: 20px;
   }
 
-  form button {
-    width: 50%;
-  }
+  
 
   .title-with-lines::before,
   .title-with-lines::after {
