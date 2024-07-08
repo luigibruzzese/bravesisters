@@ -92,7 +92,7 @@ onMounted(() => {
               <textarea id="message" name="message" required></textarea>
             </div>
             <div class="submit-container">
-              <button type="submit">Send</button>
+              <input type="submit" class="submit" value="Send" >
               <span v-if="messageSent" class="confirmation-check">✔</span>
             </div>
           </form>

@@ -39,7 +39,7 @@ const inputReview = reactive({
     service: parseInt(serviceId.value)
 })
 
-let semdimgReview = {
+let sendimgReview = {
   name: '',
   surname: '',
   comment: '',
@@ -47,13 +47,17 @@ let semdimgReview = {
   service: parseInt(serviceId.value)
 }
 
-function addReview(e) {
-    semdimgReview.date = new Date().toISOString().substring(0, 10)
-    semdimgReview.name = inputReview.name;
-    semdimgReview.surname = inputReview.surname;
-    semdimgReview.comment = inputReview.comment;
-    reviewStore.addReview(semdimgReview)
-    feedbackMessage.value = 'Thank you for your feedback! Your review has been correctly registered.'
+async function addReview(e) {
+    sendimgReview.date = new Date().toISOString().substring(0, 10)
+    sendimgReview.name = inputReview.name;
+    sendimgReview.surname = inputReview.surname;
+    sendimgReview.comment = inputReview.comment;
+    reviewStore.addReview(sendimgReview).then(error => {
+      if(error)
+        feedbackMessage.value = error;
+      else
+        feedbackMessage.value = 'Thank you for your feedback! Your review has been correctly registered.'
+    })
     const form=document.getElementById("form")
     form.reset()
     inputReview.name=null
@@ -354,16 +358,5 @@ form button:hover {
     .staff-container {
         flex: 1 1 100%;
     }
-}
-.submit {
-  background-color: #4c8189;
-  color: #ffffff;
-  font-weight: normal;
-  border: 0;
-  padding: 10px 15px 10px 15px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color .5s;
-  border-radius: 10px;
 }
 </style>
