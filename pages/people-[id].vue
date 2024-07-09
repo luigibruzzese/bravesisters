@@ -2,8 +2,9 @@
 import { useRoute, useRouter } from 'vue-router';
 import { usePeopleStore } from '@/stores/people.ts';
 import { computed, watch } from 'vue';
-import {useProjectStore} from "~/stores/projects.ts";
-import {useServiceStore} from "~/stores/services.ts";
+import { useProjectStore } from '~/stores/projects.ts';
+import { useServiceStore } from '~/stores/services.ts';
+import ElementComponent from '@/components/ElementComponent.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -13,9 +14,8 @@ const serviceStore = useServiceStore();
 
 const personId = computed(() => route.params.id);
 const person = computed(() => peopleStore.getPerson(parseInt(personId.value, 10)));
-const projects = computed(() => projectStore.getPersonProjects(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
-const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));// store.project.filter(project => project.person === parseInt(personId.value, 10)));
-
+const projects = computed(() => projectStore.getPersonProjects(parseInt(personId.value, 10)));
+const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));
 
 function goToProject(id) {
   router.push(`/project-${id}`);
@@ -24,10 +24,6 @@ function goToProject(id) {
 function goToService(id) {
   router.push(`/service-${id}`);
 }
-
-const getImageSrc = (type, id) => {
-    return `/img/${type}/${id}.webp`;
-};
 </script>
 
 <template>
@@ -49,32 +45,26 @@ const getImageSrc = (type, id) => {
     <section v-if="projects.length" id="projects">
       <h2 class="title-with-lines">Projects</h2>
       <div class="projects-container">
-        <div
+        <ElementComponent
             v-for="project in projects"
             :key="project.id"
-            @click="goToProject(project.id)"
-            class="project"
-        >
-          <img :src="getImageSrc('project', project.id)" alt="Project Image" />
-          <h3>{{ project.name }}</h3>
-          <p>{{ project.description.slice(0, 250) + '...' }}</p>
-        </div>
+            :type="'project'"
+            :item="project"
+            :onClick="goToProject"
+        />
       </div>
     </section>
 
     <section v-if="services.length" id="services">
       <h2 class="title-with-lines">Services</h2>
       <div class="services-container">
-        <div
+        <ElementComponent
             v-for="service in services"
             :key="service.id"
-            @click="goToService(service.id)"
-            class="service"
-        >
-          <img :src="getImageSrc('service', service.id)" alt="Service Image" />
-          <h3>{{ service.name }}</h3>
-          <p>{{ service.description.slice(0, 250) + '...' }}</p>
-        </div>
+            :type="'service'"
+            :item="service"
+            :onClick="goToService"
+        />
       </div>
     </section>
 
@@ -120,35 +110,6 @@ main {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-}
-
-.project,
-.service {
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  flex: 0 1 auto;
-  max-width: 500px;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  border: 1px solid transparent;
-}
-
-.project:hover,
-.service:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
-}
-
-.project img,
-.service img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  margin: 5%;
-  border-radius: 50%;
 }
 
 @media (max-width: 768px) {
