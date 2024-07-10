@@ -1,4 +1,20 @@
 <script setup lang="js">
+
+useHead({
+  title: "About us - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"In this page we can find a short description of the mission of our association and an other one about our history." +
+          "After that we can find the location of our site and our opening time."
+    },
+    {
+      name:"keywords",
+      content: "About us, information"
+    }
+  ]
+})
+
 </script>
 
 <template>

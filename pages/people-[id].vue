@@ -24,6 +24,21 @@ function goToProject(id) {
 function goToService(id) {
   router.push(`/service-${id}`);
 }
+
+useHead({
+  title: person.value.name + " " + person.value.surname +" - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This page contains a short curriculum of " + person.value.name + ". After that we can find all the activities for which he/she is responsible "
+
+    },
+    {
+      name:"keywords",
+      content: person.value.name +", "+ person.value.role
+    }
+  ]
+})
 </script>
 
 <template>

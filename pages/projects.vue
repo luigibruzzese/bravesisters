@@ -4,6 +4,21 @@
 
   const store = useProjectStore();
   const projects = store.project;
+
+  useHead({
+    title: "Project - Brave Sisters",
+    meta:[
+      {
+        name:"description",
+        content:"This page contains a short description of all the projects organized by Brave Sisters. " +
+            "After that it shows all the different with the link to the corresponding page"
+      },
+      {
+        name:"keywords",
+        content:"projects, initiatives, programs, community"
+      }
+    ]
+  })
 </script>
 
 <template>

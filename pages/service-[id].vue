@@ -74,6 +74,21 @@ let reviewsIndex = ref(0);
 function goToPerson(id) {
   router.push(`/people-${id}`);
 }
+
+useHead({
+  title: service.value.name + " - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This page contains a short description of " + service.value.name + ". After that we can find the referent of this activity and the end some correlated images"
+
+    },
+    {
+      name:"keywords",
+      content: service.value.name
+    }
+  ]
+})
 </script>
 
 

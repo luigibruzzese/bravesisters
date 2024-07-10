@@ -56,6 +56,23 @@ onMounted(() => {
     phoneInput.addEventListener('input', handlePhoneInput);
   }
 });
+
+useHead({
+  title: "Contact us - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"In this page we can find a form to compile used to ask anything to our team by giving an name, surname, email, phone number(not mandatory) and a text" +
+          ". After there's a list of the most frequent questions so that you have a possibility to find an answer to your doubt only by looking at them"
+
+    },
+    {
+      name:"keywords",
+      content: "Contact, ask, question, communicate, help, assistance"
+    }
+  ]
+})
+
 </script>
 
 

@@ -3,6 +3,22 @@ import {useServiceStore} from "~/stores/services";
 
 const store = useServiceStore();
 const services = store.service;
+
+useHead({
+  title: "Service - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This page makes a short description of all the services offered by Brave Sister. " +
+          "After that it shows all the different services with the link to the corresponding page"
+    },
+    {
+      name:"keywords",
+      content:"services, meeting, support, assistance, counseling"
+    }
+  ]
+}
+)
 </script>
 
 <template>

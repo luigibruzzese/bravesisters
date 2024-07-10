@@ -9,6 +9,21 @@ function showMore() {
         shown.value = shown.value + 6;
 }
 
+useHead({
+  title: "People - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This page contains a short description of the team of employees that works in Brave Sisters. " +
+          "After that it shows all the members of the team with the link to the corresponding personal page"
+    },
+    {
+      name:"keywords",
+      content:"people, workers, employees, person, member"
+    }
+  ]
+})
+
 </script>
 
 <template>

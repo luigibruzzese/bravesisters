@@ -21,7 +21,22 @@ onMounted(() => {
     }, 1500);
 })
 
-
+useHead({
+  title: "Home - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This is the home page of the site. In this page , after an image and a short slogan,we can find " +
+          " a short text that encourages, in case of violence, seeking help and emphasizes that support is available, urging those in immediate danger to call emergency service." +
+          " After that we can find a page with the hyperlink to the most important page of the site: people, project and services. " +
+          " In the end there's a short gallery with some images."
+    },
+    {
+      name:"keywords",
+      content:"domestic violence, stalking, sexual abuse, help, support"
+    }
+  ]
+})
 
 function goToPeople() {
     router.push(`/people`);

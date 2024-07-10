@@ -20,6 +20,19 @@ const numberOfImages = 3;
 function goToPerson(id) {
   router.push(`/people-${id}`);
 }
+useHead({
+  title: project.value.name +" - Brave Sisters",
+  meta:[
+    {
+      name:"description",
+      content:"This page contains a short description of " + project.value.name + ". After that we can find the referent of this activity and the end some correlated images"
+    },
+    {
+      name:"keywords",
+      content: project.value.name
+    }
+  ]
+})
 </script>
 
 
