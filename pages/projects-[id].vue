@@ -39,15 +39,13 @@ const SEOData = computed( () => new Object ({
 
     <main>
         <section id="project">
-            <button @click="router.push(`/projects`);">< Up to all projects</button>
-            <div class="title-with-lines"><h2>Project</h2></div>
             <GeneralInfoComponent
                     v-if="project"
                     :id="project.id"
                     :name="project.name"
                     :subtitle="'Project'"
                     :content="project.description"
-                    context="project"
+                    context="projects"
                     total=5
             />
         </section>

@@ -103,8 +103,6 @@ const SEOData = computed( () => new Object ({
 
     <main>
         <section id="service">
-            <button @click="router.push(`/services`);">< Up to all services</button>
-            <div class="title-with-lines"><h2>Service</h2></div>
             <GeneralInfoComponent
                     v-if="service"
                     :id="service.id"
@@ -204,19 +202,5 @@ main {
     justify-content: space-around;
     align-items: center;
     text-align: center;
-}
-
-
-button {
-    padding: 10px 15px;
-}
-
-.project img,
-.service img {
-    width: 410px;
-    height: 410px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
 }
 </style>

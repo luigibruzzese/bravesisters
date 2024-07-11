@@ -39,7 +39,6 @@ const SEOData = computed( () => new Object ({
 
     <main>
         <section>
-            <div class="title-with-lines"><h2>People</h2></div>
             <GeneralInfoComponent
                     v-if="person"
                     :id="person.id"
@@ -79,6 +78,6 @@ const SEOData = computed( () => new Object ({
 
 <style scoped>
 main {
-    padding-top: 70px;
+    padding-top: 30px;
 }
 </style>

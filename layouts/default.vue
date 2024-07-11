@@ -204,7 +204,6 @@ function convert(message) {
 
 <style scoped>
 main {
-    padding-top: 130px;
     background-color: white;
 }
 
@@ -230,11 +229,9 @@ header h2 {
 header {
     display: flex;
     justify-content: space-between;
-    position: fixed;
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 90%;
-    height: 130px;
+    position: sticky;
+    top:0;
+    padding: 30px 5% 30px 5%;
     z-index: 109;
     background-image: url("/header.png");
     background-size: 100% 100%;
@@ -477,12 +474,6 @@ footer p {
 @media (max-width: 1000px) {
     header {
         flex-direction: column;
-        height: 130px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    main {
-        padding-top: 170px;
     }
     nav {
         display: none;

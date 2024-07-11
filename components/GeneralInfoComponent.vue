@@ -42,6 +42,7 @@ const getImageSrc = () => {
     <div class="back-to">
         <button @click="router.push(`/` + props.context);">< Up to all {{ props.context }}</button>
     </div>
+    <div class="title-with-lines"><h2>{{ props.context }}</h2></div>
     <NuxtLink class="desktopVisible" :href="getPrevId()">
         <img alt="Left arrow" class="arrow" id="left-arrow" src="~/assets/icons/left-arrow.png"/>
     </NuxtLink>
@@ -73,17 +74,15 @@ const getImageSrc = () => {
 
 <style scoped>
 button {
-    padding: 10px 15px;
     margin-top: 30px;
 }
 .back-to {
-    position: fixed;
+    position: sticky;
     left: 30px;
     padding-left: 0;
     width: 100%;
     display: unset;
-    top: 130px;
-    background-color: white;
+    top: 190px;
     z-index: 80;
 }
 .reducedVisible {
@@ -130,7 +129,10 @@ p {
 
 @media (max-width: 1000px) {
     .back-to {
-        position: unset;
+        position: revert;
+    }
+    button {
+        margin-top: 0;
     }
     .desktopVisible {
         display: none;
