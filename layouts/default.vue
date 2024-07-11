@@ -1,9 +1,5 @@
 <script setup lang="js">
 import {ref} from 'vue';
-import router from "#app/plugins/router.js";
-
-onMounted(() => {
-})
 
 onUpdated(() => {
     // To close the menu if open on the mobile
@@ -11,20 +7,18 @@ onUpdated(() => {
 })
 
 function changeDisplay(evt, element, newValue) {
-    if(evt)
+    if (evt)
         evt.stopPropagation();
     if (newValue) {
         newValue === 'none' ?
             element.removeAttribute("style")
             : element.style.display = newValue
-    }
-    else {
+    } else {
         element.style.display === 'flex' ?
             element.removeAttribute("style")
             : element.style.display = 'flex'
     }
 }
-
 
 
 function showChatbot() {
@@ -41,22 +35,14 @@ function showChatbot() {
     }
 }
 
-let history = [
-    /*    {
-            role: "user",
-            parts: [
-                {text: "hello"}
-            ]
-        },
-        {
-            role: "model",
-            parts: [
-                {text: "message"}
-            ]
-        }*/
-];
+let history = [];
 
-const messages = ref([])
+const messages = ref([{
+    role: "model",
+    parts: [{text: "Hello! I'm the <b>Brave Sisters bot</b>, and I'm here to answer all your questions for the <b>current legislation in Italy</b> against domestic violence and if you're in trouble in <b>finding information on this website</b>.<br><br>" +
+            "Ask me whatever you want about these topics, but please, be detailed on your situation so that I can give you precise and exhaustive answers. <br><br> " +
+            "Remember, you're <b>not alone!</b> Your safety is our job."}]
+}])
 
 const inputValue = ref('');
 let isQueuing = false;
@@ -85,7 +71,10 @@ async function onChatbotSend() {
                 history.push({role: "model", parts: [{text: answerMess}]})
                 messages.value.push({role: "model", parts: [{text: convert(answerMess)}]})
             } else {
-                messages.value.push({role: "model", parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporaly unavailability of the server. Please, try again."}]})
+                messages.value.push({
+                    role: "model",
+                    parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporarily unavailability of the server. Please, try again."}]
+                })
                 history.pop()
             }
             if (window.innerWidth > 800 && (newMessage.length >= 1000 || response.text().length >= 1000)) {
@@ -94,13 +83,17 @@ async function onChatbotSend() {
             }
         })
         isQueuing = false;
-        document.getElementById("chatbot-messages").lastElementChild.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        document.getElementById("chatbot-messages").lastElementChild.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest"
+        });
     }
 
 }
 
 function convert(message) {
-    return message.replaceAll("\n", "<br>").replaceAll(/(\*\*.*?\*\*)/g, function(match) {
+    return message.replaceAll("\n", "<br>").replaceAll(/(\*\*.*?\*\*)/g, function (match) {
         return "<strong>" + match.slice(2, -2) + "</strong>"
     }).replaceAll("*", "&bull;")
 }
@@ -108,14 +101,17 @@ function convert(message) {
 
 <template>
     <header>
-
-            <div @click="$router.push('/')" style="cursor: pointer;">
-                <img alt="Logo" class="logo" src="~/assets/logos/logo.png"/>
-                <div>
+        <div @click="$router.push('/')" style="cursor: pointer;">
+            <img alt="Logo" class="logo" src="~/assets/logos/logo.png"/>
+            <div>
+                <div class="title-with-lines" id="main-title">
                     <h1>Brave Sisters</h1>
-                    <h2>One for all, all for women</h2>
                 </div>
+                <h2>ONE FOR ALL, ALL FOR WOMEN</h2>
             </div>
+
+
+        </div>
 
         <div>
             <div id="menu">
@@ -156,7 +152,7 @@ function convert(message) {
         <img id="chatbot-icon" @click="showChatbot()" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
         <div id="chatbot" style="display: none;">
             <div id="chatbot-top-bar">
-                <p>Hi! I'm here to help you.</p>
+                <p>Hello! Brave Sisters bot here to help you.</p>
                 <img src="~/assets/icons/delete.png" @click="showChatbot()" alt="Close"/>
             </div>
             <div id="chatbot-messages">
@@ -166,7 +162,8 @@ function convert(message) {
 
             </div>
             <div id="chatbot-send-bar">
-                <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()" placeholder="Send a message to the bot."/>
+                <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()"
+                       placeholder="Send a message to the bot."/>
                 <img src="~/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send"/>
             </div>
         </div>
@@ -175,7 +172,7 @@ function convert(message) {
 
     <footer>
         <div>
-            <div style="border-radius: 15px 15px 15px 5px; background-color:  rgba(255,255,255,0.6);">
+            <div style="border-radius: 15px 15px 15px 5px; background-color:  rgba(255,255,255,0.8);">
                 <img class="ourIcon" src="~/assets/icons/address.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">ADDRESS</p>
@@ -183,7 +180,7 @@ function convert(message) {
                 </div>
 
             </div>
-            <div style="border-radius: 15px; background-color:  rgba(255,255,255,0.6);">
+            <div style="border-radius: 15px; background-color:  rgba(255,255,255,0.8);">
                 <img class="ourIcon" src="~/assets/icons/hour.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">OPENING HOURS</p>
@@ -192,7 +189,7 @@ function convert(message) {
                         Sunday: Closed</p>
                 </div>
             </div>
-            <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.6);">
+            <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.9);">
                 <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
@@ -206,103 +203,58 @@ function convert(message) {
 </template>
 
 <style scoped>
-
-
 main {
-    padding-top: 160px;
-    /*
-    background-color: #f7f1e3;
-    */
+    padding-top: 130px;
     background-color: white;
 }
 
-/************************* FOOTER **************************/
-footer {
-    flex-shrink: 0;
-    text-align: center;
-    padding: 0;
-    background-color: #4c8189;
-
-    color: #5c5c5c;
-
-    font-family: Figtree, serif;
-    font-size: 14px;
-
-    background-image: url("/footer.webp");
-    background-repeat: no-repeat;
-    background-position: top;
-    background-size: 100% 100% ;
-}
-
-footer div {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px;
-}
-
-footer > div {
-    background-color: unset;
-    padding: 30px;
-}
-
-
-
-footer p {
-    margin: 0;
-}
-
-#bottom-bar {
-    background-color:  rgba(255,255,255,0.7);
-    padding: 10px;
-    margin: 0;
-    color: #5c5c5c;
-    font-size: 12px;
-}
-
 /**************** HEADER ******************/
+header #main-title {
+    padding: 0;
 
+}
+header #main-title > h1 {
+    min-width: 220px;
+    font-size: 35px;
+    padding: 0;
+}
+header #main-title:before, header #main-title:after {
+    background: linear-gradient(to right, #b7403c 0%, #b7403c 40%);
+}
+
+header h2 {
+    letter-spacing: 1px;
+    font-size: 17px;
+    padding: 0;
+}
 header {
     display: flex;
     justify-content: space-between;
     position: fixed;
-    padding-left: 2%;
-    padding-right: 2%;
-    width: 96%;
-    height: 160px;
-    z-index: 110;
-    background-image: url("/header.webp");
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+    height: 130px;
+    z-index: 109;
+    background-image: url("/header.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    border-image: linear-gradient(to right, #d4dae5 0%, #b7403c 5%, #b7403c 95%, #d4dae5 100%) 1;
+
+    border-width: 0 0 4px 0;
+    border-style: solid;
 }
-
-
 header > div {
     display: flex;
     align-items: center;
     text-align: left;
-}
+    z-index: 110;
 
-header h2 {
-    margin-top: 0;
 }
-
-header h1 {
-    font-size: 30px;
-    margin-top: 20px;
-}
-
 .logo {
-    width: 100px;
-    margin-right: 20px;
+    width: 90px;
+    margin-right: 10px;
 }
-
-/*.vl {
-    border-left: 3px solid #b7403c;
-    height: 75%;
-    margin: 15px;
-}*/
-
 .ourIcon {
     cursor: pointer;
 //border-left: #b7403c solid 2px; width: 35px; width: 25px; margin-left: 10px;
@@ -310,30 +262,22 @@ header h1 {
 
 
 /*************** MENU ****************/
-
 .router-link-active, .router-link-exact-active {
     color: #4c8189;
 }
-
 .router-link-active > button, .router-link-exact-active > button {
     background-color: #b7403c;
 }
-
-button {
-    border-radius: 15px 15px 15px 15px;
-}
-
 nav {
     display: flex;
     justify-content: center;
     gap: 40px;
-    font-size: 20px;
+    font-size: 17px;
     line-height: 40px;
-    border-radius: 15px 15px 15px 15px;
-    padding: 0 20px 0 20px;
-    background-color:  rgba(255,255,255,0.8);
+    border-radius: 15px;
+    padding: 0 10px 0 15px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
-
 a[active="true"] {
 }
 
@@ -346,12 +290,12 @@ a[active="true"] {
 .submenu {
     position: absolute;
     flex-direction: column;
-    background-color:  rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     width: 90px;
     top: 40px;
     display: none;
-    font-size: 18px;
-    padding: 0 20px 0 20px;
+    font-size: 17px;
+    padding: 0 15px 0 15px;
 }
 
 a {
@@ -372,8 +316,6 @@ a:hover {
 
 
 /****************************** CHATBOT ********************************/
-
-
 #chatbot-icon {
     position: fixed;
     width: 90px;
@@ -477,67 +419,100 @@ a:hover {
     background-color: #e2e2e2;
 }
 
+/************************* FOOTER **************************/
+footer {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 0;
+
+    color: #5c5c5c;
+
+    font-family: Figtree, serif;
+    font-size: 14px;
+
+    background-image: url("/footer.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 100% 100%;
+    background-color: white;
+    border-image: linear-gradient(to right, #d4dae5 0%, #b7403c 5%, #b7403c 90%, #d4dae5 100%) 1;
+
+    border-width: 4px 0 0 0;
+    border-style: solid;
+}
+
+footer div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+footer > div {
+    background-color: unset;
+    padding: 30px;
+}
+
+
+footer p {
+    margin: 0;
+}
+
+#bottom-bar {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    margin: 0;
+    color: #5c5c5c;
+    font-size: 12px;
+}
+
+/************************ **************************/
+
 @media (max-width: 1400px) {
     #chatbot {
         width: 60%;
     }
 }
 
-@media (max-width: 800px) {
-    .logo {
-
-    }
-
-
+@media (max-width: 1000px) {
     header {
         flex-direction: column;
-        height: auto;
+        height: 130px;
         padding-top: 20px;
         padding-bottom: 20px;
-/*        background-image: url("/header-mobile.jpg");
-        background-size: 100% ;
-        background-repeat: no-repeat;
-        background-position: center;*/
     }
-
     main {
-        padding-top: 190px;
+        padding-top: 170px;
     }
-
     nav {
         display: none;
         flex-direction: column;
         gap: 0;
-        background-color: rgb(255,255,255,0.93);
-        border-bottom: 2px blueviolet solid;
-
-        border-left: 2px blueviolet solid;
-        border-right: 2px blueviolet solid;
-        border-radius: 0 0 10px 10px;
+        background-color: rgb(255, 255, 255, 0.93);
+        border-bottom: 2px #b7403c solid;
         position: absolute;
-        top: 50px;
+        border-left: 2px #b7403c solid;
+        border-right: 2px #b7403c solid;
+        border-radius: 0 0 10px 10px;
+        top: 60px;
         width: 90%;
         padding: 20px;
         text-align: left;
+        font-size: 20px;
     }
-
     .submenu {
-        background-color: rgb(255,255,255,0.93);
+        background-color: rgb(255, 255, 255, 0.93);
 
     }
-
-
     header div {
         justify-content: center;
         flex-direction: row;
     }
-
     #menu > img {
         display: initial;
         width: 40px;
         height: 10%;
     }
-
     #menu {
         display: flex;
         flex-direction: row;
@@ -548,25 +523,25 @@ a:hover {
         margin-right: 10px;
         position: relative;
     }
-
-
+    footer {
+        background-image: url("/footer1000.png");
+    }
     footer > div {
         flex-direction: column;
-        gap: 30px;
+        gap: 0;
     }
-
     #chatbot {
         width: 90% !important;
         font-size: 18px;
     }
-
     #chatbot-send-bar input {
         width: 90%;
     }
-
 }
 
 @media (max-width: 600px) {
-
+    footer {
+        background-image: url("/footer600.png");
+    }
 }
 </style>

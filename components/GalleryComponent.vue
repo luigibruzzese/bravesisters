@@ -1,3 +1,7 @@
+<!--
+    This component is used to show a gallery.
+-->
+
 <script setup lang="js">
 import {onMounted, ref} from "vue";
 
@@ -37,11 +41,11 @@ function previousImages() {
 </script>
 
 <template>
-    <section id="gallery">
-        <h2 class="title-with-lines">Gallery</h2>
-        <div id="gallery-container">
+    <section class="gallery">
+        <div class="title-with-lines"><h2>Gallery</h2></div>
+        <div class="gallery-container">
             <button v-show="numberOfImages > shownImages" @click="previousImages" class="gallery-button">&lt;</button>
-            <div id="gallery-images">
+            <div class="gallery-images">
                 <img v-for="i in shownImages" :src="imgBasePath + ((currImage + i - 1) % numberOfImages) + '.webp'"
                      :alt="'Gallery image ' + ((currImage + i - 1) % numberOfImages)">
             </div>
@@ -51,25 +55,11 @@ function previousImages() {
 </template>
 
 <style scoped>
-#gallery {
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    font-size: 20px;
-}
-
-#gallery-container {
+.gallery-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-}
-
-.gallery-container img {
-    width: 350px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
+    gap: 15px;
 }
 
 .gallery-button {
@@ -80,39 +70,30 @@ function previousImages() {
     border-radius: 7px;
 }
 
-#gallery-images {
+.gallery-images {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    width: 80%;
+    width: 100%;
 }
 
-#gallery-images img {
-    width: 25%;
-    height: auto;
+.gallery-images img {
+    width: 32%;
+    height: 350px;
     object-fit: cover;
-    border-radius: 10px;
-    margin: 15px;
+    border-radius: 5px;
+    gap: 0;
 }
 
 @media (max-width: 1000px) {
-    #gallery-images img {
-        width: 40%;
-    }
-
-    #gallery {
-        margin-bottom: 20px;
-        margin-top: 20px;
+    .gallery-images img {
+        width: 49%;
     }
 }
 
 @media (max-width: 800px) {
-    #gallery-images img {
-        width: 90%;
-    }
-    .gallery-container img {
+    .gallery-images img {
         width: 100%;
-        max-width: 410px;
     }
 }
 </style>

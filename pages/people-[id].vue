@@ -1,13 +1,11 @@
 <script setup lang="js">
-import { useRoute, useRouter } from 'vue-router';
-import { usePeopleStore } from '@/stores/people.ts';
-import { computed, watch } from 'vue';
-import { useProjectStore } from '~/stores/projects.ts';
-import { useServiceStore } from '~/stores/services.ts';
-import ElementComponent from '@/components/ElementComponent.vue';
+import {useRoute} from 'vue-router';
+import {usePeopleStore} from '@/stores/people.ts';
+import {computed} from 'vue';
+import {useProjectStore} from '~/stores/projects.ts';
+import {useServiceStore} from '~/stores/services.ts';
 
 const route = useRoute();
-const router = useRouter();
 const peopleStore = usePeopleStore();
 const projectStore = useProjectStore();
 const serviceStore = useServiceStore();
@@ -17,120 +15,70 @@ const person = computed(() => peopleStore.getPerson(parseInt(personId.value, 10)
 const projects = computed(() => projectStore.getPersonProjects(parseInt(personId.value, 10)));
 const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));
 
-function goToProject(id) {
-  router.push(`/project-${id}`);
-}
+const SEOData = computed( () => new Object ({
+    title: person.value.name + " " + person.value.surname + " - Brave Sisters",
+    meta: [
+        {
+            name: "description",
+            content: "This page contains a short curriculum of " + person.value.name + ". After that we can find all the activities for which he/she is responsible "
 
-function goToService(id) {
-  router.push(`/service-${id}`);
-}
-
-useHead({
-  title: person.value.name + " " + person.value.surname +" - Brave Sisters",
-  meta:[
-    {
-      name:"description",
-      content:"This page contains a short curriculum of " + person.value.name + ". After that we can find all the activities for which he/she is responsible "
-
-    },
-    {
-      name:"keywords",
-      content: person.value.name +", "+ person.value.role
-    }
-  ]
-})
+        },
+        {
+            name: "keywords",
+            content: person.value.name + ", " + person.value.role
+        }
+    ]
+}))
 </script>
 
 <template>
-  <main>
-    <section id="person">
-      <button @click="router.push(`/people`);" id="back-button">< Up to all people</button>
-      <h1 id="info_person">Person</h1>
-      <GeneralInfoComponent
-          v-if="person"
-          :id="person.id"
-          :full-name="`${person.name} ${person.surname}`"
-          :role="person.role"
-          :short-presentation="person.description"
-          context="people"
-          :total=20
-      />
-    </section>
+    <Head>
+        <Title>{{SEOData.title}}</Title>
+        <Meta v-for="meta in SEOData.meta" :name="meta.name" :content="meta.content"/>
+    </Head>
 
-    <section v-if="projects.length" id="projects">
-      <h2 class="title-with-lines">Projects</h2>
-      <div class="projects-container">
-        <ElementComponent
-            v-for="project in projects"
-            :key="project.id"
-            :type="'project'"
-            :item="project"
-            :onClick="goToProject"
-        />
-      </div>
-    </section>
-
-    <section v-if="services.length" id="services">
-      <h2 class="title-with-lines">Services</h2>
-      <div class="services-container">
-        <ElementComponent
-            v-for="service in services"
-            :key="service.id"
-            :type="'service'"
-            :item="service"
-            :onClick="goToService"
-        />
-      </div>
-    </section>
-
-    <br>
-    <br>
-  </main>
+    <main>
+        <section>
+            <div class="title-with-lines"><h2>People</h2></div>
+            <GeneralInfoComponent
+                    v-if="person"
+                    :id="person.id"
+                    :name="`${person.name} ${person.surname}`"
+                    :subtitle="person.role"
+                    :content="person.description"
+                    context="people"
+                    :total=20
+            />
+        </section>
+        <section v-if="projects.length">
+            <div class="title-with-lines"><h2>{{ person.name }} {{ person.surname }}'s projects</h2></div>
+            <div>
+                <RelatedElementComponent
+                        v-for="project in projects"
+                        :id="project.id"
+                        :type="'projects'"
+                        :name="project.name"
+                        :description="project.description"
+                />
+            </div>
+        </section>
+        <section v-if="services.length">
+            <div class="title-with-lines"><h2>{{ person.name }} {{ person.surname }}'s services</h2></div>
+            <div>
+                <RelatedElementComponent
+                        v-for="service in services"
+                        :id="service.id"
+                        :type="'services'"
+                        :name="service.name"
+                        :description="service.description"
+                />
+            </div>
+        </section>
+    </main>
 </template>
 
 <style scoped>
 main {
-  padding: 20px;
-}
-
-#back-button {
-  background-color: #4c8189;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-bottom: 20px;
-  position: relative;
-  margin-top: 20px;
-  margin-left: 30px;
-}
-
-#back-button:hover {
-  background-color: #3a6775;
-}
-
-#info_person {
-  font-size: 2em;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #4c8189;
-  text-align: center;
-}
-
-.projects-container,
-.services-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .project,
-  .service {
-    flex: 1 1 100%;
-  }
+    padding-top: 70px;
 }
 </style>

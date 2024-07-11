@@ -5,7 +5,7 @@ const store = useServiceStore();
 const services = store.service;
 
 useHead({
-  title: "Service - Brave Sisters",
+  title: "Services - Brave Sisters",
   meta:[
     {
       name:"description",
@@ -19,72 +19,38 @@ useHead({
   ]
 }
 )
+
+const paragraphs = ['YOUR NEEDS,', 'OUR JOB']
+const mainImagePath = "/img/services/MAIN.png"
 </script>
 
 <template>
-  <section id="service">
-    <h1 id="title">Services</h1>
-    <div class="people-info">
-      <img class="people-image" src="/img/service/home_2.webp" alt="People Image" />
-      <div class="people-text">
+    <MainImageComponent
+            :paragraphs="paragraphs"
+            :photo-src="mainImagePath"
+            :left="false"/>
+    <div class="title-with-lines" id="main-title"><h1>Services</h1></div>
+    <section id="service">
+    <div class="two-columns">
+      <img src="/img/services/home_2.webp" alt="People Image" />
+      <div>
         <p>At Brave Sisters, we provide essential support and guidance to women who have experienced domestic violence. Our services encompass psychological counseling to help manage trauma, legal assistance to navigate the judicial process, safety planning during times of crisis, job placement aid for financial independence, and expert advice on dealing with stalking situations. Each service is tailored to address the unique needs of our clients, empowering them to rebuild their lives with confidence and security.</p>
       </div>
     </div>
     <section id="our_project">
-      <h2 class="title-with-lines">Our Services</h2>
+      <div class="title-with-lines"><h2>Our Services</h2></div>
     </section>
-    <div class="project-list">
-      <SpecificElementComponent
+    <div class="elements-list">
+      <ListComponent
           v-for="service in services"
           :id = "service.id"
-          :full-name = "service.name"
-          :type = "'service'"
+          :name = "service.name"
+          :type = "'services'"
       >
-
-      </SpecificElementComponent>
+      </ListComponent>
     </div>
   </section>
 </template>
 
 <style scoped>
-.project-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-.people-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.people-image {
-  width: 700px;
-  height: auto;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.people-text {
-  max-width: 500px;
-  font-size: larger;
-  margin-left: 50px;
-}
-
-@media (max-width: 1000px) {
-  .people-info {
-    flex-direction: column;
-  }
-  .people-image, .people-text {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 20px;
-  }
-}
 </style>

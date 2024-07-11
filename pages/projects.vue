@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
   import {useProjectStore} from "~/stores/projects";
+  import ListComponent from "~/components/ListComponent.vue";
 
   const store = useProjectStore();
   const projects = store.project;
+
 
   useHead({
     title: "Project - Brave Sisters",
@@ -19,74 +21,39 @@
       }
     ]
   })
+
+  const paragraphs = ['YOUR LIFE,', 'YOUR choices']
+  const mainImagePath = "/img/projects/MAIN.png"
 </script>
 
 <template>
-  <section id="project">
-    <h1 id="title">Projects</h1>
-    <div class="people-info">
-      <img class="people-image" src="/img/project/home_3.webp" alt="People Image" />
-      <div class="people-text">
+    <MainImageComponent
+            :paragraphs="paragraphs"
+            :photo-src="mainImagePath"
+            :left="false"/>
+    <div class="title-with-lines" id="main-title"><h1>Projects</h1></div>
+    <section id="project">
+    <div class="two-columns">
+      <img src="/img/projects/home_3.webp" alt="People Image" />
+      <div>
         <p>Brave Sisters offers a range of projects aimed at empowering women affected by domestic violence, fostering resilience and promoting a brighter future. Our initiatives engage survivors and past victims in meaningful actions to reclaim their lives. From vocational training programs designed to enhance job skills and promote financial independence, to community-driven efforts that encourage women to share their experiences and support one another, each project is crafted to empower and inspire.
           Additionally, we focus on securing a stable future for children impacted by violence, providing essential support and resources. Our projects also include sports activities aimed at improving both mental and physical health, contributing to holistic recovery.</p>
       </div>
     </div>
     <section id="our_project">
-      <h2 class="title-with-lines">Our Projects</h2>
+      <div class="title-with-lines"><h2>Our Projects</h2></div>
     </section>
-    <div class="project-list">
-      <SpecificElementComponent
+    <div class="elements-list">
+      <ListComponent
           v-for="project in projects"
           :id = "project.id"
-          :full-name = "project.name"
-          :type = "'project'"
+          :name = "project.name"
+          :type = "'projects'"
       >
-
-      </SpecificElementComponent>
+      </ListComponent>
     </div>
   </section>
 </template>
 
 <style scoped>
-  .project-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
-  }
-
-  .people-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .people-image {
-    width: 700px;
-    height: auto;
-    margin-right: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-
-  .people-text {
-    max-width: 600px;
-    font-size: larger;
-    margin-left: 40px;
-  }
-
-  @media (max-width: 1000px) {
-    .people-info {
-      flex-direction: column;
-    }
-    .people-image, .people-text {
-      width: 100%;
-      margin-right: 0;
-      margin-bottom: 20px;
-      margin-top: 20px;
-    }
-  }
 </style>
