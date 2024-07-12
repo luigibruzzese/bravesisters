@@ -225,7 +225,7 @@ header {
     top:0;
     padding: 30px 5% 30px 5%;
     z-index: 109;
-    background-image: url("/header.png");
+    background-image: url("/header.webp");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     border-image: linear-gradient(to right, #d4dae5 0%, #b7403c 5%, #b7403c 95%, #d4dae5 100%) 1;
@@ -427,7 +427,7 @@ footer {
     font-family: Figtree, serif;
     font-size: 14px;
 
-    background-image: url("/footer.png");
+    background-image: url("/footer.webp");
     background-repeat: no-repeat;
     background-position: top;
     background-size: 100% 100%;
@@ -515,7 +515,7 @@ footer p {
         position: relative;
     }
     footer {
-        background-image: url("/footer1000.png");
+        background-image: url("/footer1000.webp");
     }
     footer > div {
         flex-direction: column;
@@ -532,7 +532,7 @@ footer p {
 
 @media (max-width: 600px) {
     footer {
-        background-image: url("/footer600.png");
+        background-image: url("/footer600.webp");
     }
     #chatbot{
         height: 80%;

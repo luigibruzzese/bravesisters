@@ -16,7 +16,7 @@ useHead({
 })
 
 const paragraphs = ['YOUR ALLY,', 'FOR YOUR FREEDOM']
-const mainImagePath = "/img/about-us-MAIN.png"
+const mainImagePath = "/img/about-us-MAIN.webp"
 </script>
 
 <template>

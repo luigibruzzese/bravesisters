@@ -23,7 +23,7 @@
   })
 
   const paragraphs = ['YOUR LIFE,', 'YOUR choices']
-  const mainImagePath = "/img/projects/MAIN.png"
+  const mainImagePath = "/img/projects/MAIN.webp"
 </script>
 
 <template>

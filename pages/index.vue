@@ -7,7 +7,7 @@ const imgBasePath = "/img/homepage/home_";
 const numberOfImages = 6;
 
 const paragraphs = ['REACT NOW,', 'DON\'T WAIT', 'ANY LONGER']
-const mainImagePath = "/img/homepage/MAIN.jpg"
+const mainImagePath = "/img/homepage/MAIN.webp"
 
 const textVisibility = ref([false, false, false]);
 

@@ -21,7 +21,7 @@ useHead({
 )
 
 const paragraphs = ['YOUR NEEDS,', 'OUR JOB']
-const mainImagePath = "/img/services/MAIN.png"
+const mainImagePath = "/img/services/MAIN.webp"
 </script>
 
 <template>
