@@ -180,22 +180,23 @@ p {
 }
 
 .faq-question {
+    font-weight: 500;
     display: flex;
     justify-content: space-between;
     cursor: pointer;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     background-color: white;
-    width: 80%;
     margin: 0 auto;
     font-size: 1.2em;
     text-align: left;
 }
 
 .faq-answer {
+    font-weight: 200;
+    font-style: italic;
     padding: 10px;
     background-color: white;
-    width: 80%;
     margin: 0 auto;
     text-align: left;
     border-bottom: 1px solid #ccc;

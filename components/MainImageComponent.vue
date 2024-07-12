@@ -132,9 +132,5 @@ onMounted(() => {
     .text-overlay {
         font-size: 1.4em;
     }
-
-    #main-img {
-        background-image: v-bind(photoSrcMobile)
-    }
 }
 </style>

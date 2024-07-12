@@ -38,6 +38,7 @@ const getImageSrc = (type, id) => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
+    line-height: normal;
 }
 
 .border:hover {

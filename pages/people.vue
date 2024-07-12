@@ -2,17 +2,14 @@
 
 import ListComponent from "~/components/ListComponent.vue";
 
-const people = ref(usePeopleStore().people), shown = ref(9), numberOfPeople = people.value.length;
+const people = ref(usePeopleStore().people), shown = ref(9), numberOfPeople = computed(() => people.value.length);
 const paragraphs = ['BY YOUR SIDE,', 'FOR YOU!']
 const mainImagePath = "/img/people/MAIN.jpg"
 
-onMounted(() => {
-    shown.value = 9;
-})
 
 function showMore() {
-    if (shown.value + 6 > numberOfPeople)
-        shown.value = numberOfPeople;
+    if (shown.value + 6 > numberOfPeople.value)
+        shown.value = numberOfPeople.value;
     else
         shown.value = shown.value + 6;
 }
@@ -64,7 +61,7 @@ useHead({
                         :content="person.description.slice(0, 80) + '...'"
                 />
             </div>
-            <div style="text-align: center; margin-top: 2%;">
+            <div id="showMore">
                 <button v-show="shown < numberOfPeople" @click="showMore">Show more people</button>
             </div>
         </section>
@@ -72,4 +69,8 @@ useHead({
 </template>
 
 <style scoped>
+   #showMore {
+       text-align: center;
+       margin: 2%;
+   }
 </style>

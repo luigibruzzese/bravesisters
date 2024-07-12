@@ -58,16 +58,10 @@ const getImageSrc = (type, id) => {
 }
 
 .element img {
-    width: 300px;
-    height: 300px;
+    width: 70%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     margin: 5%;
     border-radius: 50%;
-}
-
-@media (max-width: 600px) {
-    .element img {
-        width: 80%;
-    }
 }
 </style>

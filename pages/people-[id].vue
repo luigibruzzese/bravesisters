@@ -51,7 +51,7 @@ const SEOData = computed( () => new Object ({
         </section>
         <section v-if="projects.length">
             <div class="title-with-lines"><h2>{{ person.name }} {{ person.surname }}'s projects</h2></div>
-            <div>
+            <div class="related-elements">
                 <RelatedElementComponent
                         v-for="project in projects"
                         :id="project.id"
@@ -63,7 +63,7 @@ const SEOData = computed( () => new Object ({
         </section>
         <section v-if="services.length">
             <div class="title-with-lines"><h2>{{ person.name }} {{ person.surname }}'s services</h2></div>
-            <div>
+            <div class="related-elements">
                 <RelatedElementComponent
                         v-for="service in services"
                         :id="service.id"
@@ -79,5 +79,14 @@ const SEOData = computed( () => new Object ({
 <style scoped>
 main {
     padding-top: 30px;
+}
+.related-elements {
+    display: flex;
+    align-items: center;
+}
+@media (max-width: 800px) {
+    .related-elements {
+        flex-direction: column;
+    }
 }
 </style>

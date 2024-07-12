@@ -124,7 +124,6 @@ const SEOData = computed( () => new Object ({
                         :description="person.description"
                 />
             </div>
-            >
         </section>
 
         <section id="review-section">

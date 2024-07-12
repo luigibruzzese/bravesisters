@@ -199,4 +199,9 @@ body {
         width: 70%;
     }
 }
+@media (max-width: 600px) {
+    .image-container img {
+        width: 90%;
+    }
+}
 </style>

@@ -28,7 +28,6 @@ function showChatbot() {
         chatbotDiv.style.display = "unset";
         chatbotIcon.style.right = "0";
         chatbotIcon.style.transform = "scale(1.2)";
-        chatbotDiv.querySelector("input").select();
     } else {
         chatbotDiv.style.display = "none";
         chatbotIcon.removeAttribute("style");
@@ -152,7 +151,7 @@ function convert(message) {
         <img id="chatbot-icon" @click="showChatbot()" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
         <div id="chatbot" style="display: none;">
             <div id="chatbot-top-bar">
-                <p>Hello! Brave Sisters bot here to help you.</p>
+                <p>Ask me!</p>
                 <img src="~/assets/icons/delete.png" @click="showChatbot()" alt="Close"/>
             </div>
             <div id="chatbot-messages">
@@ -344,9 +343,9 @@ a:hover {
 }
 
 #chatbot-send-bar {
-    width: calc(100% - 120px);
     position: absolute;
     bottom: 0;
+    width: calc(100% - 120px);
     height: 5%;
     margin: 10px;
     border: #4c8189 2px solid;
@@ -358,13 +357,14 @@ a:hover {
 }
 
 #chatbot img {
-    height: 60%;
+    height: 70%;
     cursor: pointer;
 }
 
 #chatbot-send-bar > input {
     border: none;
     width: 96%;
+    font-size: 18px;
 }
 
 #chatbot-send-bar > input:focus {
@@ -372,29 +372,35 @@ a:hover {
 }
 
 #chatbot-top-bar {
-    background-color: #4c8189;
-    height: 8%;
-    color: #ffffff;
-    width: 100%;
     position: absolute;
+    top: 0;
+    background-color: #4c8189;
+    color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 10%;
+    font-size-adjust: revert;
 }
 
-#chatbot-top-bar * {
-    padding: 1.5%;
+#chatbot-top-bar > p {
+    padding-left: 1.5%;
+}
+
+#chatbot-top-bar img {
+    height: 40px;
 }
 
 #chatbot-messages {
     position: absolute;
-    bottom: 10%;
     width: 100%;
-    max-height: 82%;
+    max-height: 80%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    bottom: 10%;
 }
 
 /*Messages coming from the chatbot*/
@@ -534,5 +540,27 @@ footer p {
     footer {
         background-image: url("/footer600.png");
     }
+    #chatbot{
+        height: 80%;
+    }
+
+
 }
+
+@media (max-width: 300px) {
+    header #main-title > h1 {
+        min-width: unset;
+    }
+    .logo {
+        width: 40%;
+    }
+    #chatbot-icon {
+        width: 60px;
+    }
+    #chatbot-send-bar {
+        width: calc(100% - 90px);
+    }
+}
+
+
 </style>

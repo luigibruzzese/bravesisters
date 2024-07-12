@@ -115,10 +115,7 @@ button {
     border-radius: 50%;
 }
 
-p {
-    text-align: justify;
-    text-justify: inter-word;
-}
+
 
 @media (max-width: 1400px) {
 
