@@ -46,7 +46,7 @@ const SEOData = computed( () => new Object ({
                     :subtitle="'Project'"
                     :content="project.description"
                     context="projects"
-                    total=5
+                    :total=5
             />
         </section>
 

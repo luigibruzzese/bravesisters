@@ -189,7 +189,7 @@ function convert(message) {
                 </div>
             </div>
             <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.9);">
-                <img class="ourIcon" src="~/assets/icons/phone-call.png" alt="Address"/>
+                <img class="ourIcon" src="@/assets/icons/phone-call.png" alt="Address"/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
                     <p>+39 0574 53695</p>
