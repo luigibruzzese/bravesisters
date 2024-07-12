@@ -69,16 +69,16 @@ async function onChatbotSend() {
                 const answerMess = await response.text()
                 history.push({role: "model", parts: [{text: answerMess}]})
                 messages.value.push({role: "model", parts: [{text: convert(answerMess)}]})
+                if (window.innerWidth > 800 && (newMessage.length >= 1000 || answerMess.length >= 1000)) {
+                    document.getElementById("chatbot").style.width = '60%';
+                    document.getElementById("chatbot").style.height = '85%';
+                }
             } else {
                 messages.value.push({
                     role: "model",
                     parts: [{text: "I'm sorry but I'm not able to give you an answer in that moment, due to temporarily unavailability of the server. Please, try again."}]
                 })
                 history.pop()
-            }
-            if (window.innerWidth > 800 && (newMessage.length >= 1000 || response.text().length >= 1000)) {
-                document.getElementById("chatbot").style.width = '60%';
-                document.getElementById("chatbot").style.height = '85%';
             }
         })
         isQueuing = false;
@@ -101,20 +101,17 @@ function convert(message) {
 <template>
     <header>
         <div @click="$router.push('/')" style="cursor: pointer;">
-            <img alt="Logo" class="logo" src="~/assets/logos/logo.png"/>
+            <img alt="" class="logo" src="@/assets/logos/logo.png"/>
             <div>
                 <div class="title-with-lines" id="main-title">
                     <h1>Brave Sisters</h1>
                 </div>
                 <h2>ONE FOR ALL, ALL FOR WOMEN</h2>
             </div>
-
-
         </div>
-
         <div>
             <div id="menu">
-                <img alt="Menu" class="ourIcon" src="~/assets/icons/menu.png"
+                <img alt="Open menu" class="ourIcon" src="@/assets/icons/menu.png"
                      @click="changeDisplay($event, $event.target.parentElement.querySelector('nav'));"/>
                 <div style="text-align: right;">
                     <NuxtLink to="/contact-us">
@@ -123,7 +120,6 @@ function convert(message) {
                         </button>
                     </NuxtLink>
                 </div>
-
                 <nav>
                     <NuxtLink to="/about-us">About us</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
@@ -136,23 +132,20 @@ function convert(message) {
                             <NuxtLink to="/projects">Projects</NuxtLink>
                             <NuxtLink to="/services">Services</NuxtLink>
                         </div>
-                        <img alt="Arrow down" class="ourIcon" src="~/assets/icons/arrow down.png"
+                        <img alt="Open submenu" class="ourIcon" src="@/assets/icons/arrow down.png"
                              @click="changeDisplay($event, $event.target.previousElementSibling)">
                     </div>
                 </nav>
             </div>
-
         </div>
-
-
     </header>
 
     <main>
-        <img id="chatbot-icon" @click="showChatbot()" src="~/assets/icons/chatbot.png" alt="ChatBot"/>
+        <img id="chatbot-icon" @click="showChatbot()" src="@/assets/icons/chatbot.png" alt="Open chatbot"/>
         <div id="chatbot" style="display: none;">
             <div id="chatbot-top-bar">
                 <p>Ask me!</p>
-                <img src="~/assets/icons/delete.png" @click="showChatbot()" alt="Close"/>
+                <img src="@/assets/icons/delete.png" @click="showChatbot()" alt="Close chatbot"/>
             </div>
             <div id="chatbot-messages">
                 <template v-for="element in messages">
@@ -163,7 +156,7 @@ function convert(message) {
             <div id="chatbot-send-bar">
                 <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()"
                        placeholder="Send a message to the bot."/>
-                <img src="~/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send"/>
+                <img src="@/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send message to the chatbot"/>
             </div>
         </div>
         <slot/>
@@ -172,7 +165,7 @@ function convert(message) {
     <footer>
         <div>
             <div style="border-radius: 15px 15px 15px 5px; background-color:  rgba(255,255,255,0.8);">
-                <img class="ourIcon" src="~/assets/icons/address.png" alt="Address"/>
+                <img class="ourIcon" src="@/assets/icons/address.png" alt=""/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">ADDRESS</p>
                     <p>Via di Grignano, 102 - Prato (PO)</p>
@@ -180,7 +173,7 @@ function convert(message) {
 
             </div>
             <div style="border-radius: 15px; background-color:  rgba(255,255,255,0.8);">
-                <img class="ourIcon" src="~/assets/icons/hour.png" alt="Address"/>
+                <img class="ourIcon" src="@/assets/icons/hour.png" alt=""/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">OPENING HOURS</p>
                     <p>Mon - Fri: 9:00 - 12:00 | 13:00 - 18:00<br>
@@ -189,7 +182,7 @@ function convert(message) {
                 </div>
             </div>
             <div style="border-radius: 15px 15px 5px 15px; background-color:  rgba(255,255,255,0.9);">
-                <img class="ourIcon" src="@/assets/icons/phone-call.png" alt="Address"/>
+                <img class="ourIcon" src="@/assets/icons/phone-call.png" alt=""/>
                 <div style="display: initial;">
                     <p style="letter-spacing: .1rem;">PHONE NUMBER</p>
                     <p>+39 0574 53695</p>
@@ -260,6 +253,7 @@ header > div {
 /*************** MENU ****************/
 .router-link-active, .router-link-exact-active {
     color: #4c8189;
+    font-weight: 650;
 }
 .router-link-active > button, .router-link-exact-active > button {
     background-color: #b7403c;

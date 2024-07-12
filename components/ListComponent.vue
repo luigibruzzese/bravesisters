@@ -20,7 +20,7 @@ const getImageSrc = (type, id) => {
 <template>
   <NuxtLink :href="(id !== undefined) ? '/' + type + '-' + id.toString() : ''" class="border">
     <div class="generalInfo">
-      <img v-if="type !== 'review'" class="portrait" alt="Portrait" :src="getImageSrc(type, id)" />
+      <img v-if="type !== 'review'" class="portrait" alt="" :src="getImageSrc(type, id)" />
       <h3> {{ name }}</h3>
       <h4>{{ subtitle }}</h4>
       <p style="font-size: 80%">{{ content }}</p>
@@ -59,6 +59,7 @@ const getImageSrc = (type, id) => {
   object-fit: cover;
   margin: 5%;
   border-radius: 50%;
+    background-color: #d4dae5;
 }
 @media (max-width: 250px) {
     .border {

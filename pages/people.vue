@@ -39,7 +39,7 @@ useHead({
     <div class="title-with-lines" id="main-title"><h1>People</h1></div>
     <section>
         <div class="two-columns">
-            <img src="/img/people/collaboration.webp" alt="People Image"/>
+            <img src="/img/people/collaboration.webp" alt=""/>
             <div>
                 <p>At Brave Sister Center, our team consists of highly qualified professionals dedicated to supporting
                     women in need. Our staff includes psychologists specialized in gender-based violence, social workers

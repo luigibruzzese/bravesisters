@@ -32,7 +32,7 @@ const mainImagePath = "/img/services/MAIN.png"
     <div class="title-with-lines" id="main-title"><h1>Services</h1></div>
     <section id="service">
     <div class="two-columns">
-      <img src="/img/services/home_2.webp" alt="People Image" />
+      <img src="/img/services/home_2.webp" alt="" />
       <div>
         <p>At Brave Sisters, we provide essential support and guidance to women who have experienced domestic violence. Our services encompass psychological counseling to help manage trauma, legal assistance to navigate the judicial process, safety planning during times of crisis, job placement aid for financial independence, and expert advice on dealing with stalking situations. Each service is tailored to address the unique needs of our clients, empowering them to rebuild their lives with confidence and security.</p>
       </div>

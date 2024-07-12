@@ -44,7 +44,7 @@ const getImageSrc = () => {
     </div>
     <div class="title-with-lines"><h2>{{ props.context }}</h2></div>
     <NuxtLink class="desktopVisible" :href="getPrevId()">
-        <img alt="Left arrow" class="arrow" id="left-arrow" src="~/assets/icons/left-arrow.png"/>
+        <img alt="Back to all elements" class="arrow" id="left-arrow" src="@/assets/icons/left-arrow.png"/>
     </NuxtLink>
     <div class="generalInfo">
 
@@ -59,14 +59,14 @@ const getImageSrc = () => {
 
     </div>
     <NuxtLink class="desktopVisible" :href="getNextId()">
-        <img alt="Right arrow" class="arrow" id="right-arrow" src="~/assets/icons/right-arrow.png"/>
+        <img alt="Next element" class="arrow" id="right-arrow" src="@/assets/icons/right-arrow.png"/>
     </NuxtLink>
     <div class="reducedVisible">
         <NuxtLink  :href="getPrevId()">
-            <img alt="Left arrow" class="arrow" src="~/assets/icons/left-arrow.png"/>
+            <img alt="Left arrow" class="arrow" src="@/assets/icons/left-arrow.png"/>
         </NuxtLink>
         <NuxtLink :href="getNextId()">
-            <img alt="Right arrow" class="arrow" src="~/assets/icons/right-arrow.png"/>
+            <img alt="Previous element" class="arrow" src="@/assets/icons/right-arrow.png"/>
         </NuxtLink>
     </div>
 
@@ -113,6 +113,7 @@ button {
     height: 300px;
     object-fit: cover;
     border-radius: 50%;
+    background-color: #d4dae5;
 }
 
 

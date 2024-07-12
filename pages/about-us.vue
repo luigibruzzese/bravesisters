@@ -64,7 +64,7 @@ const mainImagePath = "/img/about-us-MAIN.png"
                     </p>
                 </div>
             </section>
-            <img id="center-picture" src="public/img/homepage/building_photo.webp" alt="Building photo"/>
+            <img id="center-picture" src="/img/homepage/building_photo.webp" alt=""/>
             <section>
                 <div class="title-with-lines"><h2>Location</h2></div>
                 <section class="two-columns">

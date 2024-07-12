@@ -42,14 +42,14 @@ onMounted(() => {
 
 <template>
     <div id="center" :class="left ? 'image-text-container-left' : 'image-text-container-right'">
-        <img v-if="left" id="main-img" :src="photoComputedSrc" alt="Building photo"/>
+        <img v-if="left" id="main-img" :src="photoComputedSrc" alt=""/>
         <div class="text-overlay" :style="!left ? 'align-items: flex-end;' : ''">
           <span v-for="(text, index) in paragraphs" :key="index"
                 :class="{ 'visible': textVisibility[index] }" class="text-line">
             {{ text }}
           </span>
         </div>
-        <img v-if="!left" id="main-img" :src="photoComputedSrc" style="border-radius: 0 0 0 20px;" alt="Building photo"/>
+        <img v-if="!left" id="main-img" :src="photoComputedSrc" style="border-radius: 0 0 0 20px;" alt=""/>
     </div>
 </template>
 

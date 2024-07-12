@@ -75,10 +75,13 @@ function goToServices() {
                         <br>
                         We're here for you and for your safety! You're not alone.</p>
                     </div>
-                    <div class="image-container" @click="goToPeople">
-                        <img src="/img/homepage/collaboration_1.webp" alt="Staff photo"/>
-                        <div class="hover-text">Meet the team</div>
-                        <div class="hover-overlay"></div>
+                    <div>
+                        <div class="title-with-lines"><h2>People</h2></div>
+                        <div class="image-container" @click="goToPeople">
+                            <img src="/img/homepage/collaboration_1.webp" alt="Go to people"/>
+                            <div class="hover-text">Meet the team</div>
+                            <div class="hover-overlay"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -113,7 +116,7 @@ function goToServices() {
                         <div>
                             <div class="title-with-lines"><h2>Projects</h2></div>
                             <div class="image-container" @click="goToProjects">
-                                <img src="/img/homepage/1.webp" alt="Staff photo"/>
+                                <img src="/img/homepage/1.webp" alt="Go to projects"/>
                                 <div class="hover-text">Discover our projects</div>
                                 <div class="hover-overlay"></div>
                             </div>
@@ -121,7 +124,7 @@ function goToServices() {
                         <div>
                             <div class="title-with-lines"><h2>Services</h2></div>
                             <div class="image-container" @click="goToServices">
-                                <img src="/img/homepage/2.webp" alt="Staff photo"/>
+                                <img src="/img/homepage/2.webp" alt="Go to services"/>
                                 <div class="hover-text">Discover our services</div>
                                 <div class="hover-overlay"></div>
                             </div>

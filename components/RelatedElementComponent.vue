@@ -32,7 +32,7 @@ const getImageSrc = (type, id) => {
 
 <template>
     <div @click="router.push(`/` + props.type + '-' + props.id);" class="element">
-        <img :src="getImageSrc(type, id)" alt="Element Image"/>
+        <img :src="getImageSrc(type, id)" alt=""/>
         <h3>{{ name }}</h3>
         <p>{{ description.slice(0, 250) + '...' }}</p>
     </div>
@@ -63,5 +63,6 @@ const getImageSrc = (type, id) => {
     object-fit: cover;
     margin: 5%;
     border-radius: 50%;
+    background-color: #d4dae5;
 }
 </style>

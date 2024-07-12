@@ -34,7 +34,7 @@
     <div class="title-with-lines" id="main-title"><h1>Projects</h1></div>
     <section id="project">
     <div class="two-columns">
-      <img src="/img/projects/home_3.webp" alt="People Image" />
+      <img src="/img/projects/home_3.webp" alt="" />
       <div>
         <p>Brave Sisters offers a range of projects aimed at empowering women affected by domestic violence, fostering resilience and promoting a brighter future. Our initiatives engage survivors and past victims in meaningful actions to reclaim their lives. From vocational training programs designed to enhance job skills and promote financial independence, to community-driven efforts that encourage women to share their experiences and support one another, each project is crafted to empower and inspire.
           Additionally, we focus on securing a stable future for children impacted by violence, providing essential support and resources. Our projects also include sports activities aimed at improving both mental and physical health, contributing to holistic recovery.</p>
