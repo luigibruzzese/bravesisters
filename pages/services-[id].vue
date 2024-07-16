@@ -57,7 +57,8 @@ let sendingReview = {
     service: parseInt(serviceId.value)
 }
 
-async function addReview() {
+async function addReview(event) {
+    event.preventDefault()
     sendingReview.date = new Date().toISOString().substring(0, 10)
     sendingReview.name = inputReview.name;
     sendingReview.surname = inputReview.surname;
@@ -68,8 +69,6 @@ async function addReview() {
         else
             feedbackMessage.value = 'Thank you for your feedback! Your review has been correctly registered.'
     })
-    const form = document.getElementById("form")
-    form.reset()
     inputReview.name = null
     inputReview.surname = null
     inputReview.comment = null
@@ -152,20 +151,20 @@ const SEOData = computed( () => new Object ({
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name*</label>
-                        <input v-model="inputReview.name" type="text" id="name" name="name" required/>
+                        <input v-model="inputReview.name" type="text" id="name" name="name" />
                     </div>
                     <div class="form-group">
                         <label for="surname">Surname*</label>
-                        <input v-model="inputReview.surname" type="text" id="surname" name="surname" required/>
+                        <input v-model="inputReview.surname" type="text" id="surname" name="surname" />
                     </div>
                 </div>
                 <div class="form-group full-width">
                     <label for="comment">Comment*</label>
-                    <input v-model="inputReview.comment" v-on:keyup.enter="addReview" id="comment" name="comment"
-                           required/>
+                    <textarea v-model="inputReview.comment"  id="comment" name="comment"
+                           />
                 </div>
                 <br>
-                <input type="submit" value="Add review" @click="addReview" class="submit">
+                <input type="submit" value="Add review" @click="addReview($event)" class="submit">
             </form>
             <div class="confirmation-message">
                 {{ feedbackMessage }}
