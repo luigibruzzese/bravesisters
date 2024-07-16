@@ -491,7 +491,7 @@ footer p {
         border-left: 2px #b7403c solid;
         border-right: 2px #b7403c solid;
         border-radius: 0 0 10px 10px;
-        top: 60px;
+        top: 84px;
         width: 90%;
         padding: 20px;
         text-align: left;
