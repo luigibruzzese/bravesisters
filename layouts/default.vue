@@ -444,6 +444,10 @@ footer {
     border-style: solid;
 }
 
+footer .ourIcon {
+    cursor: unset;
+}
+
 footer div {
     display: flex;
     justify-content: space-around;

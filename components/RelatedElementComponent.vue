@@ -67,4 +67,7 @@ const getImageSrc = (type, id) => {
     border-radius: 50%;
     background-color: #d4dae5;
 }
+a {
+    text-decoration: none;
+}
 </style>

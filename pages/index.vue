@@ -36,7 +36,7 @@ useHead({
     },
     {
       name:"keywords",
-      content:"domestic violence, stalking, sexual abuse, help, support"
+      content:"domestic violence, women safety, violence against women, help for women, stalking, sexual abuse, help, support for women"
     }
   ]
 })

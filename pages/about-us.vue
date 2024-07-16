@@ -10,7 +10,7 @@ useHead({
     },
     {
       name:"keywords",
-      content: "About us, information"
+      content: "About us, information, center, history"
     }
   ]
 })
