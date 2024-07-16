@@ -22,8 +22,8 @@ const getImageSrc = (type, id) => {
     <div class="generalInfo">
       <img v-if="type !== 'review'" class="portrait" alt="" :src="getImageSrc(type, id)" />
       <h3> {{ name }}</h3>
-      <h4>{{ subtitle }}</h4>
-      <p style="font-size: 80%">{{ content }}</p>
+      <h4 v-if="subtitle">{{ subtitle }}</h4>
+      <p v-if="content" style="font-size: 80%">{{ content }}</p>
     </div>
   </NuxtLink>
 </template>

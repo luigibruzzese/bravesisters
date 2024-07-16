@@ -159,7 +159,8 @@ function convert(message) {
 
             </div>
             <div id="chatbot-send-bar">
-                <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()"
+                <label for="message"></label>
+                <input name="message" v-model="inputValue" v-on:keyup.enter="onChatbotSend()"
                        placeholder="Send a message to the bot."/>
                 <img tabindex="0" src="@/assets/icons/send-icon.png"
                      @click="onChatbotSend()" alt="Send message to the chatbot"/>
