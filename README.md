@@ -1,37 +1,13 @@
+# Brave Sisters
 
+This project refers to the Hypermedia Applications (Web and Multimedia) course held by prof. Franca Garzotto at Politecnico di Milano during the Academic Year 2023/2024.
 
-# Nuxt 3 Minimal Starter
+The aim of the project is to realize a web-application for a center that offers support to women victims of domestic violence. In particular, the website contains all the relevant information about the center, including the people that work for it and the activities (projects and services) it provides.
+A key and very useful feature that the website provides is a chatbot, realized by the usage of modern AI API, prompted on a specific topic, that could be used in a conversational-similar environment from the users of the application to dynamically interact and receive help in the decided topic. Chatbot main topic is the current legislation in Italy: the chatbot has to be seen as a guide through the main laws that regard not just the penalties for domestic violence, but also what are the right procedures to be followed and all the related aspects (e.g., child support, economic and employment protection, precautionary measures). The conversational agent guides the user by asking her all the information it needs to have a complete picture of the situation and evaluate the correct way of pursuing..
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+The deployed application can be found here: https://bravesisters.vercel.app/.
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-npm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The team members that collaborated to realize the application are (in alphabetical order):
+- Aliaj Aleksandro
+- Bruzzese Luigi
+- Di Paola Antonio.
