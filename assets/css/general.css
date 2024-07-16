@@ -56,7 +56,7 @@ main > section > div {
 button {
     background-color: #4c8189;
     color: #ffffff;
-    font-weight: normal;
+    font-weight: bold;
     border: 0;
     padding: 7px 15px 7px 15px;
     font-size: 17px;
@@ -256,7 +256,7 @@ h4 {
 .submit {
     background-color: #4c8189;
     color: #ffffff;
-    font-weight: normal;
+    font-weight: bold;
     border: 0;
     padding: 10px 15px 10px 15px;
     font-size: 18px;

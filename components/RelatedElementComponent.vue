@@ -31,11 +31,13 @@ const getImageSrc = (type, id) => {
 </script>
 
 <template>
-    <div @click="router.push(`/` + props.type + '-' + props.id);" class="element">
-        <img :src="getImageSrc(type, id)" alt=""/>
-        <h3>{{ name }}</h3>
-        <p>{{ description.slice(0, 250) + '...' }}</p>
-    </div>
+    <NuxtLink :href="`/` + props.type + '-' + props.id">
+        <div class="element">
+            <img :src="getImageSrc(type, id)" alt=""/>
+            <h3>{{ name }}</h3>
+            <p>{{ description.slice(0, 250) + '...' }}</p>
+        </div>
+    </NuxtLink>
 </template>
 
 <style scoped>
