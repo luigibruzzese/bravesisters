@@ -44,12 +44,17 @@ function previousImages() {
     <section class="gallery">
         <div class="title-with-lines"><h2>Gallery</h2></div>
         <div class="gallery-container">
-            <img alt="Previous image" src="@/assets/icons/left-arrow.png" v-show="numberOfImages > shownImages" @click="previousImages" class="arrow"/>
+            <img alt="Previous image" src="@/assets/icons/left-arrow.png" v-show="numberOfImages > shownImages"
+                 v-on:keyup.enter="previousImages"
+                 tabindex="0"
+                 @click="previousImages" class="arrow"/>
             <div class="gallery-images">
                 <img v-for="i in shownImages" :src="imgBasePath + ((currImage + i - 1) % numberOfImages) + '.webp'"
                      :alt="'Gallery image ' + ((currImage + i - 1) % numberOfImages)">
             </div>
-            <img alt="Next image" class="arrow" src="@/assets/icons/right-arrow.png" v-show="numberOfImages > shownImages" @click="nextImages" />
+            <img alt="Next image" class="arrow" src="@/assets/icons/right-arrow.png" v-show="numberOfImages > shownImages"
+                 v-on:keyup.enter="nextImages" tabindex="0"
+                 @click="nextImages" />
         </div>
     </section>
 </template>

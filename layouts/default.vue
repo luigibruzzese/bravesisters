@@ -100,7 +100,8 @@ function convert(message) {
 
 <template>
     <header>
-        <div @click="$router.push('/')" style="cursor: pointer;">
+        <div @click="$router.push('/')" style="cursor: pointer;"
+        tabindex="0" v-on:keyup.enter="$router.push('/')">
             <img alt="" class="logo" src="@/assets/logos/logo.png"/>
             <div>
                 <div class="title-with-lines" id="main-title">
@@ -111,7 +112,7 @@ function convert(message) {
         </div>
         <div>
             <div id="menu">
-                <img alt="Open menu" class="ourIcon" src="@/assets/icons/menu.png"
+                <img tabindex="0" v-on:keyup.enter="changeDisplay($event, $event.target.parentElement.querySelector('nav'));" alt="Open menu" class="ourIcon" src="@/assets/icons/menu.png"
                      @click="changeDisplay($event, $event.target.parentElement.querySelector('nav'));"/>
                 <div style="text-align: right;">
                     <NuxtLink to="/contact-us">
@@ -123,7 +124,8 @@ function convert(message) {
                 <nav>
                     <NuxtLink to="/about-us">About us</NuxtLink>
                     <NuxtLink to="/people">People</NuxtLink>
-                    <div id="activities"
+                    <div tabindex="0" id="activities"
+                         v-on:keyup.enter="changeDisplay($event, $event.target.children[0]);"
                          @mouseenter="changeDisplay($event, $event.target.children[0], 'flex')"
                          @mouseleave="changeDisplay($event, $event.target.children[0], 'none')"
                          @click="changeDisplay($event, $event.target.children[0]);">
@@ -141,11 +143,14 @@ function convert(message) {
     </header>
 
     <main>
-        <img id="chatbot-icon" @click="showChatbot()" src="@/assets/icons/chatbot.png" alt="Open chatbot"/>
+        <img tabindex="0" v-on:keyup.enter="showChatbot"
+             id="chatbot-icon" @click="showChatbot()" src="@/assets/icons/chatbot.png" alt="Open chatbot"/>
         <div id="chatbot" style="display: none;">
             <div id="chatbot-top-bar">
                 <p>Ask me!</p>
-                <img src="@/assets/icons/delete.png" @click="showChatbot()" alt="Close chatbot"/>
+                <img src="@/assets/icons/delete.png"
+                     tabindex="0" v-on:keyup.enter="showChatbot"
+                     @click="showChatbot()" alt="Close chatbot"/>
             </div>
             <div id="chatbot-messages">
                 <template v-for="element in messages">
@@ -156,7 +161,8 @@ function convert(message) {
             <div id="chatbot-send-bar">
                 <input v-model="inputValue" v-on:keyup.enter="onChatbotSend()"
                        placeholder="Send a message to the bot."/>
-                <img src="@/assets/icons/send-icon.png" @click="onChatbotSend()" alt="Send message to the chatbot"/>
+                <img tabindex="0" src="@/assets/icons/send-icon.png"
+                     @click="onChatbotSend()" alt="Send message to the chatbot"/>
             </div>
         </div>
         <slot/>

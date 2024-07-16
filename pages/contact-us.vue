@@ -120,7 +120,7 @@ useHead({
                     <div class="title-with-lines"><h2>FAQ</h2></div>
                     <ul>
                         <li v-for="(item, index) in faq" :key="index">
-                            <div @click="toggleAnswer(index)"
+                            <div @click="toggleAnswer(index)" tabindex="0" v-on:keyup.enter="toggleAnswer(index)"
                                  :class="{'faq-question': true, 'open': showAnswer[index]}">
                                 {{ item.question }}
                                 <span>{{ showAnswer[index] ? '▲' : '▼' }}</span>
