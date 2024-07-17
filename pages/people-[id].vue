@@ -16,16 +16,16 @@ const projects = computed(() => projectStore.getPersonProjects(parseInt(personId
 const services = computed(() => serviceStore.getPersonServices(parseInt(personId.value, 10)));
 
 const SEOData = computed( () => new Object ({
-    title: person.value.name + " " + person.value.surname + " - Brave Sisters",
+    title: person.value ? (person.value.name + " " + person.value.surname + " - Brave Sisters") : ("Person not found! - Brave Sisters"),
     meta: [
         {
             name: "description",
-            content: "This page contains a short curriculum of " + person.value.name + ". After that we can find all the activities for which he/she is responsible "
+            content: "This page contains a short curriculum of " + person.value?.name + ". After that we can find all the activities for which he/she is responsible "
 
         },
         {
             name: "keywords",
-            content: person.value.name + ", " + person.value.role
+            content: person.value?.name + ", " + person.value?.role
         }
     ]
 }))
@@ -37,10 +37,9 @@ const SEOData = computed( () => new Object ({
         <Meta v-for="meta in SEOData.meta" :name="meta.name" :content="meta.content"/>
     </Head>
 
-    <main>
+    <main v-if="person">
         <section>
             <GeneralInfoComponent
-                    v-if="person"
                     :id="person.id"
                     :name="`${person.name} ${person.surname}`"
                     :subtitle="person.role"
@@ -73,6 +72,13 @@ const SEOData = computed( () => new Object ({
                 />
             </div>
         </section>
+    </main>
+    <main v-else>
+        <div class="error">
+            <h2>Ops! Error 404: the person you're looking for is not present.</h2>
+            <br>
+            <button @click="$router.push('/people')">Back to all people</button>
+        </div>
     </main>
 </template>
 

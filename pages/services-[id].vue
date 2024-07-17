@@ -1,5 +1,5 @@
 <script setup lang="js">
-import {useRoute, useRouter} from 'vue-router';
+import {useRoute} from 'vue-router';
 import {usePeopleStore} from '@/stores/people.ts';
 import {computed, ref, reactive, onMounted} from 'vue';
 import {useServiceStore} from "~/stores/services.ts";
@@ -7,7 +7,6 @@ import {useReviewStore} from "~/stores/reviews.ts";
 import ListComponent from "~/components/ListComponent.vue";
 
 const route = useRoute();
-const router = useRouter();
 const peopleStore = usePeopleStore();
 const serviceStore = useServiceStore();
 const reviewStore = useReviewStore();
@@ -77,17 +76,17 @@ async function addReview(event) {
 let numberOfReviews = computed(() => review.value.length);
 let reviewsIndex = ref(0);
 
-const SEOData = computed( () => new Object ({
-    title: service.value.name + " - Brave Sisters",
+const SEOData = computed(() => new Object({
+    title: service.value ? service.value.name + " - Brave Sisters" : "Service not found - Brave Sisters",
     meta: [
         {
             name: "description",
-            content: "This page contains a short description of " + service.value.name + ". After that we can find the referent of this activity and the end some correlated images"
+            content: "This page contains a short description of " + service.value?.name + ". After that we can find the referent of this activity and the end some correlated images"
 
         },
         {
             name: "keywords",
-            content: service.value.name
+            content: service.value?.name
         }
     ]
 }))
@@ -100,10 +99,9 @@ const SEOData = computed( () => new Object ({
         <Meta v-for="meta in SEOData.meta" :name="meta.name" :content="meta.content"/>
     </Head>
 
-    <main>
+    <main v-if="service">
         <section id="service">
             <GeneralInfoComponent
-                    v-if="service"
                     :id="service.id"
                     :name="service.name"
                     :subtitle="'Service'"
@@ -129,7 +127,7 @@ const SEOData = computed( () => new Object ({
             <div class="title-with-lines"><h2>Service's reviews</h2></div>
             <div id="reviews">
                 <NuxtLink v-show="numberOfReviews > numberOfShownReviews && reviewsIndex > 0" @click="reviewsIndex--;">
-                    <img alt="Left arrow" class="arrow" src="~/assets/icons/left-arrow.png"/>
+                    <img alt="Left arrow" class="arrow" src="@/assets/icons/left-arrow.png"/>
                 </NuxtLink>
                 <div class="elements-list">
                     <ListComponent
@@ -143,7 +141,7 @@ const SEOData = computed( () => new Object ({
                 <NuxtLink
                         v-show="numberOfReviews > numberOfShownReviews && reviewsIndex + numberOfShownReviews !== numberOfReviews"
                         @click="reviewsIndex++">
-                    <img alt="Right arrow" class="arrow" src="~/assets/icons/right-arrow.png"/>
+                    <img alt="Right arrow" class="arrow" src="@/assets/icons/right-arrow.png"/>
                 </NuxtLink>
             </div>
             <h3>Add a new review</h3>
@@ -151,17 +149,17 @@ const SEOData = computed( () => new Object ({
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Name*</label>
-                        <input v-model="inputReview.name" type="text" id="name" name="name" />
+                        <input v-model="inputReview.name" type="text" id="name" name="name"/>
                     </div>
                     <div class="form-group">
                         <label for="surname">Surname*</label>
-                        <input v-model="inputReview.surname" type="text" id="surname" name="surname" />
+                        <input v-model="inputReview.surname" type="text" id="surname" name="surname"/>
                     </div>
                 </div>
                 <div class="form-group full-width">
                     <label for="comment">Comment*</label>
-                    <textarea v-model="inputReview.comment"  id="comment" name="comment"
-                           />
+                    <textarea v-model="inputReview.comment" id="comment" name="comment"
+                    />
                 </div>
                 <br>
                 <input type="submit" value="Add review" @click="addReview($event)" class="submit">
@@ -178,6 +176,13 @@ const SEOData = computed( () => new Object ({
 
         <br>
         <br>
+    </main>
+    <main v-else>
+        <div class="error">
+            <h2>Ops! Error 404: the service you're looking for is not present.</h2>
+            <br>
+            <button @click="$router.push('/services')">Back to all services</button>
+        </div>
     </main>
 </template>
 

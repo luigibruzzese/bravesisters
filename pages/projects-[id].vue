@@ -17,15 +17,15 @@ const imgBasePath = '/img/projects/' + route.params.id + '/';
 const numberOfImages = 3;
 
 const SEOData = computed( () => new Object ({
-    title: project.value.name + " - Brave Sisters",
+    title: project.value ? (project.value.name + " - Brave Sisters") : "Project not found - Brave Sisters",
     meta: [
         {
             name: "description",
-            content: "This page contains a short description of " + project.value.name + ". After that we can find the referent of this activity and the end some correlated images"
+            content: "This page contains a short description of " + project.value?.name + ". After that we can find the referent of this activity and the end some correlated images"
         },
         {
             name: "keywords",
-            content: project.value.name
+            content: project.value?.name
         }
     ]
 }))
@@ -37,10 +37,9 @@ const SEOData = computed( () => new Object ({
         <Meta v-for="meta in SEOData.meta" :name="meta.name" :content="meta.content"/>
     </Head>
 
-    <main>
+    <main v-if="project">
         <section id="project">
             <GeneralInfoComponent
-                    v-if="project"
                     :id="project.id"
                     :name="project.name"
                     :subtitle="'Project'"
@@ -69,6 +68,13 @@ const SEOData = computed( () => new Object ({
 
         <br>
         <br>
+    </main>
+    <main v-else>
+        <div class="error">
+            <h2>Ops! Error 404: the project you're looking for is not present.</h2>
+            <br>
+            <button @click="$router.push('/projects')">Back to all projects</button>
+        </div>
     </main>
 </template>
 
